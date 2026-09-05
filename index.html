@@ -14,7 +14,6 @@
     <header class="site-header">
         <div class="container header-content">
             <div class="logo-area">
-                <!-- مكان الشعار الذي تم اعتماده -->
                 <img src="logo.png" alt="شعار سوق السبت - بيت الحرفي" class="site-logo">
                 <div class="site-titles">
                     <h1>سوق السبت</h1>
@@ -24,6 +23,7 @@
             <nav class="main-nav">
                 <a href="#directory">الدليل</a>
                 <a href="#register">سجل حرفياً</a>
+                <a href="#reviews">آراء الزبائن</a>
                 <a href="#about">عن المنصة</a>
             </nav>
         </div>
@@ -71,9 +71,8 @@
             </select>
         </div>
 
-        <!-- مساحة عرض الحرفيين المسجلين (يديرها تلميذك) -->
+        <!-- مساحة عرض الحرفيين المسجلين -->
         <div class="craftsmen-grid" id="craftsmenList">
-            <!-- نموذج بطاقة حرفي افتراضية -->
             <div class="craftsman-card">
                 <span class="badge">ورقلة المركز</span>
                 <h3>ورشة البشير للحدادة الفنية</h3>
@@ -87,20 +86,63 @@
                 <span class="badge">حاسي مسعود</span>
                 <h3>محمد لخدمات الكهرباء الصناعية</h3>
                 <p><strong>القطاع:</strong> كهرباء وطاقة</p>
-                <p>ترکیب وصيانة الشبكات الكهربائية وصيانة اللوحات.</p>
+                <p>تركيب وصيانة الشبكات الكهربائية وصيانة اللوحات.</p>
                 <p style="color: #666; font-size: 0.9rem;"><strong>الخدمة الاستعجالية:</strong> أوقات العمل العادية</p>
                 <a href="https://wa.me/213000000000" class="whatsapp-btn" target="_blank">تواصل عبر الواتساب</a>
             </div>
         </div>
     </section>
 
-    <!-- قسم تسجيل حرفي جديد (داخلي ومباشر) -->
+    <!-- قسم آراء وتجارب الزبائن (مع استمارة إرسال التقييم) -->
+    <section id="reviews" class="container section" style="background-color: #f9f9f9; padding: 40px 20px; border-radius: 8px; margin-top: 40px;">
+        <h2 class="section-title">آراء الزبائن وتجاربهم</h2>
+        <p class="section-desc">ما يقوله عملاء المنصة عن جودة وسرعة خدمات حرفيي ولاية ورقلة</p>
+        
+        <div class="craftsmen-grid" style="margin-bottom: 30px;">
+            <div class="craftsman-card" style="background: #fff;">
+                <span class="badge" style="background: #e0f2f1; color: #00695c;">تقييم معتمد</span>
+                <h3>أحمد من ورقلة</h3>
+                <p style="color: #666; font-size: 0.85rem;">تعاملت مع ورشة البشير للحدادة، العمل كان في الموعد وبدقة عالية جداً. شكراً لمنصة سوق السبت على تسهيل الوصول إليهم.</p>
+            </div>
+            
+            <div class="craftsman-card" style="background: #fff;">
+                <span class="badge" style="background: #e0f2f1; color: #00695c;">تقييم معتمد</span>
+                <h3>سليم من حاسي مسعود</h3>
+                <p style="color: #666; font-size: 0.85rem;">استجابة سريعة لخدمة الطوارئ الكهربائية في منتصف الليل. أنقذونا حقاً، منصة ممتازة وموثوقة.</p>
+            </div>
+        </div>
+
+        <!-- استمارة إضافة تقييم جديد من الزبون (موجهة لنموذج client-feed) -->
+        <div class="review-form-box" style="background: #fff; padding: 25px; border-radius: 8px; border: 1px solid #ddd; max-width: 700px; margin: 0 auto;">
+            <h3 style="margin-bottom: 15px; color: #333; font-size: 1.2rem;">أضف رأيك أو تقييمك لخدمة حرفي</h3>
+            <form action="https://formspree.io/f/client-feed" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="client_name">اسمك الكريم:</label>
+                        <input type="text" id="client_name" name="client_name" required placeholder="مثال: أمين من ورقلة">
+                    </div>
+                    <div class="form-group">
+                        <label for="craftsman_reviewed">اسم الحرفي أو النشاط المعني:</label>
+                        <input type="text" id="craftsman_reviewed" name="craftsman_reviewed" required placeholder="مثال: ورشة البشير للحدادة">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="review_text">نص التقييم أو التجربة:</label>
+                    <textarea id="review_text" name="review_text" rows="3" required placeholder="اكتب تفاصيل تجربتك مع الحرفي..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit" style="background-color: #00695c;">إرسال التقييم للمراجعة</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- قسم تسجيل حرفي جديد -->
     <section id="register" class="register-section">
         <div class="container">
             <h2 class="section-title">تسجيل حرفي جديد في المنصة</h2>
             <p class="section-desc">هل أنت حرفي أو تريد تسجيل حرفي آخر؟ املأ الاستمارة أدناه مباشرة وسيتم مراجعتها من طرف إدارة المنصة ونشرها.</p>
             
-            <!-- نموذج إرسال البيانات المربوث بـ Formspree -->
             <form class="registration-form" action="https://formspree.io/f/mkjnvnrb" method="POST">
                 <div class="form-group">
                     <label for="name">اسم الحرفي أو النشاط:</label>
@@ -168,7 +210,7 @@
         </div>
     </section>
 
-    <!-- الفوتر (أسفل الصفحة) -->
+    <!-- الفوتر -->
     <footer id="about" class="site-footer">
         <div class="container footer-content">
             <p>جميع الحقوق محفوظة © 2026 - منصة <strong>سوق السبت (بيت الحرفي)</strong> - ولاية ورقلة</p>
