@@ -1,0 +1,22 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: editorial_workflow
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "craftsmen"
+  - label: "الحرفيون"
+  - folder: "_craftsmen"
+  - create: true
+  - fields:
+      - {label: "اسم الحرفي أو النشاط", name: "title", widget: "string"}
+      - {label: "القطاع المهني", name: "sector", widget: "select", options: ["بناء", "كهرباء", "سباكة", "نجارة", "تطريز", "صيانة", "حدادة", "خدمات", "أخرى"]}
+      - {label: "البلدية", name: "municipality", widget: "select", options: ["ورقلة", "الرويسات", "عين البيضاء", "حاسي مسعود", "حاسي بن عبد الله", "سيدي خويلد", "البرمة", "النقوسة"]}
+      - {label: "رقم الهاتف أو الواتساب", name: "phone", widget: "string"}
+      - {label: "حالة الطوارئ", name: "emergency", widget: "select", options: ["عادي", "استعجالي 24/7"]}
+      - {label: "رابط الصورة أو المعرض", name: "image_link", widget: "string", required: false}
+      - {label: "وصف موجز للخدمة", name: "details", widget: "text"}
