@@ -47,8 +47,8 @@
         <div class="filter-box">
             <select id="municipality-filter">
                 <option value="">جميع البلديات (8)</option>
-                <option value="ouargla">ورقلة</option>
-                <option value="رويسات">الرويسات</option>
+                <option value="ورقلة">ورقلة</option>
+                <option value="الرويسات">الرويسات</option>
                 <option value="عين البيضاء">عين البيضاء</option>
                 <option value="حاسي مسعود">حاسي مسعود</option>
                 <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
@@ -73,12 +73,13 @@
 
         <!-- مساحة عرض الحرفيين المسجلين (يديرها تلميذك) -->
         <div class="craftsmen-grid" id="craftsmenList">
-            <!-- نموذج بطاقة حرفي افتراضية (يمكن لتلميذك تكرارها أو ربطها بقاعدة بيانات لاحقاً) -->
+            <!-- نموذج بطاقة حرفي افتراضية -->
             <div class="craftsman-card">
                 <span class="badge">ورقلة المركز</span>
                 <h3>ورشة البشير للحدادة الفنية</h3>
                 <p><strong>القطاع:</strong> حدادة وميكانيك</p>
                 <p>تصنيع الأبواب والنوافذ والأسوار الحديدية بدقة عالية.</p>
+                <p style="color: #2e7d32; font-size: 0.9rem;"><strong>الخدمة الاستعجالية:</strong> متوفر للطوارئ</p>
                 <a href="https://wa.me/213000000000" class="whatsapp-btn" target="_blank">تواصل عبر الواتساب</a>
             </div>
 
@@ -87,6 +88,7 @@
                 <h3>محمد لخدمات الكهرباء الصناعية</h3>
                 <p><strong>القطاع:</strong> كهرباء وطاقة</p>
                 <p>ترکیب وصيانة الشبكات الكهربائية وصيانة اللوحات.</p>
+                <p style="color: #666; font-size: 0.9rem;"><strong>الخدمة الاستعجالية:</strong> أوقات العمل العادية</p>
                 <a href="https://wa.me/213000000000" class="whatsapp-btn" target="_blank">تواصل عبر الواتساب</a>
             </div>
         </div>
@@ -98,8 +100,8 @@
             <h2 class="section-title">تسجيل حرفي جديد في المنصة</h2>
             <p class="section-desc">هل أنت حرفي أو تريد تسجيل حرفي آخر؟ املأ الاستمارة أدناه مباشرة وسيتم مراجعتها من طرف إدارة المنصة ونشرها.</p>
             
-            <!-- نموذج إرسال البيانات (يمكن ربطه بـ Formspree.io مجاناً ليتم إرساله لإيميل تلميذك) -->
-            <form class="registration-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <!-- نموذج إرسال البيانات المربوث بـ Formspree -->
+            <form class="registration-form" action="https://formspree.io/f/mkjnvnrb" method="POST">
                 <div class="form-group">
                     <label for="name">اسم الحرفي أو النشاط:</label>
                     <input type="text" id="name" name="craftsman_name" required placeholder="مثال: ورشة الحرفي للنجارة">
@@ -136,9 +138,24 @@
                     </div>
                 </div>
 
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">رقم الهاتف أو الواتساب:</label>
+                        <input type="text" id="phone" name="phone" required placeholder="06XXXXXXXX">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emergency">حالة التوفر / الطوارئ:</label>
+                        <select id="emergency" name="emergency_availability">
+                            <option value="عادي">أوقات العمل العادية</option>
+                            <option value="استعجالي 24/7">متوفر للطوارئ (24/7)</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group">
-                    <label for="phone">رقم الهاتف أو الواتساب:</label>
-                    <input type="text" id="phone" name="phone" required placeholder="06XXXXXXXX">
+                    <label for="image_link">رابط صورة أو معرض أعمال (إن توفر):</label>
+                    <input type="url" id="image_link" name="image_link" placeholder="ضع رابط صورة أو صفحة فايسبوك/إنستغرام">
                 </div>
 
                 <div class="form-group">
