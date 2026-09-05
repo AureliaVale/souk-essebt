@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سوق السبت - بيت الحرفي | ولاية ورقلة</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- استيراد خط عربي أصيل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- الهيدر (الشعار وعنوان الموقع) -->
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-area">
+                <!-- مكان الشعار الذي تم اعتماده -->
+                <img src="logo.png" alt="شعار سوق السبت - بيت الحرفي" class="site-logo">
+                <div class="site-titles">
+                    <h1>سوق السبت</h1>
+                    <p class="subtitle">بيت الحرفي - ولاية ورقلة</p>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="#directory">الدليل</a>
+                <a href="#register">سجل حرفياً</a>
+                <a href="#about">عن المنصة</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- القسم الرئيسي (Hero Section) -->
+    <section class="hero">
+        <div class="container">
+            <h2>المنصة الرقمية الجامعة لحرفيي ولاية ورقلة</h2>
+            <p>دليلك الموثوق للوصول إلى أفضل الحرفيين والخدمات المهنية في بلديات ورقلة الثماني بكل سهولة ودون عناء.</p>
+            <a href="#register" class="btn-primary">سجل حرفتك الآن مجاناً</a>
+        </div>
+    </section>
+
+    <!-- قسم عرض التصنيفات والبلديات -->
+    <section id="directory" class="container section">
+        <h2 class="section-title">استكشف الدليل المهني</h2>
+        <p class="section-desc">ابحث حسب القطاعات التسعة أو البلديات الثماني لورقلة</p>
+        
+        <!-- نموذج البحث والتصفية السريع -->
+        <div class="filter-box">
+            <select id="municipality-filter">
+                <option value="">جميع البلديات (8)</option>
+                <option value="ouargla">ورقلة</option>
+                <option value="رويسات">الرويسات</option>
+                <option value="عين البيضاء">عين البيضاء</option>
+                <option value="حاسي مسعود">حاسي مسعود</option>
+                <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
+                <option value="سيدي خويلد">سيدي خويلد</option>
+                <option value="البرمة">البرمة</option>
+                <option value="النقوسة">النقوسة</option>
+            </select>
+
+            <select id="sector-filter">
+                <option value="">جميع القطاعات (9)</option>
+                <option value="بناء">بناء وتشييد</option>
+                <option value="كهرباء">كهرباء وطاقة</option>
+                <option value="سباكة">سباكة وصحي</option>
+                <option value="نجارة">نجارة وديكور</option>
+                <option value="تطريز">خياطة وتطريز</option>
+                <option value="صيانة">صيانة أجهزة</option>
+                <option value="حدادة">حدادة وميكانيك</option>
+                <option value="خدمات">خدمات رقمية ومكتبية</option>
+                <option value="أخرى">حرف متنوعة</option>
+            </select>
+        </div>
+
+        <!-- مساحة عرض الحرفيين المسجلين (يديرها تلميذك) -->
+        <div class="craftsmen-grid" id="craftsmenList">
+            <!-- نموذج بطاقة حرفي افتراضية (يمكن لتلميذك تكرارها أو ربطها بقاعدة بيانات لاحقاً) -->
+            <div class="craftsman-card">
+                <span class="badge">ورقلة المركز</span>
+                <h3>ورشة البشير للحدادة الفنية</h3>
+                <p><strong>القطاع:</strong> حدادة وميكانيك</p>
+                <p>تصنيع الأبواب والنوافذ والأسوار الحديدية بدقة عالية.</p>
+                <a href="https://wa.me/213000000000" class="whatsapp-btn" target="_blank">تواصل عبر الواتساب</a>
+            </div>
+
+            <div class="craftsman-card">
+                <span class="badge">حاسي مسعود</span>
+                <h3>محمد لخدمات الكهرباء الصناعية</h3>
+                <p><strong>القطاع:</strong> كهرباء وطاقة</p>
+                <p>ترکیب وصيانة الشبكات الكهربائية وصيانة اللوحات.</p>
+                <a href="https://wa.me/213000000000" class="whatsapp-btn" target="_blank">تواصل عبر الواتساب</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم تسجيل حرفي جديد (داخلي ومباشر) -->
+    <section id="register" class="register-section">
+        <div class="container">
+            <h2 class="section-title">تسجيل حرفي جديد في المنصة</h2>
+            <p class="section-desc">هل أنت حرفي أو تريد تسجيل حرفي آخر؟ املأ الاستمارة أدناه مباشرة وسيتم مراجعتها من طرف إدارة المنصة ونشرها.</p>
+            
+            <!-- نموذج إرسال البيانات (يمكن ربطه بـ Formspree.io مجاناً ليتم إرساله لإيميل تلميذك) -->
+            <form class="registration-form" action="https://formspree.io/f/your-form-id" method="POST">
+                <div class="form-group">
+                    <label for="name">اسم الحرفي أو النشاط:</label>
+                    <input type="text" id="name" name="craftsman_name" required placeholder="مثال: ورشة الحرفي للنجارة">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sector">القطاع المهني:</label>
+                        <select id="sector" name="sector" required>
+                            <option value="بناء">بناء وتشييد</option>
+                            <option value="كهرباء">كهرباء وطاقة</option>
+                            <option value="سباكة">سباكة وصحي</option>
+                            <option value="نجارة">نجارة وديكور</option>
+                            <option value="تطريز">خياطة وتطريز</option>
+                            <option value="صيانة">صيانة أجهزة</option>
+                            <option value="حدادة">حدادة وميكانيك</option>
+                            <option value="خدمات">خدمات رقمية ومكتبية</option>
+                            <option value="أخرى">حرف متنوعة</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="municipality">البلدية:</label>
+                        <select id="municipality" name="municipality" required>
+                            <option value="ورقلة">ورقلة</option>
+                            <option value="الرويسات">الرويسات</option>
+                            <option value="عين البيضاء">عين البيضاء</option>
+                            <option value="حاسي مسعود">حاسي مسعود</option>
+                            <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
+                            <option value="سيدي خويلد">سيدي خويلد</option>
+                            <option value="البرمة">البرمة</option>
+                            <option value="النقوسة">النقوسة</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">رقم الهاتف أو الواتساب:</label>
+                    <input type="text" id="phone" name="phone" required placeholder="06XXXXXXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="details">وصف موجز للخدمة:</label>
+                    <textarea id="details" name="details" rows="3" placeholder="اكتب نبذة قصيرة عن الخدمات التي تقدمها..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">إرسال طلب التسجيل للمراجعة</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- الفوتر (أسفل الصفحة) -->
+    <footer id="about" class="site-footer">
+        <div class="container footer-content">
+            <p>جميع الحقوق محفوظة © 2026 - منصة <strong>سوق السبت (بيت الحرفي)</strong> - ولاية ورقلة</p>
+            <p class="footer-note">مبادرة رقمية لدعم وتمكين الحرفيين المحليين.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
