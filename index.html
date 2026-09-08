@@ -3,125 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة سوق السبت - ورقلة | دليل الحرفيين وآراء الزبائن</title>
+    <title>منصة سوق السبت - بيت الحرفي | ورقلة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
-        body { background-color: #f4f6f9; color: #333; padding: 20px; direction: rtl; text-align: right; }
-        .container { max-width: 800px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 40px; }
-        header h1 { color: #2c3e50; font-size: 2.5rem; margin-bottom: 10px; }
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; scroll-behavior: smooth; }
+        body { background-color: #f4f6f9; color: #333; direction: rtl; text-align: right; line-height: 1.6; }
+        
+        /* شريط التنقل العلوي */
+        nav { background: #2c3e50; color: white; padding: 15px 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .nav-logo { font-size: 1.3rem; font-weight: 700; color: #f39c12; text-decoration: none; }
+        .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.3s; }
+        .nav-links a:hover { color: #f39c12; }
+
+        .container { max-width: 900px; margin: 30px auto; padding: 0 15px; }
+        
+        /* الهيدر الرئيسي */
+        header { text-align: center; margin-bottom: 40px; padding: 30px 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        header h1 { color: #2c3e50; font-size: 2.2rem; margin-bottom: 10px; }
         header p { color: #7f8c8d; font-size: 1.1rem; }
+
+        /* البطاقات والأقسام */
         .card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
         .card h2 { color: #2980b9; margin-bottom: 20px; font-size: 1.5rem; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; }
+        
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: 600; color: #34495e; }
         input, textarea, select { width: 100%; padding: 12px; border: 1px solid #bdc3c7; border-radius: 8px; font-size: 1rem; outline: none; transition: border-color 0.3s; background: #fff; }
         input:focus, textarea:focus, select:focus { border-color: #2980b9; }
+        
         button { background-color: #27ae60; color: white; border: none; padding: 12px 25px; font-size: 1.1rem; font-weight: 700; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.3s; }
         button:hover { background-color: #219653; }
         .btn-review { background-color: #e67e22; }
         .btn-review:hover { background-color: #d35400; }
+        
         .alert { padding: 12px; border-radius: 8px; margin-top: 15px; display: none; text-align: center; font-weight: 600; }
         .alert.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .alert.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        
         hr { border: 0; border-top: 1px solid #eee; margin: 40px 0; }
         
-        /* تنسيق نجوم التقييم التفاعلية */
-        .star-rating {
-            display: flex;
-            flex-direction: row-reverse;
-            justify-content: flex-end;
-            gap: 5px;
-            font-size: 1.8rem;
-            cursor: pointer;
-        }
+        /* نجوم التقييم */
+        .star-rating { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 5px; font-size: 1.8rem; cursor: pointer; }
         .star-rating input { display: none; }
         .star-rating label { color: #bdc3c7; transition: color 0.2s; margin-bottom: 0; font-weight: normal; }
-        .star-rating input:checked ~ label,
-        .star-rating label:hover,
-        .star-rating label:hover ~ label { color: #f39c12; }
+        .star-rating input:checked ~ label, .star-rating label:hover, .star-rating label:hover ~ label { color: #f39c12; }
 
-        /* تنسيق البطاقات العامة للقوائم */
-        .list-container {
-            margin-top: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .item-card {
-            background: #fafbfc;
-            border: 1px solid #e1e4e8;
-            border-radius: 8px;
-            padding: 15px 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .item-title {
-            font-weight: 700;
-            color: #2c3e50;
-            font-size: 1.1rem;
-        }
-        .item-badge {
-            background: #eef2f7;
-            color: #2980b9;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        .item-details {
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 8px;
-        }
-        .item-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: #7f8c8d;
-            border-top: 1px solid #eee;
-            padding-top: 8px;
-            margin-top: 8px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+        /* القوائم والبطاقات الداخلية */
+        .list-container { margin-top: 25px; display: flex; flex-direction: column; gap: 15px; }
+        .item-card { background: #fafbfc; border: 1px solid #e1e4e8; border-radius: 8px; padding: 15px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 10px; }
+        .item-title { font-weight: 700; color: #2c3e50; font-size: 1.1rem; }
+        .item-badge { background: #eef2f7; color: #2980b9; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .item-details { color: #555; font-size: 0.95rem; line-height: 1.6; margin-bottom: 8px; }
+        .item-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #7f8c8d; border-top: 1px solid #eee; padding-top: 8px; margin-top: 8px; flex-wrap: wrap; gap: 10px; }
         .item-footer a { color: #27ae60; text-decoration: none; font-weight: 600; }
         .item-footer a:hover { text-decoration: underline; }
         .review-stars { color: #f39c12; font-size: 1.1rem; letter-spacing: 2px; }
+
+        /* الفوتر السفلي */
+        footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 25px 20px; margin-top: 60px; font-size: 0.95rem; }
+        footer p { margin: 5px 0; }
     </style>
 </head>
 <body>
 
+    <!-- شريط التنقل العلوي -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">سوق السبت - بيت الحرفي</a>
+            <ul class="nav-links">
+                <li><a href="#about">من نحن</a></li>
+                <li><a href="#artisans-section">دليل الحرفيين</a></li>
+                <li><a href="#register-section">سجل حرفتك</a></li>
+                <li><a href="#reviews-section">انشر تقييمك</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
+        
+        <!-- الهيدر الرئيسي -->
         <header>
             <h1>منصة سوق السبت الرقمية</h1>
-            <p>دليل الحرفيين وآراء الزبائن - ولاية ورقلة</p>
+            <p>بيت الحرفي والخدمات الموثوقة - ولاية ورقلة</p>
         </header>
 
+        <!-- قسم من نحن -->
+        <div id="about" class="card">
+            <h2>من نحن</h2>
+            <p style="color: #555; font-size: 1.05rem; line-height: 1.8;">
+                منصة <strong>سوق السبت (بيت الحرفي)</strong> هي مساحة رقمية مخصصة لربط الحرفيين وأصحاب المهن الحرة والخدمات بالززبائن والباحثين عن الجودة والإتقان في ولاية ورقلة. هدفنا هو تسهيل الوصول إلى الخدمات المحلية الموثوقة، دعم المواهب والحرف التقليدية والعصرية، وخلق بيئة شفافة قائمة على تقييمات التجارب الحقيقية للزبائن.
+            </p>
+        </div>
+
         <!-- قسم دليل الحرفيين المسجلين وعرضهم -->
-        <div class="card">
-            <h2>دليل الحرفيين المسجلين في المنصة</h2>
+        <div id="artisans-section" class="card">
+            <h2>دليل الحرفيين المسجلين</h2>
             <div id="artisansContainer" class="list-container">
                 <p style="color: #7f8c8d; text-align: center; padding: 10px;">جاري تحميل قائمة الحرفيين...</p>
             </div>
         </div>
 
-        <hr>
-
         <!-- قسم تسجيل حرفي جديد -->
-        <div class="card">
-            <h2>تسجيل حرفي أو مزود خدمة جديد</h2>
+        <div id="register-section" class="card">
+            <h2>سجل حرفتك أو خدمتك</h2>
             <form id="artisanForm">
                 <div class="form-group">
                     <label for="artisanName">الاسم الكامل:</label>
@@ -142,11 +130,9 @@
                             <option value="النجارة العامة والبناء (أبواب ونوافذ خشبية)">النجارة العامة والبناء (أبواب ونوافذ خشبية)</option>
                             <option value="تركيب وصيانة الألمنيوم، البلاستيك (PVC)، والزجاج">تركيب وصيانة الألمنيوم، البلاستيك (PVC)، والزجاج</option>
                             <option value="تصنيع الأثاث العصري والتقليدي">تصنيع الأثاث العصري والتقليدي</option>
-                            <option value="النقش والنجارة الفنية على الخشب">النقش والنجارة الفنية على الخشب</option>
                         </optgroup>
                         <optgroup label="3. الحدادة والمعادن">
                             <option value="الحدادة العامة وحدادة البناء (أبواب، شبابيك، حمايات)">الحدادة العامة وحدادة البناء (أبواب، شبابيك، حمايات)</option>
-                            <option value="الحدادة الفنية والتقليدية">الحدادة الفنية والتقليدية</option>
                             <option value="تلحيم وصيانة الهياكل المعدنية وخزانات المياه">تلحيم وصيانة الهياكل المعدنية وخزانات المياه</option>
                         </optgroup>
                         <optgroup label="4. خدمات الصيانة المنزلية والأجهزة">
@@ -158,15 +144,11 @@
                         <optgroup label="5. الطباعة، التصميم، والخدمات الرقمية">
                             <option value="الطباعة الرقمية، الإعلانية، واللوحات الإشهارية">الطباعة الرقمية، الإعلانية، واللوحات الإشهارية</option>
                             <option value="التصميم الجرافيكي وصناعة المحتوى المرئي">التصميم الجرافيكي وصناعة المحتوى المرئي</option>
-                            <option value="خدمات الإعلام الآلي والصيانة الرقمية">خدمات الإعلام الآلي والصيانة الرقمية</option>
                         </optgroup>
                         <optgroup label="6. الصناعات والخدمات اليدوية">
                             <option value="نسيج الزرابي، الحنابل، والوسائد التقليدية">نسيج الزرابي، الحنابل، والوسائد التقليدية</option>
-                            <option value="صناعة الفخار والتشكيل الطيني">صناعة الفخار والتشكيل الطيني</option>
-                            <option value="الصناعات السعفية (سلال، حصير، مستلزمات الواحات)">الصناعات السعفية (سلال، حصير، مستلزمات الواحات)</option>
                             <option value="خياطة وتطريز اللباس التقليدي">خياطة وتطريز اللباس التقليدي</option>
                             <option value="صناعة الحلي والمجوهرات التقليدية">صناعة الحلي والمجوهرات التقليدية</option>
-                            <option value="تصليح الأحذية، الحقائب، والمستلزمات الجلدية (الإسكافي)">تصليح الأحذية، الحقائب، والمستلزمات الجلدية (الإسكافي)</option>
                         </optgroup>
                         <option value="حرفة أو خدمة أخرى (تُذكر في النبذة)">حرفة أو خدمة أخرى (تُذكر في النبذة)</option>
                     </select>
@@ -215,11 +197,9 @@
             </form>
         </div>
 
-        <hr>
-
-        <!-- قسم آراء وتقييمات الزبائن وعرضها -->
-        <div class="card">
-            <h2>آراء وتقييمات الزبائن</h2>
+        <!-- قسم آراء وتقييمات الزبائن -->
+        <div id="reviews-section" class="card">
+            <h2>انشر تقييمك أو تجربتك</h2>
             
             <form id="reviewForm">
                 <div class="form-group">
@@ -233,7 +213,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>نص التقييم أو التجربة (النجوم):</label>
+                    <label>التقييم (النجوم):</label>
                     <div class="star-rating">
                         <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="ممتاز">★</label>
                         <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="جيد جداً">★</label>
@@ -245,7 +225,7 @@
 
                 <div class="form-group">
                     <label for="comment">تفاصيل تجربتك مع الحرفي:</label>
-                    <textarea id="comment" rows="4" required placeholder="اكتب تفاصيل تجربتك مع الحرفي (جودة العمل، الالتزام بالوقت، المعاملة...)"></textarea>
+                    <textarea id="comment" rows="4" required placeholder="اكتب تفاصيل تجربتك (جودة العمل، الالتزام بالوقت، المعاملة...)"></textarea>
                 </div>
 
                 <button type="submit" class="btn-review">إرسال التقييم</button>
@@ -254,13 +234,19 @@
 
             <hr style="margin: 30px 0; border-top: 1px dashed #dcdde1;">
 
-            <h3 style="color: #34495e; font-size: 1.2rem; margin-bottom: 15px;">التقييمات المسجلة للزوار:</h3>
+            <h3 style="color: #34495e; font-size: 1.2rem; margin-bottom: 15px;">تقييمات الزوار السابقة:</h3>
             <div id="reviewsContainer" class="list-container">
                 <p style="color: #7f8c8d; text-align: center; padding: 10px;">جاري تحميل التقييمات...</p>
             </div>
         </div>
 
     </div>
+
+    <!-- الفوتر السفلي -->
+    <footer>
+        <p>منصة سوق السبت - بيت الحرفي | ولاية ورقلة</p>
+        <p>جميع الحقوق محفوظة &copy; 2026</p>
+    </footer>
 
     <script>
         const SUPABASE_URL = 'https://blrlmuhmcdkgkadoiiek.supabase.co';
@@ -269,20 +255,15 @@
         const { createClient } = supabase;
         const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // دالة جلب وعرض الحرفيين المسجلين من Supabase
+        // جلب وعرض الحرفيين
         async function loadArtisans() {
             const container = document.getElementById('artisansContainer');
-            
-            const { data, error } = await _supabase
-                .from('artisans')
-                .select('*')
-                .order('created_at', { ascending: false });
+            const { data, error } = await _supabase.from('artisans').select('*').order('created_at', { ascending: false });
 
             if (error) {
                 container.innerHTML = '<p style="color: #e74c3c; text-align: center;">عذراً، حدث خطأ أثناء تحميل الحرفيين.</p>';
                 return;
             }
-
             if (!data || data.length === 0) {
                 container.innerHTML = '<p style="color: #7f8c8d; text-align: center;">لا توجد طلبات تسجيل حرفيين حتى الآن.</p>';
                 return;
@@ -290,7 +271,6 @@
 
             container.innerHTML = data.map(artisan => {
                 const portfolioLink = artisan.portfolio_url ? `<a href="${escapeHtml(artisan.portfolio_url)}" target="_blank">رابط المعرض / الصفحة</a>` : '<span>بدون رابط</span>';
-                
                 return `
                     <div class="item-card">
                         <div class="item-header">
@@ -309,20 +289,15 @@
             }).join('');
         }
 
-        // دالة لجلب وعرض التقييمات السابقة من Supabase
+        // جلب وعرض التقييمات
         async function loadReviews() {
             const container = document.getElementById('reviewsContainer');
-            
-            const { data, error } = await _supabase
-                .from('reviews')
-                .select('*')
-                .order('created_at', { ascending: false });
+            const { data, error } = await _supabase.from('reviews').select('*').order('created_at', { ascending: false });
 
             if (error) {
                 container.innerHTML = '<p style="color: #e74c3c; text-align: center;">عذراً، حدث خطأ أثناء تحميل التقييمات.</p>';
                 return;
             }
-
             if (!data || data.length === 0) {
                 container.innerHTML = '<p style="color: #7f8c8d; text-align: center;">لا توجد تقييمات مسجلة حتى الآن. كوني أول من يقيّم!</p>';
                 return;
@@ -349,35 +324,32 @@
             }).join('');
         }
 
-        // دالة أمان بسيطة لمنع حقن النصوص (XSS)
         function escapeHtml(text) {
             if (!text) return '';
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        // معالجة تسجيل الحرفيين وتحديث القائمة فورياً
+        // إرسال نموذج الحرفي
         document.getElementById('artisanForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const alertBox = document.getElementById('artisanAlert');
 
-            const { data, error } = await _supabase
-                .from('artisans')
-                .insert([{ 
-                    full_name: document.getElementById('artisanName').value, 
-                    craft_type: document.getElementById('craftType').value, 
-                    municipality: document.getElementById('municipality').value, 
-                    phone: document.getElementById('artisanPhone').value, 
-                    working_hours: document.getElementById('workingHours').value, 
-                    portfolio_url: document.getElementById('portfolioUrl').value,
-                    bio: document.getElementById('artisanBio').value 
-                }]);
+            const { error } = await _supabase.from('artisans').insert([{ 
+                full_name: document.getElementById('artisanName').value, 
+                craft_type: document.getElementById('craftType').value, 
+                municipality: document.getElementById('municipality').value, 
+                phone: document.getElementById('artisanPhone').value, 
+                working_hours: document.getElementById('workingHours').value, 
+                portfolio_url: document.getElementById('portfolioUrl').value,
+                bio: document.getElementById('artisanBio').value 
+            }]);
 
             if (error) {
                 alertBox.textContent = 'حدث خطأ أثناء الإرسال: ' + error.message;
                 alertBox.className = 'alert error';
                 alertBox.style.display = 'block';
             } else {
-                alertBox.textContent = 'تم إرسال الطلب بنجاح! تم إضافته إلى الدليل مباشرة.';
+                alertBox.textContent = 'تم إرسال طلب الانضمام بنجاح! تم إضافته إلى الدليل مباشرة.';
                 alertBox.className = 'alert success';
                 alertBox.style.display = 'block';
                 document.getElementById('artisanForm').reset();
@@ -385,21 +357,18 @@
             }
         });
 
-        // معالجة إرسال آراء وتقييمات الزبائن
+        // إرسال نموذج التقييم
         document.getElementById('reviewForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const alertBox = document.getElementById('reviewAlert');
-
             const selectedRating = document.querySelector('input[name="rating"]:checked');
 
-            const { data, error } = await _supabase
-                .from('reviews')
-                .insert([{ 
-                    customer_name: document.getElementById('customerName').value,
-                    artisan_name: document.getElementById('reviewArtisanName').value, 
-                    rating: selectedRating ? parseInt(selectedRating.value) : 0, 
-                    comment: document.getElementById('comment').value 
-                }]);
+            const { error } = await _supabase.from('reviews').insert([{ 
+                customer_name: document.getElementById('customerName').value,
+                artisan_name: document.getElementById('reviewArtisanName').value, 
+                rating: selectedRating ? parseInt(selectedRating.value) : 0, 
+                comment: document.getElementById('comment').value 
+            }]);
 
             if (error) {
                 alertBox.textContent = 'حدث خطأ أثناء إرسال التقييم: ' + error.message;
@@ -414,7 +383,6 @@
             }
         });
 
-        // تحميل البيانات تلقائياً بمجرد فتح الصفحة
         window.addEventListener('DOMContentLoaded', () => {
             loadArtisans();
             loadReviews();
