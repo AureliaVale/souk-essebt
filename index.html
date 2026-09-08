@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة سوق السبت - ورقلة | الحرفيون، الإعلانات وآراء الزبائن</title>
+    <title>منصة سوق السبت - ورقلة | دليل الحرفيين وآراء الزبائن</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -23,8 +23,6 @@
         button:hover { background-color: #219653; }
         .btn-review { background-color: #e67e22; }
         .btn-review:hover { background-color: #d35400; }
-        .btn-ad { background-color: #8e44ad; }
-        .btn-ad:hover { background-color: #732d91; }
         .alert { padding: 12px; border-radius: 8px; margin-top: 15px; display: none; text-align: center; font-weight: 600; }
         .alert.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .alert.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
@@ -59,10 +57,6 @@
             padding: 15px 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-        .ad-card {
-            background: #fcf8f4;
-            border-right: 4px solid #8e44ad;
-        }
         .item-header {
             display: flex;
             justify-content: space-between;
@@ -83,10 +77,6 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-        }
-        .ad-badge {
-            background: #f4ecf7;
-            color: #8e44ad;
         }
         .item-details {
             color: #555;
@@ -116,7 +106,7 @@
     <div class="container">
         <header>
             <h1>منصة سوق السبت الرقمية</h1>
-            <p>دليل الحرفيين، الإعلانات، وآراء الزبائن - ولاية ورقلة</p>
+            <p>دليل الحرفيين وآراء الزبائن - ولاية ورقلة</p>
         </header>
 
         <!-- قسم دليل الحرفيين المسجلين وعرضهم -->
@@ -125,45 +115,6 @@
             <div id="artisansContainer" class="list-container">
                 <p style="color: #7f8c8d; text-align: center; padding: 10px;">جاري تحميل قائمة الحرفيين...</p>
             </div>
-        </div>
-
-        <hr>
-
-        <!-- قسم الإعلانات والعروض الخاصة -->
-        <div class="card">
-            <h2>لوحة الإعلانات والعروض الخاصة</h2>
-            
-            <div id="announcementsContainer" class="list-container" style="margin-bottom: 30px;">
-                <p style="color: #7f8c8d; text-align: center; padding: 10px;">جاري تحميل الإعلانات...</p>
-            </div>
-
-            <hr style="margin: 25px 0; border-top: 1px dashed #dcdde1;">
-
-            <h3 style="color: #34495e; font-size: 1.2rem; margin-bottom: 15px;">نشر إعلان أو عرض جديد:</h3>
-            <form id="announcementForm">
-                <div class="form-group">
-                    <label for="adTitle">عنوان الإعلان أو العرض:</label>
-                    <input type="text" id="adTitle" required placeholder="مثال: تخفيضات خاصة على خدمات الصيانة هذا الأسبوع">
-                </div>
-
-                <div class="form-group">
-                    <label for="adAuthor">اسم المعلن (حرفي أو جهة):</label>
-                    <input type="text" id="adAuthor" required placeholder="أدخل اسمك أو اسم المحل / النشاط">
-                </div>
-
-                <div class="form-group">
-                    <label for="adPhone">رقم الهاتف للتواصل:</label>
-                    <input type="tel" id="adPhone" required placeholder="رقم الهاتف">
-                </div>
-
-                <div class="form-group">
-                    <label for="adContent">نص الإعلان أو تفاصيل العرض:</label>
-                    <textarea id="adContent" rows="4" required placeholder="اكتب تفاصيل الإعلان، العرض، أو الخدمة المؤقتة..."></textarea>
-                </div>
-
-                <button type="submit" class="btn-ad">نشر الإعلان مباشرة</button>
-                <div id="adAlert" class="alert"></div>
-            </form>
         </div>
 
         <hr>
@@ -181,7 +132,7 @@
                     <label for="craftType">نوع الحرفة أو قطاع الخدمات:</label>
                     <select id="craftType" required>
                         <option value="">-- اختر المجال أو الحرفة --</option>
-                        <optgroup label="1. البناء والتشييد والأشغال الكبرى">
+                        <optgroup label="1. البناء والتشييد وأشغال التشطيب">
                             <option value="بناء عام / أشغال التشييد الأساسية">بناء عام / أشغال التشييد الأساسية</option>
                             <option value="التلييس، الطلاء، والبلاط (الترصيص)">التلييس، الطلاء، والبلاط (الترصيص)</option>
                             <option value="أعمال الجبس، الديكور الداخلي والأسقف">أعمال الجبس، الديكور الداخلي والأسقف</option>
@@ -215,7 +166,7 @@
                             <option value="الصناعات السعفية (سلال، حصير، مستلزمات الواحات)">الصناعات السعفية (سلال، حصير، مستلزمات الواحات)</option>
                             <option value="خياطة وتطريز اللباس التقليدي">خياطة وتطريز اللباس التقليدي</option>
                             <option value="صناعة الحلي والمجوهرات التقليدية">صناعة الحلي والمجوهرات التقليدية</option>
-                            <option value="تصليح الأحذية، الحقائب، والمستلزمات الجلدية">تصليح الأحذية، الحقائب، والمستلزمات الجلدية (الإسكافي)</option>
+                            <option value="تصليح الأحذية، الحقائب، والمستلزمات الجلدية (الإسكافي)">تصليح الأحذية، الحقائب، والمستلزمات الجلدية (الإسكافي)</option>
                         </optgroup>
                         <option value="حرفة أو خدمة أخرى (تُذكر في النبذة)">حرفة أو خدمة أخرى (تُذكر في النبذة)</option>
                     </select>
@@ -358,45 +309,6 @@
             }).join('');
         }
 
-        // دالة جلب وعرض الإعلانات من Supabase
-        async function loadAnnouncements() {
-            const container = document.getElementById('announcementsContainer');
-            
-            const { data, error } = await _supabase
-                .from('announcements')
-                .select('*')
-                .order('created_at', { ascending: false });
-
-            if (error) {
-                container.innerHTML = '<p style="color: #e74c3c; text-align: center;">عذراً، حدث خطأ أثناء تحميل الإعلانات.</p>';
-                return;
-            }
-
-            if (!data || data.length === 0) {
-                container.innerHTML = '<p style="color: #7f8c8d; text-align: center;">لا توجد إعلانات أو عروض منشورة حتى الآن.</p>';
-                return;
-            }
-
-            container.innerHTML = data.map(ad => {
-                const formattedDate = ad.created_at ? new Date(ad.created_at).toLocaleDateString('ar-DZ') : '';
-
-                return `
-                    <div class="item-card ad-card">
-                        <div class="item-header">
-                            <span class="item-title">${escapeHtml(ad.title)}</span>
-                            <span class="item-badge ad-badge">إعلان / عرض</span>
-                        </div>
-                        <p class="item-details">${escapeHtml(ad.content)}</p>
-                        <div class="item-footer">
-                            <span>👤 المعلن: <strong>${escapeHtml(ad.author)}</strong></span>
-                            <span>📞 الهاتف: <strong>${escapeHtml(ad.phone || 'غير متوفر')}</strong></span>
-                            <small style="color: #95a5a6; font-size: 0.75rem;">تاريخ النشر: ${formattedDate}</small>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
         // دالة لجلب وعرض التقييمات السابقة من Supabase
         async function loadReviews() {
             const container = document.getElementById('reviewsContainer');
@@ -443,35 +355,6 @@
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        // معالجة نشر الإعلانات وتحديث القائمة فورياً
-        document.getElementById('announcementForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const alertBox = document.getElementById('adAlert');
-
-            const { data, error } = await _supabase
-                .from('announcements')
-                .insert([{ 
-                    title: document.getElementById('adTitle').value, 
-                    author: document.getElementById('adAuthor').value, 
-                    phone: document.getElementById('adPhone').value, 
-                    content: document.getElementById('adContent').value 
-                }]);
-
-            if (error) {
-                alertBox.textContent = 'حدث خطأ أثناء نشر الإعلان: ' + error.message;
-                alertBox.className = 'alert error';
-                alertBox.style.display = 'block';
-            } else {
-                alertBox.textContent = 'تم نشر الإعلان بنجاح وظهر في اللوحة مباشرة!';
-                alertBox.className = 'alert success';
-                alertBox.style.display = 'block';
-                document.getElementById('announcementForm').reset();
-                
-                // إعادة تحميل الإعلانات فوراً لتظهر الإضافة الجديدة
-                loadAnnouncements();
-            }
-        });
-
         // معالجة تسجيل الحرفيين وتحديث القائمة فورياً
         document.getElementById('artisanForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -495,7 +378,7 @@
                 alertBox.style.display = 'block';
             } else {
                 alertBox.textContent = 'تم إرسال الطلب بنجاح! تم إضافته إلى الدليل مباشرة.';
-                alertBox.className, alertBox.className = 'alert success';
+                alertBox.className = 'alert success';
                 alertBox.style.display = 'block';
                 document.getElementById('artisanForm').reset();
                 loadArtisans();
@@ -534,7 +417,6 @@
         // تحميل البيانات تلقائياً بمجرد فتح الصفحة
         window.addEventListener('DOMContentLoaded', () => {
             loadArtisans();
-            loadAnnouncements();
             loadReviews();
         });
     </script>
