@@ -271,7 +271,7 @@
                 <p>📍 <strong>العنوان:</strong> ولاية ورقلة، الجزائر.</p>
                 <p>🌐 <strong>الموقع الرسمي:</strong> <a href="https://soukessebt.com/" target="_blank" style="color: #2980b9; text-decoration: none;">soukessebt.com</a></p>
                 <p>📞 <strong>رقم التواصل:</strong> <a href="tel:0673888939" style="color: #27ae60; text-decoration: none; font-weight: bold;" dir="ltr">0673888939</a></p>
-                <p>💬 للاستفسارات، اقتراحات الانضمام، أو الدعم التقني، نسعد بتواصلكم معنا على الرقم 0673888939.</p>
+                <p>✉️ للاستفسارات، اقتراحات الانضمام، أو الدعم التقني، تواصلوا معنا عبر البريد الالكتروني <a href="mailto:fethallhali@gmail.com" style="color: #2980b9; text-decoration: none; font-weight: bold;">fethallhali@gmail.com</a>.</p>
             </div>
         </div>
 
@@ -290,7 +290,7 @@
         const { createClient } = supabase;
         const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        let allArtisansData = []; // تخزين الحرفيين مؤقتاً للبحث الفوري دون إعادة التحميل
+        let allArtisansData = []; // تخزين الحرفيين مؤقتاً للبحث الفوري
 
         // جلب وعرض الحرفيين
         async function loadArtisans() {
@@ -442,7 +442,7 @@
                 alertBox.style.display = 'block';
             } else {
                 alertBox.textContent = 'شكراً لك! تم إرسال تقييمك ورأيك بنجاح.';
-                alertBox.className,alert = 'alert success';
+                alertBox.className = 'alert success';
                 alertBox.style.display = 'block';
                 document.getElementById('reviewForm').reset();
                 loadReviews();
