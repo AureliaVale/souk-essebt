@@ -51,6 +51,10 @@
         .star-rating label { color: #bdc3c7; transition: color 0.2s; margin-bottom: 0; font-weight: normal; }
         .star-rating input:checked ~ label, .star-rating label:hover, .star-rating label:hover ~ label { color: #f39c12; }
 
+        /* شريط البحث والفلترة السريعة للزبون */
+        .filter-box { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e9ecef; display: flex; gap: 10px; flex-wrap: wrap; }
+        .filter-box input, .filter-box select { flex: 1; min-width: 200px; padding: 10px; font-size: 0.95rem; }
+
         /* القوائم والبطاقات الداخلية */
         .list-container { margin-top: 25px; display: flex; flex-direction: column; gap: 15px; }
         .item-card { background: #fafbfc; border: 1px solid #e1e4e8; border-radius: 8px; padding: 15px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
@@ -104,9 +108,24 @@
             </p>
         </div>
 
-        <!-- قسم دليل الحرفيين المسجلين وعرضهم -->
+        <!-- قسم دليل الحرفيين المسجلين مع نظام البحث والفلترة السريعة -->
         <div id="artisans-section" class="card">
             <h2>دليل الحرفيين المسجلين</h2>
+            
+            <!-- أداة البحث والفلترة الفورية للزبون -->
+            <div class="filter-box">
+                <input type="text" id="searchKeyword" placeholder="🔍 ابحث عن حرفة أو اسم (مثال: سباك، كهربائي، طلاء...)" onkeyup="filterArtisans()">
+                <select id="filterMunicipality" onchange="filterArtisans()">
+                    <option value="">كل البلديات في ورقلة</option>
+                    <option value="ورقلة">ورقلة</option>
+                    <option value="حاسي مسعود">حاسي مسعود</option>
+                    <option value="الرويسات">الرويسات</option>
+                    <option value="سيدي خويلد">سيدي خويلد</option>
+                    <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
+                    <option value="عين البيضاء">عين البيضاء</option>
+                </select>
+            </div>
+
             <div id="artisansContainer" class="list-container">
                 <p style="color: #7f8c8d; text-align: center; padding: 10px;">جاري تحميل قائمة الحرفيين...</p>
             </div>
@@ -245,7 +264,7 @@
             </div>
         </div>
 
-        <!-- قسم اتصل بنا المستقل -->
+        <!-- قسم اتصل بنا -->
         <div id="contact" class="card">
             <h2>اتصل بنا</h2>
             <div class="contact-info">
@@ -271,6 +290,8 @@
         const { createClient } = supabase;
         const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        let allArtisansData = []; // تخزين الحرفيين مؤقتاً للبحث الفوري دون إعادة التحميل
+
         // جلب وعرض الحرفيين
         async function loadArtisans() {
             const container = document.getElementById('artisansContainer');
@@ -280,12 +301,21 @@
                 container.innerHTML = '<p style="color: #e74c3c; text-align: center;">عذراً، حدث خطأ أثناء تحميل الحرفيين.</p>';
                 return;
             }
-            if (!data || data.length === 0) {
-                container.innerHTML = '<p style="color: #7f8c8d; text-align: center;">لا توجد طلبات تسجيل حرفيين حتى الآن.</p>';
+            
+            allArtisansData = data || [];
+            displayArtisans(allArtisansData);
+        }
+
+        // عرض قائمة الحرفيين بناءً على مصفوفة معينة
+        function displayArtisans(artisans) {
+            const container = document.getElementById('artisansContainer');
+            
+            if (artisans.length === 0) {
+                container.innerHTML = '<p style="color: #7f8c8d; text-align: center; padding: 15px;">لا توجد نتائج تطابق بحثك. جرب كلمة أخرى أو بلدية مختلفة.</p>';
                 return;
             }
 
-            container.innerHTML = data.map(artisan => {
+            container.innerHTML = artisans.map(artisan => {
                 const portfolioLink = artisan.portfolio_url ? `<a href="${escapeHtml(artisan.portfolio_url)}" target="_blank">رابط المعرض / الصفحة</a>` : '<span>بدون رابط</span>';
                 return `
                     <div class="item-card">
@@ -303,6 +333,26 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        // دالة الفلترة والبحث الفوري
+        function filterArtisans() {
+            const keyword = document.getElementById('searchKeyword').value.toLowerCase().trim();
+            const selectedMunicipality = document.getElementById('filterMunicipality').value;
+
+            const filtered = allArtisansData.filter(artisan => {
+                const name = (artisan.full_name || '').toLowerCase();
+                const craft = (artisan.craft_type || '').toLowerCase();
+                const bio = (artisan.bio || '').toLowerCase();
+                const mun = artisan.municipality || '';
+
+                const matchesKeyword = keyword === '' || name.includes(keyword) || craft.includes(keyword) || bio.includes(keyword);
+                const matchesMunicipality = selectedMunicipality === '' || mun === selectedMunicipality;
+
+                return matchesKeyword && matchesMunicipality;
+            });
+
+            displayArtisans(filtered);
         }
 
         // جلب وعرض التقييمات
@@ -392,7 +442,7 @@
                 alertBox.style.display = 'block';
             } else {
                 alertBox.textContent = 'شكراً لك! تم إرسال تقييمك ورأيك بنجاح.';
-                alertBox.className = 'alert success';
+                alertBox.className,alert = 'alert success';
                 alertBox.style.display = 'block';
                 document.getElementById('reviewForm').reset();
                 loadReviews();
