@@ -22,11 +22,20 @@
 </head>
 <body class="bg-stone-50 text-stone-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- رأس الصفحة (Header) -->
-    <header class="bg-white border-b border-stone-200 py-6 px-4 shadow-sm">
-        <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-3xl font-bold tracking-tight text-stone-900">سوق السبت</h1>
-            <p class="text-sm text-stone-500 mt-1">بيت الحرفي والمهن الحرة بورقلة 🌿</p>
+    <!-- رأس الصفحة والقائمة العلوية (Header & Navigation) -->
+    <header class="bg-white border-b border-stone-200 py-4 px-4 shadow-sm sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-right">
+                <h1 class="text-2xl font-bold tracking-tight text-stone-900">سوق السبت</h1>
+                <p class="text-xs text-stone-500">بيت الحرفي والمهن الحرة بورقلة 🌿</p>
+            </div>
+            <!-- الروابط العلوية -->
+            <nav class="flex items-center gap-6 text-sm font-medium text-stone-600">
+                <a href="#artisans" class="hover:text-amber-700 transition">دليل الحرفيين</a>
+                <a href="#about" class="hover:text-amber-700 transition">من نحن</a>
+                <a href="#register" class="bg-amber-700 hover:bg-amber-800 text-white px-4 py-2 rounded-xl transition text-xs font-semibold">سجل حرفتك</a>
+                <a href="#contact" class="hover:text-amber-700 transition">اتصل بنا</a>
+            </nav>
         </div>
     </header>
 
@@ -44,7 +53,7 @@
         </section>
 
         <!-- قسم دليل الحرفيين (بطاقات عرض الخدمات) -->
-        <section>
+        <section id="artisans">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-xl font-bold text-stone-900">دليل الحرفيين والخدمات</h2>
                 <span class="text-xs text-stone-500 bg-stone-200 px-2.5 py-1 rounded-md">موثوقية وأمانة</span>
@@ -60,9 +69,10 @@
                             <h3 class="font-bold text-lg text-stone-900">الحرفي أحمد</h3>
                             <span class="text-xs bg-stone-100 text-stone-700 px-2.5 py-1 rounded-full font-medium">تركيب وصيانة قنوات المياه</span>
                         </div>
-                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                        <p class="text-stone-600 text-sm leading-relaxed mb-4">
                             خبرة طويلة في إصلاح الأعطال المنزلية، التركيب الصحي، وتمديدات الغاز بدقة وأمانة تامة.
                         </p>
+                        <p class="text-xs text-stone-500 mb-6 font-semibold">📞 الهاتف: 0600000000</p>
                     </div>
 
                     <!-- زر التقييم الذكي (نسخ الاسم + التوجيه للفيسبوك) -->
@@ -82,9 +92,10 @@
                             <h3 class="font-bold text-lg text-stone-900">الخياطة أمينة</h3>
                             <span class="text-xs bg-stone-100 text-stone-700 px-2.5 py-1 rounded-full font-medium">خياطة تقليدية وعصرية</span>
                         </div>
-                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                        <p class="text-stone-600 text-sm leading-relaxed mb-4">
                             تصميم وتفصيل الألبسة التقليدية والعصرية بأعلى معايير الإتقان، مع العناية بأدق التفاصيل والذوق الرفيع.
                         </p>
+                        <p class="text-xs text-stone-500 mb-6 font-semibold">📞 الهاتف: 0611111111</p>
                     </div>
 
                     <!-- زر التقييم الذكي -->
@@ -100,27 +111,57 @@
             </div>
         </section>
 
+        <!-- قسم من نحن -->
+        <section id="about" class="bg-white border border-stone-200 rounded-2xl p-6 md:p-8 shadow-sm">
+            <h2 class="text-xl font-bold text-stone-900 mb-4">عن منصة سوق السبت</h2>
+            <p class="text-stone-600 text-sm leading-relaxed">
+                منصة رقمية محلية مخصصة لأهالي ولاية ورقلة، تهدف إلى إبراز الحرفيين وأصحاب المهن الحرة، وتسهيل الوصول إليهم بكل موثوقية وأمانة، مع توفير فضاء منظم لتقييم الخدمات ودعم أصحاب الصنعة الحقة.
+            </p>
+        </section>
+
+        <!-- قسم سجل حرفتك -->
+        <section id="register" class="bg-amber-50 border border-amber-200 rounded-2xl p-6 md:p-8 shadow-sm text-center">
+            <h2 class="text-xl font-bold text-amber-900 mb-2">هل أنت حرفي أو صاحب مهنة حرة؟</h2>
+            <p class="text-amber-800 text-sm mb-6">انضم إلى دليلنا واعرض خدماتك لأهالي ورقلة بكل سهولة.</p>
+            <a href="tel:0600000000" class="inline-block bg-amber-700 hover:bg-amber-800 text-white font-medium text-sm py-3 px-6 rounded-xl transition">
+                تواصل مع الإدارة للتسجيل
+            </a>
+        </section>
+
     </main>
 
-    <!-- تذييل الصفحة (Footer) -->
-    <footer class="bg-white border-t border-stone-200 py-6 px-4 mt-12 text-center text-xs text-stone-500">
-        <p>جميع الحقوق محفوظة لمنصة <strong>سوق السبت</strong> — ورقلة 2026</p>
+    <!-- تذييل الصفحة ومعلومات الاتصال (Footer & Contact) -->
+    <footer id="contact" class="bg-white border-t border-stone-200 py-8 px-4 mt-12 text-stone-600 text-xs">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-right mb-6">
+            <div>
+                <h3 class="font-bold text-stone-900 mb-2 text-sm">سوق السبت</h3>
+                <p class="text-stone-500">بيت الحرفي والمهن الحرة بورقلة.</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-stone-900 mb-2 text-sm">الإدارة والاستفسارات</h3>
+                <p class="text-stone-500 mb-1">المسؤول: علي</p>
+                <p class="text-stone-500">📞 الهاتف: 0600000000</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-stone-900 mb-2 text-sm">التواصل والبريد</h3>
+                <p class="text-stone-500">📧 البريد: contact@soukessebt.com</p>
+            </div>
+        </div>
+        <div class="border-t border-stone-100 pt-6 text-center text-stone-400">
+            <p>جميع الحقوق محفوظة لمنصة <strong>سوق السبت</strong> — ورقلة 2026</p>
+        </div>
     </footer>
 
-    <!-- سكود برمجي للنسخ الذكي والتوجيه لصفحة الفيسبوك الحقيقية -->
+    <!-- سكربت النسخ الذكي والتوجيه لصفحة الفيسبوك -->
     <script>
         function rateArtisan(artisanName) {
-            // نسخ اسم الحرفي إلى الحافظة تلقائياً
             navigator.clipboard.writeText(artisanName).then(() => {
                 alert('تم نسخ اسم الحرفي: "' + artisanName + '" إلى الحافظة تلقائياً.\n\nسيتم توجيهك الآن إلى صفحة الفيسبوك، قم بلصقه في أول تعليقك مع إرفاق صورة العمل. شكراً لصدقك وأمانتك!');
             }).catch(err => {
                 console.error('تعذر النسخ تلقائياً', err);
             });
 
-            // رابط صفحة الفيسبوك الحقيقي
             const facebookPageUrl = "https://www.facebook.com/profile.php?id=61593982874509"; 
-            
-            // فتح رابط الفيسبوك في تبويب جديد
             window.open(facebookPageUrl, '_blank');
         }
     </script>
