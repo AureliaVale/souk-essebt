@@ -70,10 +70,10 @@
         .item-footer a { color: #27ae60; text-decoration: none; font-weight: 600; }
         .item-footer a:hover { text-decoration: underline; }
 
-        /* قسم اتصل بنا */
+        /* قسم اتصل بنا بالصيغة المطلوبة تماماً */
         .contact-info { display: flex; flex-direction: column; gap: 12px; font-size: 1.05rem; color: #444; }
         .contact-info p { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .fb-link-btn { background-color: #1877f2; color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: background 0.3s; }
+        .fb-link-btn { background-color: #1877f2; color: white !important; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: background 0.3s; margin-top: 5px; }
         .fb-link-btn:hover { background-color: #145dbf; }
 
         /* الفوتر السفلي */
@@ -120,7 +120,7 @@
         <div id="about" class="card">
             <h2>من نحن</h2>
             <p style="color: #555; font-size: 1.05rem; line-height: 1.8;">
-                منصة <strong>سوق السبت (بيت الحرفي)</strong> هي مساحة رقمية مخصصة لربط الحرفيين وأصحاب المهن الحرة والخدمات بالزبائن والباحثين عن الجودة والإتقان في ولاية ورقلة. هدفنا هو تسهيل الوصول إلى الخدمات المحلية الموثوقة، دعم المواهب والحرف التقليدية والعصرية، وخلق بيئة شفافة قائمة على تقييمات التجارب الحقيقية للزبائن عبر صفحتنا الرسمية على الفيسبوك.
+                منصة <strong>سوق السبت (بيت الحرفي)</strong> هي مساحة رقمية مخصصة لربط الحرفيين وأصحاب المهن الحرة والخدمات بالزبائن والباحثين عن الجودة والإتقان في ولاية ورقلة. هدفنا هو تسهيل الوصول إلى الخدمات المحلية الموثوقة، دعم المواهب والحرف التقليدية والعصرية، وخلق بيئة شفافة قائمة على تقييمات التجارب الحقيقية للزبائن.
             </p>
         </div>
 
@@ -157,8 +157,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="craftType">الحرفة أو مجال الخدمة (أو حرفة/خدمة أخرى):</label>
-                    <input type="text" id="craftType" required placeholder="اكتب حرفتك أو خدمتك بالتفصيل (مثل: سباك، كهربائي، أو أي خدمة أخرى)">
+                    <label for="craftType">الحرفة أو مجال الخدمة:</label>
+                    <input type="text" id="craftType" required placeholder="اكتب حرفتك أو خدمتك بالتفصيل (مثل: سباك، كهربائي...)">
                 </div>
 
                 <div class="form-group">
@@ -182,7 +182,7 @@
 
                 <div class="form-group">
                     <label for="workingHours">ساعات العمل / أوقات الجاهزية:</label>
-                    <input type="text" id="workingHours" required placeholder="مثال: من 8 صباحاً إلى 6 مساءً، أو متوفر للطوارئ 24/7">
+                    <input type="text" id="workingHours" required placeholder="مثال: من 8 صباحاً إلى 6 مساءً">
                 </div>
 
                 <div class="form-group">
@@ -200,15 +200,18 @@
             </form>
         </div>
 
-        <!-- قسم اتصل بنا (معدل وبدون تكرار) -->
+        <!-- قسم اتصل بنا (بالتنسيق الذي أرسلتيه تماماً بدون تكرار) -->
         <div id="contact" class="card">
             <h2>اتصل بنا</h2>
             <div class="contact-info">
                 <p>📍 <strong>العنوان:</strong> ولاية ورقلة، الجزائر.</p>
-                <p>🌐 <strong>الموقع الرسمي:</strong> <a href="https://soukessebt.com/" target="_blank" style="color: #2980b9; text-decoration: none;">soukessebt.com</a></p>
+                <p>🌐 <strong>الموقع الرسمي:</strong> <a href="https://soukessebt.com" target="_blank" style="color: #2980b9; text-decoration: none;">soukessebt.com</a></p>
                 <p>📞 <strong>رقم التواصل:</strong> <a href="tel:0673888939" style="color: #27ae60; text-decoration: none; font-weight: bold;" dir="ltr">0673888939</a></p>
-                <p>📱 <strong>صفحتنا على الفيسبوك:</strong> للاستفسارات، اقتراحات الانضمام، ومشاركة تقييمات الأعمال، يسعدنا تواصلكم عبر الزر أدناه:</p>
-                <div style="margin-top: 5px;">
+                <p style="display: block; margin-top: 10px; line-height: 1.8;">
+                    📱 <strong>صفحتنا الرسمية على الفيسبوك:</strong><br>
+                    للاستفسارات، اقتراحات الانضمام، ومشاركة تقييمات الأعمال، يسعدنا تواصلكم عبر الرابط أدناه:
+                </p>
+                <div>
                     <a href="https://www.facebook.com/profile.php?id=61593982874509" target="_blank" class="fb-link-btn">
                         <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                         <span>زيارة صفحة الفيسبوك الرسمية</span>
@@ -234,7 +237,6 @@
 
         let allArtisansData = []; 
 
-        // قائمة منبر الحرفي تتغير تلقائياً حسب اليوم من السنة
         const minbarList = [
             { text: "«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»", source: "رواه البيهقي" },
             { text: "«مَنْ عَمِلَ مِنْكُمْ عَمَلاً فَلْيُتْقِنْهُ، فَإِنَّ ذَلِكَ مِنْ حُسْنِ الْعَمَلِ.»", source: "توجيه نبوي شريف" },
@@ -246,15 +248,11 @@
             { text: "«إِنَّ خَيْرَ مَنِ اسْتَأْجَرْتَ الْقَوِيُّ الْأَمِينُ»", source: "سورة القصص - الآية 26" }
         ];
 
-        // تعيين التاريخ اليومي وعرض مقولة اليوم تلقائياً
         function initDailyContent() {
             const now = new Date();
-            
-            // ضبط التاريخ الميلادي بالعربية
             const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
             const gregorianDateStr = now.toLocaleDateString('ar-DZ', options);
             
-            // محاولة جلب التاريخ الهجري التقريبي أو عرضه مع الميلادي
             let hijriDateStr = "";
             try {
                 hijriDateStr = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' }).format(now);
@@ -264,7 +262,6 @@
 
             document.getElementById('todayDate').textContent = hijriDateStr ? `${gregorianDateStr} الموافق لـ ${hijriDateStr}` : gregorianDateStr;
 
-            // اختيار مقولة المنبر تلقائياً بناءً على رقم اليوم في السنة لضمان تغيرها كل يوم
             const start = new Date(now.getFullYear(), 0, 0);
             const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
             const oneDay = 1000 * 60 * 60 * 24;
@@ -275,7 +272,6 @@
             document.getElementById('quoteSource').textContent = selectedQuote.source;
         }
 
-        // جلب الحرفيين المسجلين حصرياً من قاعدة البيانات
         async function loadArtisans() {
             const container = document.getElementById('artisansContainer');
             const { data, error } = await _supabase.from('artisans').select('*').order('created_at', { ascending: false });
@@ -289,7 +285,6 @@
             displayArtisans(allArtisansData);
         }
 
-        // عرض قائمة الحرفيين المسجلين مع زر التقييم الذكي المرتبط بالفيسبوك
         function displayArtisans(artisans) {
             const container = document.getElementById('artisansContainer');
             
@@ -316,7 +311,6 @@
                             ${portfolioLink}
                         </div>
                         
-                        <!-- زر التقييم الذكي داخل البطاقة والمرتبط بصفحة الفيسبوك -->
                         <div style="margin-top: 12px; border-top: 1px solid #eee; padding-top: 8px;">
                             <button onclick="rateArtisan('${artisanStringForCopy}')" class="btn-facebook">
                                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -329,7 +323,6 @@
             }).join('');
         }
 
-        // دالة الفلترة والبحث الفوري
         function filterArtisans() {
             const keyword = document.getElementById('searchKeyword').value.toLowerCase().trim();
             const selectedMunicipality = document.getElementById('filterMunicipality').value;
@@ -349,10 +342,9 @@
             displayArtisans(filtered);
         }
 
-        // دالة النسخ الذكي والتوجيه لصفحة الفيسبوك الرسمية
         function rateArtisan(artisanName) {
             navigator.clipboard.writeText(artisanName).then(() => {
-                alert('تم نسخ اسم الحرفي والتخصص: "' + artisanName + '" إلى الحافظة بنجاح!\n\nسيتم توجيهك الآن إلى صفحة الفيسبوك الرسمية، قم بلصقه في خانة التعليقات مع إرفاق صورة العمل. شكراً لدعمك الإتقان والأمانة!');
+                alert('تم نسخ اسم الحرفي والتخصص: "' + artisanName + '" إلى الحافظة بنجاح!\n\nسيتم توجيهك الآن إلى صفحة الفيسبوك الرسمية، قم بلصقه في خانة التعليقات مع إرفاق صورة العمل.');
             }).catch(err => {
                 console.error('تعذر النسخ تلقائياً', err);
             });
@@ -366,7 +358,6 @@
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        // إرسال نموذج الحرفي الجديد مباشرة وتحديث القائمة فوريّاً
         document.getElementById('artisanForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const alertBox = document.getElementById('artisanAlert');
