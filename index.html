@@ -3,456 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة سوق السبت - بيت الحرفي | ورقلة</title>
+    <title>سوق السبت | بيت الحرفي بوارقلة</title>
+    <!-- استدعاء خط عربي أنيق ومنسياب (Cairo) -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; scroll-behavior: smooth; }
-        body { background-color: #f4f6f9; color: #333; direction: rtl; text-align: right; line-height: 1.6; }
-        
-        /* شريط التنقل العلوي */
-        nav { background: #2c3e50; color: white; padding: 15px 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .nav-logo { font-size: 1.3rem; font-weight: 700; color: #f39c12; text-decoration: none; }
-        .nav-links { display: flex; gap: 18px; list-style: none; flex-wrap: wrap; }
-        .nav-links a { color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.3s; }
-        .nav-links a:hover { color: #f39c12; }
-
-        .container { max-width: 900px; margin: 30px auto; padding: 0 15px; }
-        
-        /* الهيدر الرئيسي */
-        header { text-align: center; margin-bottom: 40px; padding: 30px 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        header h1 { color: #2c3e50; font-size: 2.2rem; margin-bottom: 10px; }
-        header p { color: #7f8c8d; font-size: 1.1rem; }
-
-        /* البطاقات والأقسام */
-        .card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .card h2 { color: #2980b9; margin-bottom: 20px; font-size: 1.5rem; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; }
-        
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; color: #34495e; }
-        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #bdc3c7; border-radius: 8px; font-size: 1rem; outline: none; transition: border-color 0.3s; background: #fff; }
-        input:focus, textarea:focus, select:focus { border-color: #2980b9; }
-        
-        button { background-color: #27ae60; color: white; border: none; padding: 12px 25px; font-size: 1.1rem; font-weight: 700; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.3s; }
-        button:hover { background-color: #219653; }
-        .btn-review { background-color: #e67e22; }
-        .btn-review:hover { background-color: #d35400; }
-        
-        .alert { padding: 12px; border-radius: 8px; margin-top: 15px; display: none; text-align: center; font-weight: 600; }
-        .alert.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .alert.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        
-        hr { border: 0; border-top: 1px solid #eee; margin: 40px 0; }
-        
-        /* نجوم التقييم */
-        .star-rating { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 5px; font-size: 1.8rem; cursor: pointer; }
-        .star-rating input { display: none; }
-        .star-rating label { color: #bdc3c7; transition: color 0.2s; margin-bottom: 0; font-weight: normal; }
-        .star-rating input:checked ~ label, .star-rating label:hover, .star-rating label:hover ~ label { color: #f39c12; }
-
-        /* شريط البحث والفلترة السريعة للزبون */
-        .filter-box { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e9ecef; display: flex; gap: 10px; flex-wrap: wrap; }
-        .filter-box input, .filter-box select { flex: 1; min-width: 200px; padding: 10px; font-size: 0.95rem; }
-
-        /* القوائم والبطاقات الداخلية */
-        .list-container { margin-top: 25px; display: flex; flex-direction: column; gap: 15px; }
-        .item-card { background: #fafbfc; border: 1px solid #e1e4e8; border-radius: 8px; padding: 15px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 10px; }
-        .item-title { font-weight: 700; color: #2c3e50; font-size: 1.1rem; }
-        .item-badge { background: #eef2f7; color: #2980b9; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
-        .item-details { color: #555; font-size: 0.95rem; line-height: 1.6; margin-bottom: 8px; }
-        .item-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #7f8c8d; border-top: 1px solid #eee; padding-top: 8px; margin-top: 8px; flex-wrap: wrap; gap: 10px; }
-        .item-footer a { color: #27ae60; text-decoration: none; font-weight: 600; }
-        .item-footer a:hover { text-decoration: underline; }
-        .review-stars { color: #f39c12; font-size: 1.1rem; letter-spacing: 2px; }
-
-        /* قسم اتصل بنا */
-        .contact-info { display: flex; flex-direction: column; gap: 12px; font-size: 1.05rem; color: #444; }
-        .contact-info p { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-
-        /* الفوتر السفلي */
-        footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 25px 20px; margin-top: 60px; font-size: 0.95rem; }
-        footer p { margin: 5px 0; }
-    </style>
+    <!-- مكتبة Tailwind CSS للتصميم النظيف والسريع -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="bg-stone-50 text-stone-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- شريط التنقل العلوي -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="nav-logo">سوق السبت - بيت الحرفي</a>
-            <ul class="nav-links">
-                <li><a href="#about">من نحن</a></li>
-                <li><a href="#artisans-section">دليل الحرفيين</a></li>
-                <li><a href="#register-section">سجل حرفتك</a></li>
-                <li><a href="#reviews-section">انشر تقييمك</a></li>
-                <li><a href="#contact">اتصل بنا</a></li>
-            </ul>
+    <!-- رأس الصفحة (Header) -->
+    <header class="bg-white border-b border-stone-200 py-6 px-4 shadow-sm">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-3xl font-bold tracking-tight text-stone-900">سوق السبت</h1>
+            <p class="text-sm text-stone-500 mt-1">بيت الحرفي والمهن الحرة بورقلة 🌿</p>
         </div>
-    </nav>
+    </header>
 
-    <div class="container">
-        
-        <!-- الهيدر الرئيسي -->
-        <header>
-            <h1>منصة سوق السبت الرقمية</h1>
-            <p>بيت الحرفي والخدمات الموثوقة - ولاية ورقلة</p>
-        </header>
+    <!-- المحتوى الرئيسي -->
+    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full space-y-12">
 
-        <!-- قسم من نحن -->
-        <div id="about" class="card">
-            <h2>من نحن</h2>
-            <p style="color: #555; font-size: 1.05rem; line-height: 1.8;">
-                منصة <strong>سوق السبت (بيت الحرفي)</strong> هي مساحة رقمية مخصصة لربط الحرفيين وأصحاب المهن الحرة والخدمات بالزبائن والباحثين عن الجودة والإتقان في ولاية ورقلة. هدفنا هو تسهيل الوصول إلى الخدمات المحلية الموثوقة، دعم المواهب والحرف التقليدية والعصرية، وخلق بيئة شفافة قائمة على تقييمات التجارب الحقيقية للزبائن.
-            </p>
-        </div>
+        <!-- قسم منبر الحرفي (الحكمة اليومية الثابتة والمصقولة) -->
+        <section class="bg-white border border-stone-200 rounded-2xl p-6 md:p-8 shadow-sm text-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-2 h-full bg-amber-600"></div>
+            <span class="inline-block text-xs font-semibold text-amber-700 bg-amber-50 px-3 py-1 rounded-full mb-4">منبر الحرفي</span>
+            <blockquote class="text-lg md:text-xl font-medium text-stone-900 leading-relaxed mb-3">
+                «إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»
+            </blockquote>
+            <p class="text-sm text-stone-500 font-medium">رواه البيهقي</p>
+        </section>
 
-        <!-- قسم دليل الحرفيين المسجلين مع نظام البحث والفلترة السريعة -->
-        <div id="artisans-section" class="card">
-            <h2>دليل الحرفيين المسجلين</h2>
-            
-            <!-- أداة البحث والفلترة الفورية للزبون -->
-            <div class="filter-box">
-                <input type="text" id="searchKeyword" placeholder="🔍 ابحث عن حرفة أو اسم (مثال: سباك، كهربائي، طلاء...)" onkeyup="filterArtisans()">
-                <select id="filterMunicipality" onchange="filterArtisans()">
-                    <option value="">كل البلديات في ورقلة</option>
-                    <option value="ورقلة">ورقلة</option>
-                    <option value="حاسي مسعود">حاسي مسعود</option>
-                    <option value="الرويسات">الرويسات</option>
-                    <option value="سيدي خويلد">سيدي خويلد</option>
-                    <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
-                    <option value="عين البيضاء">عين البيضاء</option>
-                </select>
+        <!-- قسم دليل الحرفيين (بطاقات عرض الخدمات) -->
+        <section>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-stone-900">دليل الحرفيين والخدمات</h2>
+                <span class="text-xs text-stone-500 bg-stone-200 px-2.5 py-1 rounded-md">موثوقية وأمانة</span>
             </div>
 
-            <div id="artisansContainer" class="list-container">
-                <p style="color: #7f8c8d; text-align: center; padding: 10px;">جاري تحميل قائمة الحرفيين...</p>
-            </div>
-        </div>
+            <!-- شبكة البطاقات -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <!-- قسم تسجيل حرفي جديد -->
-        <div id="register-section" class="card">
-            <h2>سجل حرفتك أو خدمتك</h2>
-            <form id="artisanForm">
-                <div class="form-group">
-                    <label for="artisanName">الاسم الكامل:</label>
-                    <input type="text" id="artisanName" required placeholder="أدخل الاسم الكامل">
-                </div>
+                <!-- بطاقة حرفي 1: أحمد (سباك) -->
+                <div class="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between transition hover:border-stone-300">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-lg text-stone-900">الحرفي أحمد</h3>
+                            <span class="text-xs bg-stone-100 text-stone-700 px-2.5 py-1 rounded-full font-medium">تركيب وصيانة قنوات المياه</span>
+                        </div>
+                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                            خبرة طويلة في إصلاح الأعطال المنزلية، التركيب الصحي، وتمديدات الغاز بدقة وأمانة تامة.
+                        </p>
+                    </div>
 
-                <div class="form-group">
-                    <label for="craftType">نوع الحرفة أو قطاع الخدمات:</label>
-                    <select id="craftType" required>
-                        <option value="">-- اختر المجال أو الحرفة --</option>
-                        <optgroup label="1. البناء والتشييد وأشغال التشطيب">
-                            <option value="بناء عام / أشغال التشييد الأساسية">بناء عام / أشغال التشييد الأساسية</option>
-                            <option value="التلييس، الطلاء، والبلاط (الترصيص)">التلييس، الطلاء، والبلاط (الترصيص)</option>
-                            <option value="أعمال الجبس، الديكور الداخلي والأسقف">أعمال الجبس، الديكور الداخلي والأسقف</option>
-                            <option value="العزل المائي والحراري">العزل المائي والحراري</option>
-                        </optgroup>
-                        <optgroup label="2. النجارة، الألومنيوم، والزجاج">
-                            <option value="النجارة العامة والبناء (أبواب ونوافذ خشبية)">النجارة العامة والبناء (أبواب ونوافذ خشبية)</option>
-                            <option value="تركيب وصيانة الألمنيوم، البلاستيك (PVC)، والزجاج">تركيب وصيانة الألمنيوم، البلاستيك (PVC)، والزجاج</option>
-                            <option value="تصنيع الأثاث العصري والتقليدي">تصنيع الأثاث العصري والتقليدي</option>
-                        </optgroup>
-                        <optgroup label="3. الحدادة والمعادن">
-                            <option value="الحدادة العامة وحدادة البناء (أبواب، شبابيك، حمايات)">الحدادة العامة وحدادة البناء (أبواب، شبابيك، حمايات)</option>
-                            <option value="تلحيم وصيانة الهياكل المعدنية وخزانات المياه">تلحيم وصيانة الهياكل المعدنية وخزانات المياه</option>
-                        </optgroup>
-                        <optgroup label="4. خدمات الصيانة المنزلية والأجهزة">
-                            <option value="تركيب وصيانة شبكات المياه والصرف الصحي (السباكة)">تركيب وصيانة شبكات المياه والصرف الصحي (السباكة)</option>
-                            <option value="تركيب وصيانة شبكات الكهرباء المنزلية والمهنية">تركيب وصيانة شبكات الكهرباء المنزلية والمهنية</option>
-                            <option value="تركيب وصيانة أنظمة التكييف والتبريد">تركيب وصيانة أنظمة التكييف والتبريد</option>
-                            <option value="تصليح وصيانة الأجهزة الكهرومنزلية">تصليح وصيانة الأجهزة الكهرومنزلية</option>
-                        </optgroup>
-                        <optgroup label="5. الطباعة، التصميم، والخدمات الرقمية">
-                            <option value="الطباعة الرقمية، الإعلانية، واللوحات الإشهارية">الطباعة الرقمية، الإعلانية، واللوحات الإشهارية</option>
-                            <option value="التصميم الجرافيكي وصناعة المحتوى المرئي">التصميم الجرافيكي وصناعة المحتوى المرئي</option>
-                        </optgroup>
-                        <optgroup label="6. الصناعات والخدمات اليدوية">
-                            <option value="نسيج الزرابي، الحنابل، والوسائد التقليدية">نسيج الزرابي، الحنابل، والوسائد التقليدية</option>
-                            <option value="خياطة وتطريز اللباس التقليدي">خياطة وتطريز اللباس التقليدي</option>
-                            <option value="صناعة الحلي والمجوهرات التقليدية">صناعة الحلي والمجوهرات التقليدية</option>
-                        </optgroup>
-                        <option value="حرفة أو خدمة أخرى (تُذكر في النبذة)">حرفة أو خدمة أخرى (تُذكر في النبذة)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="municipality">البلدية (ولاية ورقلة):</label>
-                    <select id="municipality" required>
-                        <option value="">-- اختر البلدية --</option>
-                        <option value="ورقلة">ورقلة</option>
-                        <option value="حاسي مسعود">حاسي مسعود</option>
-                        <option value="الرويسات">الرويسات</option>
-                        <option value="سيدي خويلد">سيدي خويلد</option>
-                        <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
-                        <option value="عين البيضاء">عين البيضاء</option>
-                        <option value="بلدية أخرى / مجاورة">بلدية أخرى / مجاورة</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="artisanPhone">رقم الهاتف:</label>
-                    <input type="tel" id="artisanPhone" required placeholder="رقم الهاتف للتواصل">
-                </div>
-
-                <div class="form-group">
-                    <label for="workingHours">أوقات العمل / الجاهزية:</label>
-                    <select id="workingHours" required>
-                        <option value="">-- اختر نظام أوقات العمل --</option>
-                        <option value="أوقات العمل العادية (أيام السوق / ساعات النهار)">أوقات العمل العادية (أيام السوق / ساعات النهار)</option>
-                        <option value="متوفر للطوارئ والخدمات العاجلة (24/7)">متوفر للطوارئ والخدمات العاجلة (24/7)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="portfolioUrl">رابط معرض الأعمال أو صفحة التواصل (اختياري):</label>
-                    <input type="url" id="portfolioUrl" placeholder="رابط صفحة فيسبوك، موقع، أو صور الأعمال (إن وجد)">
-                </div>
-
-                <div class="form-group">
-                    <label for="artisanBio">نبذة تعريفية عن الأعمال والخبرة:</label>
-                    <textarea id="artisanBio" rows="4" placeholder="اكتب نبذة مختصرة عن الخدمات والخبرة الميدانية..."></textarea>
-                </div>
-
-                <button type="submit">إرسال طلب الانضمام</button>
-                <div id="artisanAlert" class="alert"></div>
-            </form>
-        </div>
-
-        <!-- قسم آراء وتقييمات الزبائن -->
-        <div id="reviews-section" class="card">
-            <h2>انشر تقييمك أو تجربتك</h2>
-            
-            <form id="reviewForm">
-                <div class="form-group">
-                    <label for="customerName">اسمك الكريم:</label>
-                    <input type="text" id="customerName" required placeholder="أدخل اسمك الكريم">
-                </div>
-
-                <div class="form-group">
-                    <label for="reviewArtisanName">اسم الحرفي أو النشاط المعني:</label>
-                    <input type="text" id="reviewArtisanName" required placeholder="أدخل اسم الحرفي أو النشاط">
-                </div>
-
-                <div class="form-group">
-                    <label>التقييم (النجوم):</label>
-                    <div class="star-rating">
-                        <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="ممتاز">★</label>
-                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="جيد جداً">★</label>
-                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="متوسط">★</label>
-                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="مقبول">★</label>
-                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="ضعيف">★</label>
+                    <!-- زر التقييم الذكي (نسخ الاسم + التوجيه للفيسبوك) -->
+                    <div class="pt-4 border-t border-stone-100">
+                        <button onclick="rateArtisan('الحرفي أحمد - سباك')" class="w-full bg-stone-900 hover:bg-stone-800 text-white text-sm font-medium py-2.5 px-4 rounded-xl transition flex items-center justify-center gap-2">
+                            <span>شارك تقييمك وصورة العمل</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </button>
+                        <p class="text-[11px] text-stone-400 text-center mt-2">بالضغط، يُنسخ اسم الحرفي وتنتقل لصفحة الفيسبوك مباشرة.</p>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="comment">تفاصيل تجربتك مع الحرفي:</label>
-                    <textarea id="comment" rows="4" required placeholder="اكتب تفاصيل تجربتك (جودة العمل، الالتزام بالوقت، المعاملة...)"></textarea>
+                <!-- بطاقة حرفي 2: الخياطة أمينة -->
+                <div class="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between transition hover:border-stone-300">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-lg text-stone-900">الخياطة أمينة</h3>
+                            <span class="text-xs bg-stone-100 text-stone-700 px-2.5 py-1 rounded-full font-medium">خياطة تقليدية وعصرية</span>
+                        </div>
+                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                            تصميم وتفصيل الألبسة التقليدية والعصرية بأعلى معايير الإتقان، مع العناية بأدق التفاصيل والذوق الرفيع.
+                        </p>
+                    </div>
+
+                    <!-- زر التقييم الذكي -->
+                    <div class="pt-4 border-t border-stone-100">
+                        <button onclick="rateArtisan('الخياطة أمينة - خياطة تقليدية وعصرية')" class="w-full bg-stone-900 hover:bg-stone-800 text-white text-sm font-medium py-2.5 px-4 rounded-xl transition flex items-center justify-center gap-2">
+                            <span>شارك تقييمك وصورة العمل</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </button>
+                        <p class="text-[11px] text-stone-400 text-center mt-2">بالضغط، يُنسخ اسم الحرفي وتنتقل لصفحة الفيسبوك مباشرة.</p>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn-review">إرسال التقييم</button>
-                <div id="reviewAlert" class="alert"></div>
-            </form>
-
-            <hr style="margin: 30px 0; border-top: 1px dashed #dcdde1;">
-
-            <h3 style="color: #34495e; font-size: 1.2rem; margin-bottom: 15px;">تقييمات الزوار السابقة:</h3>
-            <div id="reviewsContainer" class="list-container">
-                <p style="color: #7f8c8d; text-align: center; padding: 10px;">جاري تحميل التقييمات...</p>
             </div>
-        </div>
+        </section>
 
-        <!-- قسم اتصل بنا -->
-        <div id="contact" class="card">
-            <h2>اتصل بنا</h2>
-            <div class="contact-info">
-                <p>📍 <strong>العنوان:</strong> ولاية ورقلة، الجزائر.</p>
-                <p>🌐 <strong>الموقع الرسمي:</strong> <a href="https://soukessebt.com/" target="_blank" style="color: #2980b9; text-decoration: none;">soukessebt.com</a></p>
-                <p>📞 <strong>رقم التواصل:</strong> <a href="tel:0673888939" style="color: #27ae60; text-decoration: none; font-weight: bold;" dir="ltr">0673888939</a></p>
-                <p>✉️ للاستفسارات، اقتراحات الانضمام، أو الدعم التقني، تواصلوا معنا عبر البريد الالكتروني <a href="mailto:fethallhali@gmail.com" style="color: #2980b9; text-decoration: none; font-weight: bold;">fethallhali@gmail.com</a>.</p>
-            </div>
-        </div>
+    </main>
 
-    </div>
-
-    <!-- الفوتر السفلي -->
-    <footer>
-        <p>منصة سوق السبت - بيت الحرفي | ولاية ورقلة</p>
-        <p>جميع الحقوق محفوظة &copy; 2026</p>
+    <!-- تذييل الصفحة (Footer) -->
+    <footer class="bg-white border-t border-stone-200 py-6 px-4 mt-12 text-center text-xs text-stone-500">
+        <p>جميع الحقوق محفوظة لمنصة <strong>سوق السبت</strong> — ورقلة 2026</p>
     </footer>
 
+    <!-- سكود برمجي للنسخ الذكي والتوجيه لصفحة الفيسبوك الحقيقية -->
     <script>
-        const SUPABASE_URL = 'https://blrlmuhmcdkgkadoiiek.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_BjYF0eefuKqruas3QJqbNQ_MsUEKNCz';
-
-        const { createClient } = supabase;
-        const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        let allArtisansData = []; // تخزين الحرفيين مؤقتاً للبحث الفوري
-
-        // جلب وعرض الحرفيين
-        async function loadArtisans() {
-            const container = document.getElementById('artisansContainer');
-            const { data, error } = await _supabase.from('artisans').select('*').order('created_at', { ascending: false });
-
-            if (error) {
-                container.innerHTML = '<p style="color: #e74c3c; text-align: center;">عذراً، حدث خطأ أثناء تحميل الحرفيين.</p>';
-                return;
-            }
-            
-            allArtisansData = data || [];
-            displayArtisans(allArtisansData);
-        }
-
-        // عرض قائمة الحرفيين بناءً على مصفوفة معينة
-        function displayArtisans(artisans) {
-            const container = document.getElementById('artisansContainer');
-            
-            if (artisans.length === 0) {
-                container.innerHTML = '<p style="color: #7f8c8d; text-align: center; padding: 15px;">لا توجد نتائج تطابق بحثك. جرب كلمة أخرى أو بلدية مختلفة.</p>';
-                return;
-            }
-
-            container.innerHTML = artisans.map(artisan => {
-                const portfolioLink = artisan.portfolio_url ? `<a href="${escapeHtml(artisan.portfolio_url)}" target="_blank">رابط المعرض / الصفحة</a>` : '<span>بدون رابط</span>';
-                return `
-                    <div class="item-card">
-                        <div class="item-header">
-                            <span class="item-title">${escapeHtml(artisan.full_name)}</span>
-                            <span class="item-badge">${escapeHtml(artisan.craft_type)}</span>
-                        </div>
-                        <p class="item-details"><strong>النبذة:</strong> ${escapeHtml(artisan.bio || 'لا توجد نبذة متوفرة.')}</p>
-                        <div class="item-footer">
-                            <span>📍 البلدية: <strong>${escapeHtml(artisan.municipality)}</strong></span>
-                            <span>📞 الهاتف: <strong>${escapeHtml(artisan.phone)}</strong></span>
-                            <span>⏰ الجاهزية: ${escapeHtml(artisan.working_hours || 'غير محدد')}</span>
-                            ${portfolioLink}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // دالة الفلترة والبحث الفوري
-        function filterArtisans() {
-            const keyword = document.getElementById('searchKeyword').value.toLowerCase().trim();
-            const selectedMunicipality = document.getElementById('filterMunicipality').value;
-
-            const filtered = allArtisansData.filter(artisan => {
-                const name = (artisan.full_name || '').toLowerCase();
-                const craft = (artisan.craft_type || '').toLowerCase();
-                const bio = (artisan.bio || '').toLowerCase();
-                const mun = artisan.municipality || '';
-
-                const matchesKeyword = keyword === '' || name.includes(keyword) || craft.includes(keyword) || bio.includes(keyword);
-                const matchesMunicipality = selectedMunicipality === '' || mun === selectedMunicipality;
-
-                return matchesKeyword && matchesMunicipality;
+        function rateArtisan(artisanName) {
+            // نسخ اسم الحرفي إلى الحافظة تلقائياً
+            navigator.clipboard.writeText(artisanName).then(() => {
+                alert('تم نسخ اسم الحرفي: "' + artisanName + '" إلى الحافظة تلقائياً.\n\nسيتم توجيهك الآن إلى صفحة الفيسبوك، قم بلصقه في أول تعليقك مع إرفاق صورة العمل. شكراً لصدقك وأمانتك!');
+            }).catch(err => {
+                console.error('تعذر النسخ تلقائياً', err);
             });
 
-            displayArtisans(filtered);
+            // رابط صفحة الفيسبوك الحقيقي
+            const facebookPageUrl = "https://www.facebook.com/profile.php?id=61593982874509"; 
+            
+            // فتح رابط الفيسبوك في تبويب جديد
+            window.open(facebookPageUrl, '_blank');
         }
-
-        // جلب وعرض التقييمات
-        async function loadReviews() {
-            const container = document.getElementById('reviewsContainer');
-            const { data, error } = await _supabase.from('reviews').select('*').order('created_at', { ascending: false });
-
-            if (error) {
-                container.innerHTML = '<p style="color: #e74c3c; text-align: center;">عذراً، حدث خطأ أثناء تحميل التقييمات.</p>';
-                return;
-            }
-            if (!data || data.length === 0) {
-                container.innerHTML = '<p style="color: #7f8c8d; text-align: center;">لا توجد تقييمات مسجلة حتى الآن. كوني أول من يقيّم!</p>';
-                return;
-            }
-
-            container.innerHTML = data.map(review => {
-                const starsCount = review.rating || 0;
-                const starsHTML = '★'.repeat(starsCount) + '☆'.repeat(5 - starsCount);
-                const formattedDate = review.created_at ? new Date(review.created_at).toLocaleDateString('ar-DZ') : '';
-
-                return `
-                    <div class="item-card">
-                        <div class="item-header">
-                            <span class="item-title">${escapeHtml(review.customer_name)}</span>
-                            <span class="item-badge">الحرفي: ${escapeHtml(review.artisan_name)}</span>
-                            <span class="review-stars" title="${starsCount} من 5">${starsHTML}</span>
-                        </div>
-                        <p class="item-details">${escapeHtml(review.comment || '')}</p>
-                        <div class="item-footer">
-                            <small style="color: #95a5a6; font-size: 0.75rem;">تاريخ التقييم: ${formattedDate}</small>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function escapeHtml(text) {
-            if (!text) return '';
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
-
-        // إرسال نموذج الحرفي
-        document.getElementById('artisanForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const alertBox = document.getElementById('artisanAlert');
-
-            const { error } = await _supabase.from('artisans').insert([{ 
-                full_name: document.getElementById('artisanName').value, 
-                craft_type: document.getElementById('craftType').value, 
-                municipality: document.getElementById('municipality').value, 
-                phone: document.getElementById('artisanPhone').value, 
-                working_hours: document.getElementById('workingHours').value, 
-                portfolio_url: document.getElementById('portfolioUrl').value,
-                bio: document.getElementById('artisanBio').value 
-            }]);
-
-            if (error) {
-                alertBox.textContent = 'حدث خطأ أثناء الإرسال: ' + error.message;
-                alertBox.className = 'alert error';
-                alertBox.style.display = 'block';
-            } else {
-                alertBox.textContent = 'تم إرسال طلب الانضمام بنجاح! تم إضافته إلى الدليل مباشرة.';
-                alertBox.className = 'alert success';
-                alertBox.style.display = 'block';
-                document.getElementById('artisanForm').reset();
-                loadArtisans();
-            }
-        });
-
-        // إرسال نموذج التقييم
-        document.getElementById('reviewForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const alertBox = document.getElementById('reviewAlert');
-            const selectedRating = document.querySelector('input[name="rating"]:checked');
-
-            const { error } = await _supabase.from('reviews').insert([{ 
-                customer_name: document.getElementById('customerName').value,
-                artisan_name: document.getElementById('reviewArtisanName').value, 
-                rating: selectedRating ? parseInt(selectedRating.value) : 0, 
-                comment: document.getElementById('comment').value 
-            }]);
-
-            if (error) {
-                alertBox.textContent = 'حدث خطأ أثناء إرسال التقييم: ' + error.message;
-                alertBox.className = 'alert error';
-                alertBox.style.display = 'block';
-            } else {
-                alertBox.textContent = 'شكراً لك! تم إرسال تقييمك ورأيك بنجاح.';
-                alertBox.className = 'alert success';
-                alertBox.style.display = 'block';
-                document.getElementById('reviewForm').reset();
-                loadReviews();
-            }
-        });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            loadArtisans();
-            loadReviews();
-        });
     </script>
+
 </body>
 </html>
