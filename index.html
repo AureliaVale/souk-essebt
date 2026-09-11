@@ -25,9 +25,13 @@
         header h1 { color: #2c3e50; font-size: 2.2rem; margin-bottom: 10px; }
         header p { color: #7f8c8d; font-size: 1.1rem; }
 
-        /* قسم منبر الحرفي */
-        .minbar-section { background: white; border: 1px solid #e1e4e8; border-right: 4px solid #f39c12; border-radius: 12px; padding: 25px; margin-bottom: 30px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .minbar-tag { display: inline-block; font-size: 0.8rem; font-weight: 700; color: #d35400; background: #fef5e7; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
+        /* قسم منبر الحرفي مع التاريخ اليومي */
+        .minbar-section { background: white; border: 1px solid #e1e4e8; border-right: 4px solid #f39c12; border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .minbar-header-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid #f1f1f1; padding-bottom: 10px; }
+        .minbar-tag { display: inline-block; font-size: 0.85rem; font-weight: 700; color: #d35400; background: #fef5e7; padding: 4px 12px; border-radius: 20px; }
+        .daily-date { font-size: 0.9rem; color: #7f8c8d; font-weight: 600; background: #f8f9fa; padding: 4px 12px; border-radius: 20px; border: 1px solid #e9ecef; }
+        
+        .minbar-content { text-align: center; }
         .minbar-section blockquote { font-size: 1.15rem; font-weight: 600; color: #2c3e50; margin-bottom: 8px; line-height: 1.8; }
         .minbar-section p { font-size: 0.85rem; color: #7f8c8d; }
 
@@ -69,6 +73,8 @@
         /* قسم اتصل بنا */
         .contact-info { display: flex; flex-direction: column; gap: 12px; font-size: 1.05rem; color: #444; }
         .contact-info p { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .fb-link-btn { background-color: #1877f2; color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: background 0.3s; }
+        .fb-link-btn:hover { background-color: #145dbf; }
 
         /* الفوتر السفلي */
         footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 25px 20px; margin-top: 60px; font-size: 0.95rem; }
@@ -98,11 +104,16 @@
             <p>بيت الحرفي والخدمات الموثوقة - ولاية ورقلة</p>
         </header>
 
-        <!-- قسم منبر الحرفي -->
+        <!-- قسم منبر الحرفي مع التاريخ اليومي والتغيير التلقائي -->
         <section class="minbar-section">
-            <span class="minbar-tag">منبر الحرفي</span>
-            <blockquote>«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»</blockquote>
-            <p>رواه البيهقي</p>
+            <div class="minbar-header-flex">
+                <span class="minbar-tag">منبر الحرفي اليومي</span>
+                <div id="todayDate" class="daily-date">جاري تحميل التاريخ...</div>
+            </div>
+            <div class="minbar-content">
+                <blockquote id="dailyQuote">«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»</blockquote>
+                <p id="quoteSource">رواه البيهقي</p>
+            </div>
         </section>
 
         <!-- قسم من نحن -->
@@ -113,7 +124,7 @@
             </p>
         </div>
 
-        <!-- قسم دليل الحرفيين (يسحب الحقيقيين فقط من قاعدة البيانات) -->
+        <!-- قسم دليل الحرفيين -->
         <div id="artisans-section" class="card">
             <h2>دليل الحرفيين المسجلين</h2>
             
@@ -196,7 +207,10 @@
                 <p>📍 <strong>العنوان:</strong> ولاية ورقلة، الجزائر.</p>
                 <p>🌐 <strong>الموقع الرسمي:</strong> <a href="https://soukessebt.com/" target="_blank" style="color: #2980b9; text-decoration: none;">soukessebt.com</a></p>
                 <p>📞 <strong>رقم التواصل:</strong> <a href="tel:0673888939" style="color: #27ae60; text-decoration: none; font-weight: bold;" dir="ltr">0673888939</a></p>
-                <p>✉️ للاستفسارات والدعم التقني، تواصلوا معنا عبر البريد الالكتروني <a href="mailto:fethallhali@gmail.com" style="color: #2980b9; text-decoration: none; font-weight: bold;">fethallhali@gmail.com</a>.</p>
+                <p>📱 <strong>صفحتنا الرسمية على الفيسبوك:</strong> للاستفسارات، اقتراحات الانضمام، ومشاركة تقييمات الأعمال، يسعدنا تواصلكم عبر <a href="https://www.facebook.com/profile.php?id=61593982874509" target="_blank" class="fb-link-btn">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    <span>صفحة الفيسبوك الرسمية</span>
+                </a></p>
             </div>
         </div>
 
@@ -216,6 +230,47 @@
         const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let allArtisansData = []; 
+
+        // قائمة منبر الحرفي تتغير تلقائياً حسب اليوم من السنة
+        const minbarList = [
+            { text: "«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»", source: "رواه البيهقي" },
+            { text: "«مَنْ عَمِلَ مِنْكُمْ عَمَلاً فَلْيُتْقِنْهُ، فَإِنَّ ذَلِكَ مِنْ حُسْنِ الْعَمَلِ.»", source: "توجيه نبوي شريف" },
+            { text: "«يَا دَاوُدُ إِنَّا جَعَلْنَاكَ خَلِيفَةً فِي الْأَرْضِ فَاحْكُم بَيْنَ النَّاسِ بِالْحَقِّ وَلَا تَتَّبِعِ الْهَوَى»", source: "سورة ص - الآية 26" },
+            { text: "«وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ»", source: "سورة التوبة - الآية 105" },
+            { text: "أتقن عملك مهما كان صغيراً، فالإتقان عنوان الأمانة وصانع السمعة الطيبة.", source: "حكمة الحرفيين" },
+            { text: "«مَنْ أَكَلَ مِنْ كَدِّ يَدِهِ حَلَالاً، كُتِبَ لَهُ جِوَازاً عَلَى الصِّرَاطِ.»", source: "حديث شريف في فضل العمل اليدوي" },
+            { text: "الصدق في المعاملة والإتقان في الصنعة هما رأس مال الحرفي الحقيقي.", source: "دروس من التراث المهني" },
+            { text: "«إِنَّ خَيْرَ مَنِ اسْتَأْجَرْتَ الْقَوِيُّ الْأَمِينُ»", source: "سورة القصص - الآية 26" }
+        ];
+
+        // تعيين التاريخ اليومي وعرض مقولة اليوم تلقائياً
+        function initDailyContent() {
+            const now = new Date();
+            
+            // ضبط التاريخ الميلادي بالعربية
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const gregorianDateStr = now.toLocaleDateString('ar-DZ', options);
+            
+            // محاولة جلب التاريخ الهجري التقريبي أو عرضه مع الميلادي
+            let hijriDateStr = "";
+            try {
+                hijriDateStr = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' }).format(now);
+            } catch (e) {
+                hijriDateStr = "";
+            }
+
+            document.getElementById('todayDate').textContent = hijriDateStr ? `${gregorianDateStr} الموافق لـ ${hijriDateStr}` : gregorianDateStr;
+
+            // اختيار مقولة المنبر تلقائياً بناءً على رقم اليوم في السنة لضمان تغيرها كل يوم
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            
+            const selectedQuote = minbarList[dayOfYear % minbarList.length];
+            document.getElementById('dailyQuote').textContent = selectedQuote.text;
+            document.getElementById('quoteSource').textContent = selectedQuote.source;
+        }
 
         // جلب الحرفيين المسجلين حصرياً من قاعدة البيانات
         async function loadArtisans() {
@@ -337,6 +392,7 @@
         });
 
         window.addEventListener('DOMContentLoaded', () => {
+            initDailyContent();
             loadArtisans();
         });
     </script>
