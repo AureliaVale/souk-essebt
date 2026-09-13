@@ -158,7 +158,7 @@
                     <input type="text" id="artisanName" required placeholder="أدخل اسمك الكامل">
                 </div>
 
-                <!-- قائمة الحرف المجزأة والمبوبة -->
+                <!-- قائمة الحرف والخدمات المجزأة والمبوبة (شاملة الخدمات الرقمية، الطباعة، والصيانة) -->
                 <div class="form-group">
                     <label for="craftTypeSelect">الحرفة أو مجال الخدمة:</label>
                     <select id="craftTypeSelect" required onchange="handleCraftSelection()">
@@ -170,7 +170,7 @@
                             <option value="فني مكيفات وتبريد (Climatiseur)">فني مكيفات وتبريد</option>
                             <option value="مركب كاميرات مراقبة وأجهزة أمنية">مركب كاميرات مراقبة وأجهزة أمنية</option>
                             <option value="فني شبكات إنترنت وستالايت (Parabole)">فني شبكات إنترنت وستالايت</option>
-                            <option value="صيانة أهرام الأجهزة الكهرومنزلية">صيانة الأجهزة الكهرومنزلية</option>
+                            <option value="صيانة الأجهزة الكهرومنزلية">صيانة الأجهزة الكهرومنزلية</option>
                         </optgroup>
 
                         <optgroup label="البناء، التشطيب والدهان">
@@ -183,8 +183,20 @@
                             <option value="عازل مائي و حراري للأسطح">عازل مائي وحراري للأسطح</option>
                         </optgroup>
 
+                        <optgroup label="الخدمات الرقمية وتطوير الويب">
+                            <option value="مطور ومصمم مواقع إنترنت وإستضافة (Web Development & Hosting)">مطور ومصمم مواقع إنترنت وإستضافة</option>
+                            <option value="مصمم غرافيك وإعلانات رقمية (Graphic Design)">مصمم غرافيك وإعلانات رقمية</option>
+                            <option value="خبير تسويق إلكتروني وإدارة منصات">خبير تسويق إلكتروني وإدارة منصات</option>
+                        </optgroup>
+
+                        <optgroup label="الطباعة، التصوير والخدمات المكتبية">
+                            <option value="خدمات الطباعة، النسخ والتصوير (Printing & Copying)">خدمات الطباعة، النسخ والتصوير</option>
+                            <option value="كاتب عمومي وخدمات إدارية ورقمية">كاتب عمومي وخدمات إدارية ورقمية</option>
+                            <option value="تصميم وتجليد الكتب والمطبوعات">تصميم وتجليد الكتب والمطبوعات</option>
+                        </optgroup>
+
                         <optgroup label="الخدمات والنقل">
-                            <option value="سائق نقل مركب / نقل بضائع وأثاث (Déménagement)">سائق نقل بضائع وأثاث</option>
+                            <option value="سائق نقل بضائع وأثاث (Déménagement)">سائق نقل بضائع وأثاث</option>
                             <option value="خدمات التنظيف الشامل للمنازل والمكاتب">خدمات التنظيف الشامل للمنازل والمكاتب</option>
                             <option value="بستاني ومصمم حدائق منزلية">بستاني ومصمم حدائق منزلية</option>
                         </optgroup>
@@ -195,23 +207,19 @@
                             <option value="حرفي في الصناعات التقليدية والفخار والزخرفة">حرفي في الصناعات التقليدية والفخار والزخرفة</option>
                         </optgroup>
 
-                        <optgroup label="الخدمات الرقمية والمكتبية">
-                            <option value="مصمم غرافيك ومطور مواقع واجهات">مصمم غرافيك ومطور مواقع واجهات</option>
-                            <option value="كاتب عمومي وخدمات رقمية إدارية">كاتب عمومي وخدمات رقمية إدارية</option>
-                        </optgroup>
-
                         <optgroup label="أخرى">
                             <option value="OTHER">حرفة أو خدمة أخرى (اكتبها يدوياً)</option>
                         </optgroup>
                     </select>
                 </div>
 
-                <!-- حقل إضافي يظهر فقط إذا اخترت "حرفة أخرى" -->
+                <!-- حقل إضافي يظهر فقط عند اختيار "أخرى" -->
                 <div class="form-group" id="customCraftGroup" style="display: none;">
                     <label for="customCraftInput">حدد الحرفة أو الخدمة يدوياً:</label>
                     <input type="text" id="customCraftInput" placeholder="اكتب اسم حرفتك أو خدمتك بدقة هنا...">
                 </div>
 
+                <!-- قائمة البلديات المحدثة (شاملة إنقوسة والبرمة) -->
                 <div class="form-group">
                     <label for="municipality">البلدية (ولاية ورقلة):</label>
                     <select id="municipality" required>
