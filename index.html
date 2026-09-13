@@ -139,6 +139,8 @@
                     <option value="سيدي خويلد">سيدي خويلد</option>
                     <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
                     <option value="عين البيضاء">عين البيضاء</option>
+                    <option value="إنقوسة">إنقوسة</option>
+                    <option value="البرمة">البرمة</option>
                 </select>
             </div>
 
@@ -156,9 +158,58 @@
                     <input type="text" id="artisanName" required placeholder="أدخل اسمك الكامل">
                 </div>
 
+                <!-- قائمة الحرف المجزأة والمبوبة -->
                 <div class="form-group">
-                    <label for="craftType">الحرفة أو مجال الخدمة:</label>
-                    <input type="text" id="craftType" required placeholder="اكتب حرفتك أو خدمتك بالتفصيل (مثل: سباك، كهربائي...)">
+                    <label for="craftTypeSelect">الحرفة أو مجال الخدمة:</label>
+                    <select id="craftTypeSelect" required onchange="handleCraftSelection()">
+                        <option value="">-- اختر تخصصك أو حرفتك --</option>
+                        
+                        <optgroup label="الصيانة المنزلية والتركيبات">
+                            <option value="سباك ومركب قنوات (Plombier)">سباك ومركب قنوات</option>
+                            <option value="كهربائي معماري وصناعي (Électricien)">كهربائي معماري وصناعي</option>
+                            <option value="فني مكيفات وتبريد (Climatiseur)">فني مكيفات وتبريد</option>
+                            <option value="مركب كاميرات مراقبة وأجهزة أمنية">مركب كاميرات مراقبة وأجهزة أمنية</option>
+                            <option value="فني شبكات إنترنت وستالايت (Parabole)">فني شبكات إنترنت وستالايت</option>
+                            <option value="صيانة أهرام الأجهزة الكهرومنزلية">صيانة الأجهزة الكهرومنزلية</option>
+                        </optgroup>
+
+                        <optgroup label="البناء، التشطيب والدهان">
+                            <option value="بناء وعمال ورشات بناء">بناء وعمال ورشات بناء</option>
+                            <option value="دهان وصباغ منازل وديكور (Peintre)">دهان وصباغ منازل وديكور</option>
+                            <option value="مركب بلاط وفايونس (Carreleur)">مركب بلاط وفايونس</option>
+                            <option value="جباص ومركب ديكورات الأسقف (Plaquiste / Plâtre)">جباص ومركب ديكورات الأسقف</option>
+                            <option value="نجار أثاث وخشب (Menuisier)">نجار أثاث وخشب</option>
+                            <option value="حداد ومصمم أبواب ونوافذ حديدية (Serrurier / Forgeron)">حداد ومصمم أبواب ونوافذ حديدية</option>
+                            <option value="عازل مائي و حراري للأسطح">عازل مائي وحراري للأسطح</option>
+                        </optgroup>
+
+                        <optgroup label="الخدمات والنقل">
+                            <option value="سائق نقل مركب / نقل بضائع وأثاث (Déménagement)">سائق نقل بضائع وأثاث</option>
+                            <option value="خدمات التنظيف الشامل للمنازل والمكاتب">خدمات التنظيف الشامل للمنازل والمكاتب</option>
+                            <option value="بستاني ومصمم حدائق منزلية">بستاني ومصمم حدائق منزلية</option>
+                        </optgroup>
+
+                        <optgroup label="الحرف التقليدية والفنون">
+                            <option value="خياط ومصمم أزياء تقليدية وعصرية">خياط ومصمم أزياء تقليدية وعصرية</option>
+                            <option value="صانع حلويات تقليدية ومأكولات للحفلات">صانع حلويات تقليدية ومأكولات للحفلات</option>
+                            <option value="حرفي في الصناعات التقليدية والفخار والزخرفة">حرفي في الصناعات التقليدية والفخار والزخرفة</option>
+                        </optgroup>
+
+                        <optgroup label="الخدمات الرقمية والمكتبية">
+                            <option value="مصمم غرافيك ومطور مواقع واجهات">مصمم غرافيك ومطور مواقع واجهات</option>
+                            <option value="كاتب عمومي وخدمات رقمية إدارية">كاتب عمومي وخدمات رقمية إدارية</option>
+                        </optgroup>
+
+                        <optgroup label="أخرى">
+                            <option value="OTHER">حرفة أو خدمة أخرى (اكتبها يدوياً)</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <!-- حقل إضافي يظهر فقط إذا اخترت "حرفة أخرى" -->
+                <div class="form-group" id="customCraftGroup" style="display: none;">
+                    <label for="customCraftInput">حدد الحرفة أو الخدمة يدوياً:</label>
+                    <input type="text" id="customCraftInput" placeholder="اكتب اسم حرفتك أو خدمتك بدقة هنا...">
                 </div>
 
                 <div class="form-group">
@@ -171,6 +222,8 @@
                         <option value="سيدي خويلد">سيدي خويلد</option>
                         <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
                         <option value="عين البيضاء">عين البيضاء</option>
+                        <option value="إنقوسة">إنقوسة</option>
+                        <option value="البرمة">البرمة</option>
                         <option value="بلدية أخرى / مجاورة">بلدية أخرى / مجاورة</option>
                     </select>
                 </div>
@@ -237,14 +290,33 @@
         let allArtisansData = []; 
 
         const minbarList = [
+            /* النصوص الدينية النبوية والقرآنية */
             { text: "«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»", source: "رواه البيهقي" },
             { text: "«مَنْ عَمِلَ مِنْكُمْ عَمَلاً فَلْيُتْقِنْهُ، فَإِنَّ ذَلِكَ مِنْ حُسْنِ الْعَمَلِ.»", source: "توجيه نبوي شريف" },
             { text: "«يَا دَاوُدُ إِنَّا جَعَلْنَاكَ خَلِيفَةً فِي الْأَرْضِ فَاحْكُم بَيْنَ النَّاسِ بِالْحَقِّ وَلَا تَتَّبِعِ الْهَوَى»", source: "سورة ص - الآية 26" },
             { text: "«وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ»", source: "سورة التوبة - الآية 105" },
-            { text: "أتقن عملك مهما كان صغيراً، فالإتقان عنوان الأمانة وصانع السمعة الطيبة.", source: "حكمة الحرفيين" },
             { text: "«مَنْ أَكَلَ مِنْ كَدِّ يَدِهِ حَلَالاً، كُتِبَ لَهُ جِوَازاً عَلَى الصِّرَاطِ.»", source: "حديث شريف في فضل العمل اليدوي" },
+            { text: "«إِنَّ خَيْرَ مَنِ اسْتَأْجَرْتَ الْقَوِيُّ الْأَمِينُ»", source: "سورة القصص - الآية 26" },
+            { text: "«لَأَنْ يَأْخُذَ أَحَدُكُمْ حُبْلَهُ فَيَأْتِيَ بِحُزْمَةِ الْحَطَبِ عَلَى ظَهْرِهِ فَيَبِيعَهَا... خَيْرٌ لَهُ مِنْ أَنْ يَسْأَلَ النَّاسَ»", source: "رواه البخاري" },
+            { text: "«مَنْ سَعَى عَلَى عِيَالِهِ كَالمُجَاهِدِ فِي سَبِيلِ اللهِ.»", source: "حديث شريف في فضل السعي والعمل" },
+            { text: "«وَجَعَلْنَا النَّهَارَ مَعَاشاً»", source: "سورة النبأ - الآية 11" },
+
+            /* الحكم والحكم المحلية */
+            { text: "أتقن عملك مهما كان صغيراً، فالإتقان عنوان الأمانة وصانع السمعة الطيبة.", source: "حكمة الحرفيين" },
             { text: "الصدق في المعاملة والإتقان في الصنعة هما رأس مال الحرفي الحقيقي.", source: "دروس من التراث المهني" },
-            { text: "«إِنَّ خَيْرَ مَنِ اسْتَأْجَرْتَ الْقَوِيُّ الْأَمِينُ»", source: "سورة القصص - الآية 26" }
+            { text: "«مَاضِي النَّهَارِ فِي طَلَبِ الرِّزْقِ الْحَلَالِ عِبَادَةٌ تُقَرِّبُ إِلَى اللهِ.»", source: "من توجيهات السلف الصالح" },
+            { text: "الصنعة في كف صاحبها غنى عن الناس، وتاجٌ للعز لا يزول.", source: "أمثال وحكم الحرفيين" },
+            { text: "اليد المهنية المتقنة تبني الأوطان وتصنع الاستقرار في المجتمع.", source: "رؤية تنموية محلية" },
+            { text: "احرص على أمانة الزبون، فالسمعة الطيبة أثمن من المال وأدوم أثراً.", source: "ميثاق العمل الحرفي" },
+
+            /* الأقوال والحكم العالمية والصينية الشهيرة */
+            { text: "«رحلة الألف ميل تبدأ بخطوة واحدة.»", source: "مثل صيني شهير" },
+            { text: "«لا تقم بإصلاح ما لم يُكسر، ولكن إن صنعت شيئاً فاصنعه ليدوم للأبد.»", source: "حكمة حرفية صينية تقليدية" },
+            { text: "«المعلم يفتح الباب، لكن عليك أن تدخل بنفسك لتتقن الصنعة.»", source: "مثل صيني قديم" },
+            { text: "«من يملك حرفةً في يده، لا يموت من الجوع أبداً أينما حلّ.»", source: "حكمة عالمية في فضل العمل" },
+            { text: "«العمل الجيد يتحدث عن صاحبه قبل أن ينطق لسانه.»", source: "مثل شعبي عالمي" },
+            { text: "«الحديد يُطرق وهو ساخن، والصنعة تُتعلم في الشباب.»", source: "من التراث والحكم الشعبية" },
+            { text: "«لا تكتفِ بأن تعمل جيداً، بل اجعل عملك يُلهم الآخرين.»", source: "فلسفة الجودة المهنية" }
         ];
 
         function initDailyContent() {
@@ -269,6 +341,22 @@
             const selectedQuote = minbarList[dayOfYear % minbarList.length];
             document.getElementById('dailyQuote').textContent = selectedQuote.text;
             document.getElementById('quoteSource').textContent = selectedQuote.source;
+        }
+
+        // إظهار حقل الإدخال اليدوي عند اختيار "أخرى"
+        function handleCraftSelection() {
+            const selectElem = document.getElementById('craftTypeSelect');
+            const customGroup = document.getElementById('customCraftGroup');
+            const customInput = document.getElementById('customCraftInput');
+
+            if (selectElem.value === 'OTHER') {
+                customGroup.style.display = 'block';
+                customInput.setAttribute('required', 'true');
+            } else {
+                customGroup.style.display = 'none';
+                customInput.removeAttribute('required');
+                customInput.value = '';
+            }
         }
 
         async function loadArtisans() {
@@ -361,9 +449,16 @@
             e.preventDefault();
             const alertBox = document.getElementById('artisanAlert');
 
+            const selectElem = document.getElementById('craftTypeSelect');
+            let finalCraftType = selectElem.value;
+
+            if (finalCraftType === 'OTHER') {
+                finalCraftType = document.getElementById('customCraftInput').value.trim();
+            }
+
             const { error } = await _supabase.from('artisans').insert([{ 
                 full_name: document.getElementById('artisanName').value, 
-                craft_type: document.getElementById('craftType').value, 
+                craft_type: finalCraftType, 
                 municipality: document.getElementById('municipality').value, 
                 phone: document.getElementById('artisanPhone').value, 
                 working_hours: document.getElementById('workingHours').value, 
@@ -380,6 +475,7 @@
                 alertBox.className = 'alert success';
                 alertBox.style.display = 'block';
                 document.getElementById('artisanForm').reset();
+                document.getElementById('customCraftGroup').style.display = 'none';
                 loadArtisans();
             }
         });
