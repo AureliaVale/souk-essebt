@@ -40,7 +40,7 @@
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             color: white;
-            padding: 14px 24px;
+            padding: 12px 24px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -59,13 +59,35 @@
         }
 
         .nav-brand {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 900;
             color: var(--accent);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .brand-logo {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: white;
+            padding: 2px;
+            border: 2px solid var(--accent);
+        }
+
+        .hero-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin: 0 auto 15px auto;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 3px solid var(--accent);
         }
 
         .nav-links {
@@ -112,7 +134,7 @@
         header.hero h1 {
             font-size: 2.2rem;
             font-weight: 900;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             letter-spacing: -0.5px;
         }
 
@@ -143,7 +165,6 @@
             padding: 25px 30px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             border: 1px solid var(--border-color);
-            transition: transform 0.2s ease;
         }
 
         .section-title {
@@ -245,7 +266,6 @@
             padding: 20px;
             margin-bottom: 15px;
             transition: all 0.2s ease;
-            position: relative;
         }
 
         .artisan-card:hover {
@@ -304,9 +324,9 @@
             background: #2563eb;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 9px 18px;
             border-radius: 10px;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             font-weight: 700;
             cursor: pointer;
             transition: background 0.2s;
@@ -400,12 +420,6 @@
             padding: 25px;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            animation: modalPop 0.3s ease;
-        }
-
-        @keyframes modalPop {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
         }
 
         .modal-snippet {
@@ -444,11 +458,12 @@
 </head>
 <body>
 
-    <!-- شريط التنقل العلوي -->
+    <!-- شريط التنقل العلوي مع الشعار الأصلي -->
     <nav>
         <div class="nav-container">
             <a href="#" class="nav-brand">
-                <span>🛒</span> سوق السبت - بيت الحرفي
+                <img src="soukessebt.logo.png" alt="شعار سوق السبت" class="brand-logo">
+                <span>سوق السبت - بيت الحرفي</span>
             </a>
             <ul class="nav-links">
                 <li><a href="#about">من نحن</a></li>
@@ -462,10 +477,11 @@
     <!-- المحتوى الرئيسي -->
     <main>
 
-        <!-- الهيدر الرئيسي -->
+        <!-- الهيدر الرئيسي مع الشعار الأصلي البارز -->
         <header class="hero">
+            <img src="soukessebt.logo.png" alt="شعار سوق السبت" class="hero-logo">
             <span class="badge-top">المنصة المحلية الأولى ورقلة</span>
-            <h1>منصة سوق السبت الرقمية</h1>
+            <h1>سوق السبت (SoukEssebt)</h1>
             <p>بيت الحرفي والخدمات الموثوقة - ولاية ورقلة والمناطق المجاورة</p>
         </header>
 
@@ -489,14 +505,14 @@
             </p>
         </section>
 
-        <!-- دليل الحرفيين (مع شريط البحث والفلاتر) -->
+        <!-- دليل الحرفيين (مع شريط البحث والفلاتر المحدثة) -->
         <section id="artisans-section">
             <div class="section-title">
                 <span>🛠️ دليل الحرفيين المسجلين</span>
                 <span id="artisansCount" style="font-size: 0.75rem; background: #ecfdf5; color: #047857; padding: 4px 12px; border-radius: 50px;">جاري التحميل...</span>
             </div>
 
-            <!-- شريط البحث والفلترة -->
+            <!-- شريط البحث والفلترة (تمت إضافة خيار أخرى هنا أيضاً) -->
             <div class="search-filter-bar">
                 <input type="text" id="searchKeyword" placeholder="🔍 اكتب اسم الحرفي أو الخدمة للبحث السريع..." onkeyup="filterArtisans()">
                 
@@ -535,6 +551,9 @@
                     <optgroup label="الحرف التقليدية والفنون">
                         <option value="خياط ومصمم أزياء تقليدية وعصرية">خياط ومصمم أزياء تقليدية وعصرية</option>
                         <option value="صانع حلويات تقليدية ومأكولات للحفلات">صانع حلويات تقليدية ومأكولات للحفلات</option>
+                    </optgroup>
+                    <optgroup label="أخرى">
+                        <option value="OTHER">حرفة أو خدمة أخرى</option>
                     </optgroup>
                 </select>
 
@@ -681,7 +700,7 @@
 
     </main>
 
-    <!-- النافذة المنبثقة للتقييم والنسخ الآلي -->
+    <!-- النافذة المنبثقة للتقييم والنسخ الآلي المضمون -->
     <div id="reviewModal" class="modal-overlay">
         <div class="modal-box">
             <h4 style="font-weight: 900; color: #1e293b; margin-bottom: 8px; font-size: 1.1rem;">⭐ تقييم الحرفي</h4>
@@ -706,7 +725,7 @@
         <p style="margin-top: 5px; color: #64748b;">جميع الحقوق محفوظة &copy; 2026 soukessebt.com</p>
     </footer>
 
-    <!-- السكريبت البرمجي وقاعدة البيانات -->
+    <!-- السكريبت البرمجي المعدل -->
     <script>
         const SUPABASE_URL = 'https://blrlmuhmcdkgkadoiiek.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_BjYF0eefuKqruas3QJqbNQ_MsUEKNCz';
@@ -832,7 +851,19 @@
                 const mun = artisan.municipality || '';
 
                 const matchesKeyword = !keyword || name.includes(keyword) || craft.toLowerCase().includes(keyword) || bio.includes(keyword);
-                const matchesCraft = !selectedCraft || craft === selectedCraft;
+                
+                // مطابقة الحرفة مع مراعاة خيار "أخرى"
+                let matchesCraft = true;
+                if (selectedCraft) {
+                    if (selectedCraft === 'OTHER') {
+                        // إذا اختار الزبون "أخرى"، نتحقق هل الحرفي لديه تخصص غير موجود في القوائم الافتراضية المعتادة
+                        const standardCrafts = ['سباك ومركب قنوات (Plombier)', 'كهربائي معماري وصناعي (Électricien)', 'فني مكيفات وتبريد (Climatiseur)', 'مركب كاميرات مراقبة وأجهزة أمنية', 'فني شبكات إنترنت وستالايت', 'صيانة الأجهزة الكهرومنزلية', 'بناء وعمال ورشات بناء', 'دهان وصباغ منازل وديكور', 'مركب بلاط وفايونس', 'جباص ومركب ديكورات الأسقف', 'نجار أثاث وخشب', 'حداد ومصمم أبواب ونوافذ حديدية', 'عازل مائي و حراري للأسطح', 'مطور ومصمم مواقع إنترنت وإستضافة', 'مصمم غرافيك وإعلانات رقمية', 'خبير تسويق إلكتروني وإدارة منصات', 'خدمات الطباعة، النسخ والتصوير', 'كاتب عمومي وخدمات إدارية ورقمية', 'سائق نقل بضائع وأثاث', 'خدمات التنظيف الشامل للمنازل والمكاتب', 'خياط ومصمم أزياء تقليدية وعصرية', 'صانع حلويات تقليدية ومأكولات للحفلات'];
+                        matchesCraft = !standardCrafts.includes(craft);
+                    } else {
+                        matchesCraft = craft === selectedCraft;
+                    }
+                }
+
                 const matchesMunicipality = !municipality || mun === municipality;
 
                 return matchesKeyword && matchesCraft && matchesMunicipality;
@@ -898,14 +929,37 @@
         }
 
         function copyReviewSnippet() {
-            const text = document.getElementById('reviewTextSnippet').innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                alert('تم نسخ تفاصيل الحرفي بنجاح! سيتم تحويلك لصفحة الفيسبوك.');
-                closeReviewModal();
-                window.open('https://www.facebook.com/profile.php?id=61593982874509', '_blank');
-            }).catch(() => {
-                window.open('https://www.facebook.com/profile.php?id=61593982874509', '_blank');
-            });
+            const snippetElem = document.getElementById('reviewTextSnippet');
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(snippetElem.innerText).then(() => {
+                    alert('تم نسخ تفاصيل الحرفي بنجاح! سيتم تحويلك الآن لصفحة الفيسبوك.');
+                    closeReviewModal();
+                    window.open('https://www.facebook.com/profile.php?id=61593982874509', '_blank');
+                }).catch(() => {
+                    execFallbackCopy(snippetElem.innerText);
+                });
+            } else {
+                execFallbackCopy(snippetElem.innerText);
+            }
+        }
+
+        function execFallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                alert('تم نسخ تفاصيل الحرفي بنجاح!');
+            } catch (err) {
+                console.error('فشل النسخ التلقائي', err);
+            }
+            document.body.removeChild(textArea);
+            closeReviewModal();
+            window.open('https://www.facebook.com/profile.php?id=61593982874509', '_blank');
         }
 
         window.onload = () => {
