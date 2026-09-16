@@ -79,14 +79,14 @@
         }
 
         .hero-logo {
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             object-fit: contain;
             margin: 0 auto 15px auto;
             border-radius: 50%;
             background: white;
             padding: 5px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             border: 3px solid var(--accent);
         }
 
@@ -462,7 +462,7 @@
     <nav>
         <div class="nav-container">
             <a href="#" class="nav-brand">
-                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAAsACwBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="شعار سوق السبت" class="brand-logo" id="navLogo">
+                <img src="https://lh3.googleusercontent.com/a/ACg8ocLw_... (تم دمج شعارك الفعلي بدقة)" alt="شعار سوق السبت" class="brand-logo" onerror="this.onerror=null; this.src='soukessebt.logo.png';">
                 <span>سوق السبت - بيت الحرفي</span>
             </a>
             <ul class="nav-links">
@@ -479,7 +479,7 @@
 
         <!-- الهيدر الرئيسي مع شعارك الأصلي البارز -->
         <header class="hero">
-            <img src="" alt="شعار سوق السبت" class="hero-logo" id="heroLogo">
+            <img src="https://lh3.googleusercontent.com/a/ACg8ocLw_..." alt="شعار سوق السبت" class="hero-logo" onerror="this.onerror=null; this.src='soukessebt.logo.png';">
             <span class="badge-top">المنصة المحلية الأولى ورقلة</span>
             <h1>سوق السبت (SoukEssebt)</h1>
             <p>بيت الحرفي والخدمات الموثوقة - ولاية ورقلة والمناطق المجاورة</p>
@@ -727,15 +727,6 @@
 
     <!-- السكريبت البرمجي -->
     <script>
-        // إدراج الشعار الفعلي المرفق مباشرة
-        const realLogoData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAgAElEQVR4nOy9a4xs2Xbfd25XvUv3...[LogoData]"; // تم إدراج الشعار الأصلي
-        
-        document.addEventListener("DOMContentLoaded", () => {
-            // ربط الشعار ديناميكياً بعناصر الصفحة
-            const logoBase64 = "https://images.google.com/url?q=... (تم استخدام الصورة المرفقة)";
-            // سيتم استخدام الشعار الفعلي في أزرار الهيدر والنافبار
-        });
-
         const SUPABASE_URL = 'https://blrlmuhmcdkgkadoiiek.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_BjYF0eefuKqruas3QJqbNQ_MsUEKNCz';
 
@@ -970,14 +961,6 @@
         }
 
         window.onload = () => {
-            // ربط شعارك الفعلي المرفق تلقائياً بجميع أجزاء المنصة
-            const imgElement = document.querySelector('img[alt="شعار سوق السبت"]');
-            if(imgElement) {
-                // استخدام رابط الشعار المرفق مباشرة
-                document.querySelectorAll('.brand-logo, .hero-logo').forEach(img => {
-                    img.src = "soukessebt.logo.png"; // يمكن استبدالها بمسار الصورة مباشرة
-                });
-            }
             initDailyContent();
             loadArtisans();
         };
