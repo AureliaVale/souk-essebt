@@ -7,6 +7,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body {
             font-family: 'Cairo', sans-serif;
@@ -35,36 +36,94 @@
     <!-- المحتوى الرئيسي الأصلي -->
     <main class="max-w-4xl mx-auto px-4 py-6 w-full space-y-6">
 
-        <!-- منبر الحرفي اليومي / أو نبذة عن المنصة -->
-        <section class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-2xl p-6 shadow-md text-center">
-            <h2 class="text-2xl font-bold mb-2">منصة سوق السبت المحلية</h2>
-            <p class="text-emerald-100 text-sm max-w-xl mx-auto">دليلك الموثوق للبحث عن أفضل الحرفيين والتقنيين في ولاية ورقلة، نغوسة، والبرمة.</p>
+        <!-- ================= منبر الحرفي اليومي مع التاريخ ================= -->
+        <section class="bg-white border border-slate-100 border-r-4 border-r-emerald-600 rounded-2xl p-6 shadow-sm">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-3 pb-3 border-b border-slate-100">
+                <span class="inline-block text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1 rounded-full">منبر الحرفي اليومي</span>
+                <div id="todayDate" class="text-xs text-slate-500 font-semibold bg-slate-50 px-3 py-1 rounded-full border border-slate-200">جاري تحميل التاريخ...</div>
+            </div>
+            <div class="text-center py-2">
+                <blockquote id="dailyQuote" class="text-base sm:text-lg font-bold text-slate-800 mb-2 leading-relaxed">«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»</blockquote>
+                <p id="quoteSource" class="text-xs text-slate-400">رواه البيهقي</p>
+            </div>
         </section>
 
-        <!-- ================= دليل الحرفيين (القسم الرئيسي الأصلي) ================= -->
+        <!-- ================= قسم من نحن ================= -->
         <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                <span>🛠️</span> دليل الحرفيين والتقنيين
+            <h3 class="text-lg font-bold text-slate-800 mb-3">من نحن</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                منصة <strong>سوق السبت (بيت الحرفي)</strong> هي مساحة رقمية مخصصة لربط الحرفيين وأصحاب المهن الحرة والخدمات بالزبائن والباحثين عن الجودة والإتقان في ولاية ورقلة. هدفنا هو تسهيل الوصول إلى الخدمات المحلية الموثوقة، دعم المواهب والحرف التقليدية والعصرية، وخلق بيئة شفافة قائمة على تقييمات التجارب الحقيقية للزبائن.
+            </p>
+        </section>
+
+        <!-- ================= دليل الحرفيين (متصل بقاعدة البيانات) ================= -->
+        <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">🛠️ دليل الحرفيين والتقنيين</span>
+                <span id="artisansCount" class="text-xs font-normal text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">جاري التحميل...</span>
             </h3>
+
+            <!-- شريط البحث والفلترة المتقدمة (بالحرف والبلديات) -->
+            <div class="mb-4 flex flex-col sm:flex-row gap-2">
+                <input type="text" id="searchKeyword" placeholder="🔍 ابحث بالاسم أو الكلمات المفتاحية..." onkeyup="filterArtisans()" class="flex-1 p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500">
+                
+                <!-- قائمة منسدلة لتصفية الحرف في البحث -->
+                <select id="filterCraft" onchange="filterArtisans()" class="flex-1 p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-700">
+                    <option value="">-- كل الحرف والخدمات --</option>
+                    <optgroup label="الصيانة المنزلية والتركيبات">
+                        <option value="سباك ومركب قنوات (Plombier)">سباك ومركب قنوات</option>
+                        <option value="كهربائي معماري وصناعي (Électricien)">كهربائي معماري وصناعي</option>
+                        <option value="فني مكيفات وتبريد (Climatiseur)">فني مكيفات وتبريد</option>
+                        <option value="مركب كاميرات مراقبة وأجهزة أمنية">مركب كاميرات مراقبة وأجهزة أمنية</option>
+                        <option value="فني شبكات إنترنت وستالايت">فني شبكات إنترنت وستالايت</option>
+                        <option value="صيانة الأجهزة الكهرومنزلية">صيانة الأجهزة الكهرومنزلية</option>
+                    </optgroup>
+                    <optgroup label="البناء، التشطيب والدهان">
+                        <option value="بناء وعمال ورشات بناء">بناء وعمال ورشات بناء</option>
+                        <option value="دهان وصباغ منازل وديكور">دهان وصباغ منازل وديكور</option>
+                        <option value="مركب بلاط وفايونس">مركب بلاط وفايونس</option>
+                        <option value="جباص ومركب ديكورات الأسقف">جباص ومركب ديكورات الأسقف</option>
+                        <option value="نجار أثاث وخشب">نجار أثاث وخشب</option>
+                        <option value="حداد ومصمم أبواب ونوافذ حديدية">حداد ومصمم أبواب ونوافذ حديدية</option>
+                        <option value="عازل مائي و حراري للأسطح">عازل مائي وحراري للأسطح</option>
+                    </optgroup>
+                    <optgroup label="الخدمات الرقمية وتطوير الويب">
+                        <option value="مطور ومصمم مواقع إنترنت وإستضافة">مطور ومصمم مواقع إنترنت وإستضافة</option>
+                        <option value="مصمم غرافيك وإعلانات رقمية">مصمم غرافيك وإعلانات رقمية</option>
+                        <option value="خبير تسويق إلكتروني وإدارة منصات">خبير تسويق إلكتروني وإدارة منصات</option>
+                    </optgroup>
+                    <optgroup label="الطباعة، التصوير والخدمات المكتبية">
+                        <option value="خدمات الطباعة، النسخ والتصوير">خدمات الطباعة، النسخ والتصوير</option>
+                        <option value="كاتب عمومي وخدمات إدارية ورقمية">كاتب عمومي وخدمات إدارية ورقمية</option>
+                    </optgroup>
+                    <optgroup label="الخدمات والنقل">
+                        <option value="سائق نقل بضائع وأثاث">سائق نقل بضائع وأثاث</option>
+                        <option value="خدمات التنظيف الشامل للمنازل والمكاتب">خدمات التنظيف الشامل للمنازل والمكاتب</option>
+                    </optgroup>
+                    <optgroup label="الحرف التقليدية والفنون">
+                        <option value="خياط ومصمم أزياء تقليدية وعصرية">خياط ومصمم أزياء تقليدية وعصرية</option>
+                        <option value="صانع حلويات تقليدية ومأكولات للحفلات">صانع حلويات تقليدية ومأكولات للحفلات</option>
+                    </optgroup>
+                </select>
+
+                <!-- قائمة منسدلة لتصفية البلديات في البحث -->
+                <select id="filterMunicipality" onchange="filterArtisans()" class="sm:w-44 p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-700">
+                    <option value="">-- كل البلديات --</option>
+                    <option value="ورقلة">ورقلة</option>
+                    <option value="حاسي مسعود">حاسي مسعود</option>
+                    <option value="الرويسات">الرويسات</option>
+                    <option value="سيدي خويلد">سيدي خويلد</option>
+                    <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
+                    <option value="عين البيضاء">عين البيضاء</option>
+                    <option value="إنقوسة">إنقوسة</option>
+                    <option value="البرمة">البرمة</option>
+                    <option value="بلدية أخرى / مجاورة">بلدية أخرى / مجاورة</option>
+                </select>
+            </div>
             
-            <!-- نموذج لحرفي مع زر التقييم للنسخ واللصق الآلي فقط -->
-            <div id="artisansList" class="space-y-3">
-                <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                    <div>
-                        <h4 class="font-bold text-slate-800 text-base">محمد التواتي</h4>
-                        <p class="text-xs text-emerald-600 font-semibold">ترصيص صحي وتدفئة (السباكة)</p>
-                        <p class="text-xs text-slate-500 mt-1">📍 ورقلة - حي ناصر</p>
-                    </div>
-                    <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <a href="tel:0600000000" class="flex-1 sm:flex-none text-center bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-xs font-bold px-3 py-2 rounded-lg transition">
-                            📞 اتصال
-                        </a>
-                        <!-- زر التقييم المحدث مع بطاقة النسخ واللصق الآلي -->
-                        <button onclick="openReviewModal('محمد التواتي', 'ترصيص صحي وتدفئة')" class="flex-1 sm:flex-none text-center bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-bold px-3 py-2 rounded-lg transition">
-                            ⭐ تقييم الحرفي
-                        </button>
-                    </div>
-                </div>
+            <!-- قائمة الحرفيين الحقيقية -->
+            <div id="artisansContainer" class="space-y-3">
+                <p class="text-xs text-slate-500 text-center py-4">جاري جلب قائمة الحرفيين المسجلين...</p>
             </div>
         </section>
 
@@ -72,8 +131,100 @@
         <section id="registerSection" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
             <h3 class="text-lg font-bold text-slate-800 mb-3">+ سجل حرفتك في الدليل</h3>
             <p class="text-xs text-slate-500 mb-4">انضم إلى مجتمع الحرفيين في سوق السبت لتصل إلى زبائن جدد.</p>
-            <div class="text-center py-2 bg-slate-50 rounded-lg text-xs text-slate-600">
-                استمارة تسجيل الحرفيين نشطة ومستقرة.
+            
+            <form id="artisanForm" onsubmit="handleRegistration(event)" class="space-y-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">الاسم الكامل:</label>
+                        <input type="text" id="regName" placeholder="أدخل اسمك الكامل" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">رقم الهاتف:</label>
+                        <input type="tel" id="regPhone" placeholder="رقم الهاتف للتواصل" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <!-- القائمة المنسدلة للحرف عند التسجيل -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">الحرفة أو مجال الخدمة:</label>
+                        <select id="regCraft" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-700">
+                            <option value="">-- اختر تخصصك أو حرفتك --</option>
+                            <optgroup label="الصيانة المنزلية والتركيبات">
+                                <option value="سباك ومركب قنوات (Plombier)">سباك ومركب قنوات</option>
+                                <option value="كهربائي معماري وصناعي (Électricien)">كهربائي معماري وصناعي</option>
+                                <option value="فني مكيفات وتبريد (Climatiseur)">فني مكيفات وتبريد</option>
+                                <option value="مركب كاميرات مراقبة وأجهزة أمنية">مركب كاميرات مراقبة وأجهزة أمنية</option>
+                                <option value="فني شبكات إنترنت وستالايت">فني شبكات إنترنت وستالايت</option>
+                                <option value="صيانة الأجهزة الكهرومنزلية">صيانة الأجهزة الكهرومنزلية</option>
+                            </optgroup>
+                            <optgroup label="البناء، التشطيب والدهان">
+                                <option value="بناء وعمال ورشات بناء">بناء وعمال ورشات بناء</option>
+                                <option value="دهان وصباغ منازل وديكور">دهان وصباغ منازل وديكور</option>
+                                <option value="مركب بلاط وفايونس">مركب بلاط وفايونس</option>
+                                <option value="جباص ومركب ديكورات الأسقف">جباص ومركب ديكورات الأسقف</option>
+                                <option value="نجار أثاث وخشب">نجار أثاث وخشب</option>
+                                <option value="حداد ومصمم أبواب ونوافذ حديدية">حداد ومصمم أبواب ونوافذ حديدية</option>
+                                <option value="عازل مائي و حراري للأسطح">عازل مائي وحراري للأسطح</option>
+                            </optgroup>
+                            <optgroup label="الخدمات الرقمية وتطوير الويب">
+                                <option value="مطور ومصمم مواقع إنترنت وإستضافة">مطور ومصمم مواقع إنترنت وإستضافة</option>
+                                <option value="مصمم غرافيك وإعلانات رقمية">مصمم غرافيك وإعلانات رقمية</option>
+                                <option value="خبير تسويق إلكتروني وإدارة منصات">خبير تسويق إلكتروني وإدارة منصات</option>
+                            </optgroup>
+                            <optgroup label="الطباعة، التصوير والخدمات المكتبية">
+                                <option value="خدمات الطباعة، النسخ والتصوير">خدمات الطباعة، النسخ والتصوير</option>
+                                <option value="كاتب عمومي وخدمات إدارية ورقمية">كاتب عمومي وخدمات إدارية ورقمية</option>
+                            </optgroup>
+                            <optgroup label="الخدمات والنقل">
+                                <option value="سائق نقل بضائع وأثاث">سائق نقل بضائع وأثاث</option>
+                                <option value="خدمات التنظيف الشامل للمنازل والمكاتب">خدمات التنظيف الشامل للمنازل والمكاتب</option>
+                            </optgroup>
+                            <optgroup label="الحرف التقليدية والفنون">
+                                <option value="خياط ومصمم أزياء تقليدية وعصرية">خياط ومصمم أزياء تقليدية وعصرية</option>
+                                <option value="صانع حلويات تقليدية ومأكولات للحفلات">صانع حلويات تقليدية ومأكولات للحفلات</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- القائمة المنسدلة للبلديات عند التسجيل -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">البلدية (ولاية ورقلة):</label>
+                        <select id="regMunicipality" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-700">
+                            <option value="">-- اختر البلدية --</option>
+                            <option value="ورقلة">ورقلة</option>
+                            <option value="حاسي مسعود">حاسي مسعود</option>
+                            <option value="الرويسات">الرويسات</option>
+                            <option value="سيدي خويلد">سيدي خويلد</option>
+                            <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
+                            <option value="عين البيضاء">عين البيضاء</option>
+                            <option value="إنقوسة">إنقوسة</option>
+                            <option value="البرمة">البرمة</option>
+                            <option value="بلدية أخرى / مجاورة">بلدية أخرى / مجاورة</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-xs transition shadow-sm mt-2">
+                    إرسال التسجيل وإضافته للدليل
+                </button>
+                <div id="formAlert" class="text-center text-xs mt-2 hidden"></div>
+            </form>
+        </section>
+
+        <!-- ================= اتصل بنا ================= -->
+        <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-3">
+            <h3 class="text-lg font-bold text-slate-800">اتصل بنا</h3>
+            <div class="text-xs sm:text-sm text-slate-600 space-y-2">
+                <p>📍 <strong>العنوان:</strong> ولاية ورقلة، الجزائر.</p>
+                <p>🌐 <strong>الموقع الرسمي:</strong> <a href="https://soukessebt.com" target="_blank" class="text-emerald-600 hover:underline">soukessebt.com</a></p>
+                <p>📞 <strong>رقم التواصل:</strong> <a href="tel:0673888939" class="text-emerald-600 hover:underline font-bold" dir="ltr">0673888939</a></p>
+                <p class="pt-2">لاستفساراتكم واقتراحاتكم يسعدنا تواصلكم عبر صفحتنا الرسمية على الفيسبوك:</p>
+                <div>
+                    <a href="https://www.facebook.com/profile.php?id=61593982874509" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-xl text-xs transition shadow-sm">
+                        <span>زيارة صفحتنا الرسمية على الفيسبوك</span>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -90,8 +241,9 @@
             </div>
 
             <div class="flex gap-2">
+                <!-- زر النسخ والتحويل التلقائي لصفحة الفيسبوك -->
                 <button onclick="copyReviewSnippet()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-lg text-xs transition">
-                    📋 نسخ النص
+                    📋 نسخ الانتقال للفيسبوك
                 </button>
                 <button onclick="closeReviewModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-4 rounded-lg text-xs transition">
                     إغلاق
@@ -105,8 +257,150 @@
         جميع الحقوق محفوظة © سوق السبت (SoukEssebt) 2026
     </footer>
 
-    <!-- السكريبت البرمجي الخاص ببطاقة التقييم فقط -->
+    <!-- السكريبت البرمجي المتكامل -->
     <script>
+        const SUPABASE_URL = 'https://blrlmuhmcdkgkadoiiek.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_BjYF0eefuKqruas3QJqbNQ_MsUEKNCz';
+
+        const { createClient } = supabase;
+        const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let globalArtisansList = [];
+
+        const minbarList = [
+            { text: "«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»", source: "رواه البيهقي" },
+            { text: "«مَنْ عَمِلَ مِنْكُمْ عَمَلاً فَلْيُتْقِنْهُ، فَإِنَّ ذَلِكَ مِنْ حُسْنِ الْعَمَلِ.»", source: "توجيه نبوي شريف" },
+            { text: "«وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ»", source: "سورة التوبة - الآية 105" },
+            { text: "«إِنَّ خَيْرَ مَنِ اسْتَأْجَرْتَ الْقَوِيُّ الْأَمِينُ»", source: "سورة القصص - الآية 26" },
+            { text: "«لَأَنْ يَأْخُذَ أَحَدُكُمْ حُبْلَهُ فَيَأْتِيَ بِحُزْمَةِ الْحَطَبِ عَلَى ظَهْرِهِ فَيَبِيعَهَا... خَيْرٌ لَهُ مِنْ أَنْ يَسْأَلَ النَّاسَ»", source: "رواه البخاري" },
+            { text: "«مَنْ سَعَى عَلَى عِيَالِهِ كَالمُجَاهِدِ فِي سَبِيلِ اللهِ.»", source: "حديث شريف في فضل السعي والعمل" },
+            { text: "أتقن عملك مهما كان صغيراً، فالإتقان عنوان الأمانة وصانع السمعة الطيبة.", source: "حكمة الحرفيين" },
+            { text: "الصدق في المعاملة والإتقان في الصنعة هما رأس مال الحرفي الحقيقي.", source: "دروس من التراث المهني" }
+        ];
+
+        function initDailyContent() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const gregorianDateStr = now.toLocaleDateString('ar-DZ', options);
+            
+            let hijriDateStr = "";
+            try {
+                hijriDateStr = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' }).format(now);
+            } catch (e) {
+                hijriDateStr = "";
+            }
+
+            document.getElementById('todayDate').textContent = hijriDateStr ? `${gregorianDateStr} الموافق لـ ${hijriDateStr}` : gregorianDateStr;
+
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            
+            const selectedQuote = minbarList[dayOfYear % minbarList.length];
+            document.getElementById('dailyQuote').textContent = selectedQuote.text;
+            document.getElementById('quoteSource').textContent = selectedQuote.source;
+        }
+
+        async function loadArtisans() {
+            const container = document.getElementById('artisansContainer');
+            const countBadge = document.getElementById('artisansCount');
+            
+            const { data, error } = await _supabase.from('artisans').select('*').order('created_at', { ascending: false });
+
+            if (error) {
+                container.innerHTML = '<p class="text-xs text-red-500 text-center py-4">عذراً، حدث خطأ أثناء الاتصال بقاعدة البيانات لجلب الحرفيين.</p>';
+                countBadge.innerText = 'خطأ في الاتصال';
+                return;
+            }
+
+            globalArtisansList = data || [];
+            displayArtisans(globalArtisansList);
+        }
+
+        function displayArtisans(artisans) {
+            const container = document.getElementById('artisansContainer');
+            const countBadge = document.getElementById('artisansCount');
+            
+            countBadge.innerText = `${artisans.length} حرفي مسجل`;
+
+            if (artisans.length === 0) {
+                container.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">لا يوجد حرفيون مسجلون مطابقون للبحث.</p>';
+                return;
+            }
+
+            container.innerHTML = artisans.map(artisan => `
+                <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-base">${escapeHtml(artisan.full_name || artisan.name)}</h4>
+                        <p class="text-xs text-emerald-600 font-semibold">${escapeHtml(artisan.craft_type || artisan.profession)}</p>
+                        <p class="text-xs text-slate-500 mt-1">📍 ${escapeHtml(artisan.municipality || artisan.city)} | 📞 ${escapeHtml(artisan.phone)}</p>
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <a href="tel:${escapeHtml(artisan.phone)}" class="flex-1 sm:flex-none text-center bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-xs font-bold px-3 py-2.5 rounded-lg transition">
+                            📞 اتصال
+                        </a>
+                        <button onclick="openReviewModal('${escapeHtml(artisan.full_name || artisan.name)}', '${escapeHtml(artisan.craft_type || artisan.profession)}')" class="flex-1 sm:flex-none text-center bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-bold px-3 py-2.5 rounded-lg transition">
+                            ⭐ تقييم
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterArtisans() {
+            const keyword = document.getElementById('searchKeyword').value.toLowerCase().trim();
+            const selectedCraft = document.getElementById('filterCraft').value;
+            const municipality = document.getElementById('filterMunicipality').value;
+
+            const filtered = globalArtisansList.filter(artisan => {
+                const name = (artisan.full_name || artisan.name || '').toLowerCase();
+                const craft = (artisan.craft_type || artisan.profession || '');
+                const mun = artisan.municipality || artisan.city || '';
+
+                const matchesKeyword = !keyword || name.includes(keyword) || craft.toLowerCase().includes(keyword);
+                const matchesCraft = !selectedCraft || craft === selectedCraft;
+                const matchesMun = !municipality || mun === municipality;
+
+                return matchesKeyword && matchesCraft && matchesMun;
+            });
+
+            displayArtisans(filtered);
+        }
+
+        async function handleRegistration(event) {
+            event.preventDefault();
+            const alertBox = document.getElementById('formAlert');
+            
+            const newArtisan = {
+                full_name: document.getElementById('regName').value.trim(),
+                craft_type: document.getElementById('regCraft').value,
+                phone: document.getElementById('regPhone').value.trim(),
+                municipality: document.getElementById('regMunicipality').value
+            };
+
+            alertBox.style.display = 'block';
+            alertBox.className = 'text-center text-xs mt-2 text-slate-600';
+            alertBox.innerText = 'جاري حفظ البيانات في قاعدة البيانات...';
+
+            const { error } = await _supabase.from('artisans').insert([newArtisan]);
+
+            if (error) {
+                alertBox.className = 'text-center text-xs mt-2 text-red-500';
+                alertBox.innerText = 'حدث خطأ أثناء التسجيل: ' + error.message;
+            } else {
+                alertBox.className = 'text-center text-xs mt-2 text-emerald-600 font-semibold';
+                alertBox.innerText = 'تم تسجيل الحرفي بنجاح وأضيف إلى الدليل!';
+                document.getElementById('artisanForm').reset();
+                loadArtisans();
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
         function openReviewModal(artisanName, artisanProf) {
             const snippet = `أرغب في تقييم الحرفي ( ${artisanName} ) المتخصص في ( ${artisanProf} ) عبر منصة سوق السبت: \nالتقييم: ممتاز / أنصح به بشدة ⭐⭐⭐⭐⭐`;
             document.getElementById('reviewTextSnippet').innerText = snippet;
@@ -117,13 +411,22 @@
             document.getElementById('reviewModal').classList.add('hidden');
         }
 
+        // دالة النسخ التلقائي والتحويل لصفحة الفيسبوك مباشرة
         function copyReviewSnippet() {
             const text = document.getElementById('reviewTextSnippet').innerText;
             navigator.clipboard.writeText(text).then(() => {
-                alert('تم نسخ تفاصيل الحرفي بنجاح!');
+                alert('تم نسخ تفاصيل الحرفي بنجاح! سيتم تحويلك الآن لصفحة الفيسبوك للتعليق.');
                 closeReviewModal();
+                window.open('https://www.facebook.com/profile.php?id=61593982874509', '_blank');
+            }).catch(err => {
+                window.open('https://www.facebook.com/profile.php?id=61593982874509', '_blank');
             });
         }
+
+        window.onload = () => {
+            initDailyContent();
+            loadArtisans();
+        };
     </script>
 </body>
 </html>
