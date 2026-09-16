@@ -13,32 +13,11 @@
             background-color: #f8fafc;
             color: #1e293b;
         }
-        /* حركة الشريط المتحري التشويقي */
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        .animate-marquee {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 25s linear infinite;
-        }
-        .marquee-container:hover .animate-marquee {
-            animation-play-state: paused;
-        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
-    <!-- إعداداتك الخاصة (عدلي الأرقام هنا بكل أمان) -->
-    <script>
-        const CONFIG = {
-            whatsappNumber: "213668603644", // ضعي رقم هاتفك هنا للواتساب (مثلاً: 2137xxxxxxxx)
-            ripCode: "00799999000130308745"     // ضعي رقم الـ RIP الخاص بك هنا
-        };
-    </script>
-
-    <!-- الهيدر العلوي -->
+    <!-- الهيدر العلوي الأصلي -->
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-2">
@@ -46,10 +25,6 @@
                 <h1 class="text-xl font-bold text-emerald-600">سوق السبت <span class="text-xs font-normal text-slate-500">Ouargla</span></h1>
             </div>
             <div class="flex items-center gap-3">
-                <!-- زر طلب العمال الجديد في الهيدر -->
-                <a href="#jobRequestSection" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold px-3 py-2 rounded-lg shadow-sm transition flex items-center gap-1">
-                    <span>📌</span> اطلب عمال
-                </a>
                 <a href="#registerSection" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold px-3 py-2 rounded-lg transition">
                     + سجل حرفتك
                 </a>
@@ -57,82 +32,13 @@
         </div>
     </header>
 
-    <!-- المحتوى الرئيسي -->
+    <!-- المحتوى الرئيسي الأصلي -->
     <main class="max-w-4xl mx-auto px-4 py-6 w-full space-y-6">
 
         <!-- منبر الحرفي اليومي / أو نبذة عن المنصة -->
         <section class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-2xl p-6 shadow-md text-center">
             <h2 class="text-2xl font-bold mb-2">منصة سوق السبت المحلية</h2>
-            <p class="text-emerald-100 text-sm max-w-xl mx-auto">دليلك الموثوق للبحث عن أفضل الحرفيين، التقنيين، وطلب عمال الورشات في ولاية ورقلة، نغوسة، والبرمة.</p>
-        </section>
-
-        <!-- ================= حيز عروض الشغل (فوق الدليل مباشرة) ================= -->
-        <section id="jobRequestsDisplayArea" class="bg-white rounded-2xl p-4 shadow-sm border border-emerald-100">
-            <div class="flex items-center justify-between mb-3 border-b pb-2">
-                <h3 class="font-bold text-slate-800 flex items-center gap-2 text-base">
-                    <span class="text-emerald-600">📢</span> عروض الشغل وطلب العمال
-                </h3>
-                <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full font-semibold">قسم جديد</span>
-            </div>
-
-            <!-- الشريط المتحرك التشويقي (يمكنك استبداله لاحقاً بأول إعلان حقيقي) -->
-            <div id="placeholderMarquee" class="marquee-container overflow-hidden bg-amber-50 border border-amber-200 rounded-xl p-3 text-amber-900 text-sm relative">
-                <div class="animate-marquee flex items-center gap-4">
-                    <span>✨ هل تحتاج إلى عمال أو تقنيين لورشَتِك في ورقلة، نغوسة أو البرمة؟ انشر طلبك الآن ليصل فوراً إلى الحرفيين الباحثين عن عمل!</span>
-                    <a href="#jobRequestSection" class="underline font-bold text-amber-950">👈 اضغط على زر "اطلب عمال" في الأعلى للتفاصيل</a>
-                </div>
-            </div>
-
-            <!-- حاوية عرض إعلانات العمال الفعلية (تتعبأ برمجياً عند إضافة إعلانات) -->
-            <div id="activeJobsContainer" class="space-y-3 mt-3">
-                <!-- الإعلانات الحقيقية ستظهر هنا ديناميكياً -->
-            </div>
-        </section>
-
-        <!-- ================= استمارة طلب عمال (لصاحب العمل) ================= -->
-        <section id="jobRequestSection" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-            <div class="mb-4 text-center">
-                <h3 class="text-lg font-bold text-slate-800">📌 أضف إعلان طلب عمال أو ورشة</h3>
-                <p class="text-xs text-slate-500 mt-1">املأ الاستمارة أدناه، وسيكون إعلانك جاهزاً للظهور فوراً أمام الحرفيين.</p>
-            </div>
-
-            <form id="jobForm" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">طبيعة العمل أو الحرفة المطلوبة *</label>
-                    <input type="text" id="jobTitle" required placeholder="مثال: نحتاج عمال بناء، سباك للعمل في ورشة..." class="w-full text-sm border border-slate-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">مكان العمل / الورشة *</label>
-                        <input type="text" id="jobLocation" required placeholder="مثال: ورقلة المركز، حي بني ثور..." class="w-full text-sm border border-slate-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">رقم الهاتف للتواصل *</label>
-                        <input type="tel" id="jobPhone" required placeholder="مثال: 06xxxxxxxx" class="w-full text-sm border border-slate-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">شروط أو ملاحظات إضافية (اختياري)</label>
-                    <textarea id="jobNotes" rows="2" placeholder="مثال: العمل يبدأ فوراً، يشترط الخبرة..." class="w-full text-sm border border-slate-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">اختيار الباقة *</label>
-                    <select id="jobPackage" class="w-full text-sm border border-slate-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                        <option value="free">🎁 الإعلان التجريبي الأول (مجاني تماماً)</option>
-                        <option value="3days">⚡ باقة طارئة (3 أيام) - 200 دج</option>
-                        <option value="week">🗓️ باقة أسبوع (7 أيام) - 300 دج</option>
-                        <option value="15days">📋 باقة قياسية (15 يوماً) - 500 دج</option>
-                        <option value="month">⭐ باقة احترافية مثبتة (شهر كامل) - 1000 دج</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg text-sm transition shadow-sm">
-                    إرسال الإعلان عبر الواتساب وتأكيد النشر
-                </button>
-            </form>
+            <p class="text-emerald-100 text-sm max-w-xl mx-auto">دليلك الموثوق للبحث عن أفضل الحرفيين والتقنيين في ولاية ورقلة، نغوسة، والبرمة.</p>
         </section>
 
         <!-- ================= دليل الحرفيين (القسم الرئيسي الأصلي) ================= -->
@@ -141,7 +47,7 @@
                 <span>🛠️</span> دليل الحرفيين والتقنيين
             </h3>
             
-            <!-- نموذج تجريبي لحرفي مع إصلاح زر التقييم للنسخ واللصق الآلي -->
+            <!-- نموذج لحرفي مع زر التقييم للنسخ واللصق الآلي فقط -->
             <div id="artisansList" class="space-y-3">
                 <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
@@ -166,7 +72,6 @@
         <section id="registerSection" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
             <h3 class="text-lg font-bold text-slate-800 mb-3">+ سجل حرفتك في الدليل</h3>
             <p class="text-xs text-slate-500 mb-4">انضم إلى مجتمع الحرفيين في سوق السبت لتصل إلى زبائن جدد.</p>
-            <!-- نموذج التسجيل البسيط يمكن وضعه هنا أو إبقاؤه كما هو -->
             <div class="text-center py-2 bg-slate-50 rounded-lg text-xs text-slate-600">
                 استمارة تسجيل الحرفيين نشطة ومستقرة.
             </div>
@@ -176,7 +81,7 @@
 
     <!-- نافذة منبثقة (Modal) للنسخ واللصق الآلي للتقييم -->
     <div id="reviewModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-xl animate-scale">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-xl">
             <h4 class="font-bold text-slate-800 text-lg">تقييم الحرفي</h4>
             <p class="text-xs text-slate-600">انسخ معلومات الحرفي أدناه بضغطة واحدة، ثم شارك تقييمك:</p>
             
@@ -195,42 +100,13 @@
         </div>
     </div>
 
-    <!-- الفوتر -->
+    <!-- الفوتر الأصلي -->
     <footer class="bg-white border-t border-slate-100 mt-12 py-4 text-center text-xs text-slate-500">
         جميع الحقوق محفوظة © سوق السبت (SoukEssebt) 2026
     </footer>
 
-    <!-- السكريبت البرمجي للتحكم بالاستمارة والتقييم والواتساب -->
+    <!-- السكريبت البرمجي الخاص ببطاقة التقييم فقط -->
     <script>
-        // معالجة نموذج طلب عمال وتوجيهه للواتساب
-        document.getElementById('jobForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const title = document.getElementById('jobTitle').value;
-            const location = document.getElementById('jobLocation').value;
-            const phone = document.getElementById('jobPhone').value;
-            const notes = document.getElementById('jobNotes').value;
-            const packageType = document.getElementById('jobPackage').value;
-
-            let packageText = "الإعلان التجريبي الأول (مجاني)";
-            if(packageType === '3days') packageText = "باقة طارئة 3 أيام (200 دج) - RIP: " + CONFIG.ripCode;
-            if(packageType === 'week') packageText = "باقة أسبوع 7 أيام (300 دج) - RIP: " + CONFIG.ripCode;
-            if(packageType === '15days') packageText = "باقة 15 يوم (500 دج) - RIP: " + CONFIG.ripCode;
-            if(packageType === 'month') packageText = "باقة شهر مثبت (1000 دج) - RIP: " + CONFIG.ripCode;
-
-            let message = `مرحباً، أود نشر إعلان طلب عمال على منصة سوق السبت:%0a` +
-                          `📌 العمل: ${title}%0a` +
-                          `📍 المكان: ${location}%0a` +
-                          `📞 الهاتف: ${phone}%0a` +
-                          `📝 الشروط: ${notes || 'لا توجد'}%0a` +
-                          `📦 الباقة: ${packageText}%0a` +
-                          (packageType !== 'free' ? `إليك صورة إيصال التحويل المالي:` : `هذا هو إعلاني التجريبي الأول المجاني.`);
-
-            let whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${message}`;
-            window.open(whatsappUrl, '_blank');
-        });
-
-        // وظائف نافذة التقييم (النسخ واللصق الآلي)
         function openReviewModal(artisanName, artisanProf) {
             const snippet = `أرغب في تقييم الحرفي ( ${artisanName} ) المتخصص في ( ${artisanProf} ) عبر منصة سوق السبت: \nالتقييم: ممتاز / أنصح به بشدة ⭐⭐⭐⭐⭐`;
             document.getElementById('reviewTextSnippet').innerText = snippet;
@@ -244,7 +120,7 @@
         function copyReviewSnippet() {
             const text = document.getElementById('reviewTextSnippet').innerText;
             navigator.clipboard.writeText(text).then(() => {
-                alert('تم نسخ تفاصيل الحرفي بنجاح! يمكنك لصقها الآن في المكان المخصص.');
+                alert('تم نسخ تفاصيل الحرفي بنجاح!');
                 closeReviewModal();
             });
         }
