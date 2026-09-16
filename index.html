@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سوق السبت (SoukEssebt) - منصة الخدمات والمهن في ورقلة</title>
+    <title>منصة سوق السبت - بيت الحرفي | ورقلة</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -11,64 +11,91 @@
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #f8fafc;
+            background-color: #f6f8f7;
             color: #1e293b;
+            scroll-behavior: smooth;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #065f46 0%, #047857 50%, #0f766e 100%);
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
 
-    <!-- الهيدر العلوي الأصلي -->
-    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl">🛒</span>
-                <h1 class="text-xl font-bold text-emerald-600">سوق السبت <span class="text-xs font-normal text-slate-500">Ouargla</span></h1>
-            </div>
-            <div class="flex items-center gap-3">
-                <a href="#registerSection" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold px-3 py-2 rounded-lg transition">
-                    + سجل حرفتك
-                </a>
-            </div>
+    <!-- شريط التنقل العلوي الاحترافي الفاخر -->
+    <nav class="bg-slate-900/95 backdrop-blur-md text-white py-4 px-6 sticky top-0 z-50 shadow-lg border-b border-slate-800">
+        <div class="max-w-6xl mx-auto flex justify-between items-center flex-wrap gap-4">
+            <a href="#" class="text-xl font-black text-amber-400 flex items-center gap-2.5 tracking-wide">
+                <span class="bg-amber-400/10 p-2 rounded-2xl border border-amber-400/20 shadow-inner">🛒</span> 
+                <span>سوق السبت <span class="text-xs font-normal text-slate-400 block sm:inline">بيت الحرفي</span></span>
+            </a>
+            <ul class="flex items-center gap-6 text-sm font-bold list-none">
+                <li><a href="#about" class="hover:text-amber-400 transition duration-200">من نحن</a></li>
+                <li><a href="#artisans-section" class="hover:text-amber-400 transition duration-200">دليل الحرفيين</a></li>
+                <li><a href="#registerSection" class="hover:text-amber-400 transition duration-200">سجل حرفتك</a></li>
+                <li><a href="#contact" class="hover:text-amber-400 transition duration-200">اتصل بنا</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
-    <!-- المحتوى الرئيسي الأصلي -->
-    <main class="max-w-4xl mx-auto px-4 py-6 w-full space-y-6">
+    <!-- المحتوى الرئيسي -->
+    <main class="max-w-4xl mx-auto px-4 py-10 w-full space-y-10">
+
+        <!-- هيدر العنوان الرئيسي بحلة ساحرة -->
+        <header class="hero-gradient text-white rounded-3xl p-10 shadow-xl text-center relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="absolute -left-10 -bottom-10 w-48 h-48 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
+            <span class="bg-white/10 backdrop-blur-sm text-amber-300 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-3 inline-block border border-white/10">المنصة المحلية الأولى</span>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight mb-3">سوق السبت (SoukEssebt)</h1>
+            <p class="text-emerald-100 text-sm sm:text-base max-w-xl mx-auto font-medium leading-relaxed">دليلك الموثوق وأفضل وجهة لربط الحرفيين، التقنيين، وأصحاب المهن الحرة بالزبائن في ولاية ورقلة والمناطق المجاورة.</p>
+        </header>
 
         <!-- ================= منبر الحرفي اليومي مع التاريخ ================= -->
-        <section class="bg-white border border-slate-100 border-r-4 border-r-emerald-600 rounded-2xl p-6 shadow-sm">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-3 pb-3 border-b border-slate-100">
-                <span class="inline-block text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1 rounded-full">منبر الحرفي اليومي</span>
-                <div id="todayDate" class="text-xs text-slate-500 font-semibold bg-slate-50 px-3 py-1 rounded-full border border-slate-200">جاري تحميل التاريخ...</div>
+        <section class="bg-white border border-emerald-100 border-r-4 border-r-amber-500 rounded-3xl p-7 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-24 h-24 bg-amber-50 rounded-br-full -z-0 opacity-50"></div>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 pb-3 border-b border-slate-100 relative z-10">
+                <span class="inline-flex items-center gap-1.5 text-xs font-extrabold text-amber-700 bg-amber-50 px-4 py-2 rounded-2xl border border-amber-200/60 shadow-sm">
+                    <span>📜</span> منبر الحرفي اليومي
+                </span>
+                <div id="todayDate" class="text-xs text-slate-500 font-bold bg-slate-50 px-4 py-2 rounded-2xl border border-slate-200 shadow-sm">جاري تحميل التاريخ...</div>
             </div>
-            <div class="text-center py-2">
-                <blockquote id="dailyQuote" class="text-base sm:text-lg font-bold text-slate-800 mb-2 leading-relaxed">«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»</blockquote>
-                <p id="quoteSource" class="text-xs text-slate-400">رواه البيهقي</p>
+            <div class="text-center py-4 relative z-10">
+                <blockquote id="dailyQuote" class="text-lg sm:text-xl font-bold text-slate-800 mb-3 leading-loose">«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»</blockquote>
+                <p id="quoteSource" class="text-xs font-bold text-amber-600 tracking-wide">رواه البيهقي</p>
             </div>
         </section>
 
         <!-- ================= قسم من نحن ================= -->
-        <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-            <h3 class="text-lg font-bold text-slate-800 mb-3">من نحن</h3>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+        <div id="about" class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 space-y-4">
+            <h2 class="text-xl font-extrabold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm shadow-inner">🏢</span> من نحن
+            </h2>
+            <p class="text-sm text-slate-600 leading-loose">
                 منصة <strong>سوق السبت (بيت الحرفي)</strong> هي مساحة رقمية مخصصة لربط الحرفيين وأصحاب المهن الحرة والخدمات بالزبائن والباحثين عن الجودة والإتقان في ولاية ورقلة. هدفنا هو تسهيل الوصول إلى الخدمات المحلية الموثوقة، دعم المواهب والحرف التقليدية والعصرية، وخلق بيئة شفافة قائمة على تقييمات التجارب الحقيقية للزبائن.
             </p>
-        </section>
+        </div>
 
-        <!-- ================= دليل الحرفيين (متصل بقاعدة البيانات) ================= -->
-        <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
-                <span class="flex items-center gap-2">🛠️ دليل الحرفيين والتقنيين</span>
-                <span id="artisansCount" class="text-xs font-normal text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">جاري التحميل...</span>
-            </h3>
+        <!-- ================= دليل الحرفيين (مع شريط البحث والفلاتر) ================= -->
+        <div id="artisans-section" class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3 flex-wrap gap-3">
+                <h2 class="text-xl font-extrabold text-slate-800 flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm shadow-inner">🛠️</span> دليل الحرفيين المسجلين
+                </h2>
+                <span id="artisansCount" class="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-4 py-2 rounded-2xl border border-emerald-200/60 shadow-sm">جاري التحميل...</span>
+            </div>
 
-            <!-- شريط البحث والفلترة المتقدمة (بالحرف والبلديات) -->
-            <div class="mb-4 flex flex-col sm:flex-row gap-2">
-                <input type="text" id="searchKeyword" placeholder="🔍 ابحث بالاسم أو الكلمات المفتاحية..." onkeyup="filterArtisans()" class="flex-1 p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500">
+            <!-- شريط البحث والفلترة الساحر -->
+            <div class="bg-slate-50/80 p-4 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row gap-3 shadow-inner">
+                <input type="text" id="searchKeyword" placeholder="🔍 اكتب اسم الحرفي أو الخدمة للبحث السريع..." onkeyup="filterArtisans()" class="flex-1 p-3.5 bg-white border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 shadow-sm transition">
                 
-                <!-- قائمة منسدلة لتصفية الحرف في البحث -->
-                <select id="filterCraft" onchange="filterArtisans()" class="flex-1 p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-700">
+                <select id="filterCraft" onchange="filterArtisans()" class="flex-1 p-3.5 bg-white border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 text-slate-700 shadow-sm transition">
                     <option value="">-- كل الحرف والخدمات --</option>
                     <optgroup label="الصيانة المنزلية والتركيبات">
                         <option value="سباك ومركب قنوات (Plombier)">سباك ومركب قنوات</option>
@@ -106,8 +133,7 @@
                     </optgroup>
                 </select>
 
-                <!-- قائمة منسدلة لتصفية البلديات في البحث -->
-                <select id="filterMunicipality" onchange="filterArtisans()" class="sm:w-44 p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-700">
+                <select id="filterMunicipality" onchange="filterArtisans()" class="sm:w-44 p-3.5 bg-white border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 text-slate-700 shadow-sm transition">
                     <option value="">-- كل البلديات --</option>
                     <option value="ورقلة">ورقلة</option>
                     <option value="حاسي مسعود">حاسي مسعود</option>
@@ -120,35 +146,35 @@
                     <option value="بلدية أخرى / مجاورة">بلدية أخرى / مجاورة</option>
                 </select>
             </div>
-            
-            <!-- قائمة الحرفيين الحقيقية -->
-            <div id="artisansContainer" class="space-y-3">
-                <p class="text-xs text-slate-500 text-center py-4">جاري جلب قائمة الحرفيين المسجلين...</p>
+
+            <!-- حاوية عرض الحرفيين من قاعدة البيانات -->
+            <div id="artisansContainer" class="space-y-4">
+                <p class="text-xs text-slate-400 text-center py-8">جاري جلب قائمة الحرفيين المسجلين...</p>
             </div>
-        </section>
+        </div>
 
         <!-- ================= تسجيل حرفي جديد ================= -->
-        <section id="registerSection" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-            <h3 class="text-lg font-bold text-slate-800 mb-3">+ سجل حرفتك في الدليل</h3>
-            <p class="text-xs text-slate-500 mb-4">انضم إلى مجتمع الحرفيين في سوق السبت لتصل إلى زبائن جدد.</p>
+        <div id="registerSection" class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 space-y-6">
+            <h2 class="text-xl font-extrabold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm shadow-inner">📝</span> سجل حرفتك أو خدمتك مباشرة
+            </h2>
             
-            <form id="artisanForm" onsubmit="handleRegistration(event)" class="space-y-3">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <form id="artisanForm" onsubmit="handleRegistration(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">الاسم الكامل:</label>
-                        <input type="text" id="regName" placeholder="أدخل اسمك الكامل" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500">
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">الاسم الكامل:</label>
+                        <input type="text" id="artisanName" placeholder="أدخل اسمك الكامل" required class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">رقم الهاتف:</label>
-                        <input type="tel" id="regPhone" placeholder="رقم الهاتف للتواصل" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500">
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">رقم الهاتف:</label>
+                        <input type="tel" id="artisanPhone" placeholder="رقم الهاتف للتواصل المباشر" required class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 transition">
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <!-- القائمة المنسدلة للحرف عند التسجيل -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">الحرفة أو مجال الخدمة:</label>
-                        <select id="regCraft" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-700">
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">الحرفة أو مجال الخدمة:</label>
+                        <select id="craftTypeSelect" required onchange="handleCraftSelection()" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 text-slate-700 transition">
                             <option value="">-- اختر تخصصك أو حرفتك --</option>
                             <optgroup label="الصيانة المنزلية والتركيبات">
                                 <option value="سباك ومركب قنوات (Plombier)">سباك ومركب قنوات</option>
@@ -184,13 +210,15 @@
                                 <option value="خياط ومصمم أزياء تقليدية وعصرية">خياط ومصمم أزياء تقليدية وعصرية</option>
                                 <option value="صانع حلويات تقليدية ومأكولات للحفلات">صانع حلويات تقليدية ومأكولات للحفلات</option>
                             </optgroup>
+                            <optgroup label="أخرى">
+                                <option value="OTHER">حرفة أو خدمة أخرى (اكتبها يدوياً)</option>
+                            </optgroup>
                         </select>
                     </div>
 
-                    <!-- القائمة المنسدلة للبلديات عند التسجيل -->
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">البلدية (ولاية ورقلة):</label>
-                        <select id="regMunicipality" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-700">
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">البلدية (ولاية ورقلة):</label>
+                        <select id="municipality" required class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 text-slate-700 transition">
                             <option value="">-- اختر البلدية --</option>
                             <option value="ورقلة">ورقلة</option>
                             <option value="حاسي مسعود">حاسي مسعود</option>
@@ -205,56 +233,82 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-xs transition shadow-sm mt-2">
-                    إرسال التسجيل وإضافته للدليل
+                <!-- حقل إدخال الحرفة يدوياً إذا اختار المستخدم أخرى -->
+                <div id="customCraftGroup" class="hidden">
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">حدد الحرفة أو الخدمة يدوياً:</label>
+                    <input type="text" id="customCraftInput" placeholder="اكتب اسم حرفتك أو خدمتك بدقة هنا..." class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 transition">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">ساعات العمل / أوقات الجاهزية:</label>
+                        <input type="text" id="workingHours" required placeholder="مثال: من 8 صباحاً إلى 6 مساءً" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">رابط معرض الأعمال أو التواصل (اختياري):</label>
+                        <input type="url" id="portfolioUrl" placeholder="رابط صفحة أو صور الأعمال" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">نبذة عن حرفتك أو خدمتك:</label>
+                    <textarea id="artisanBio" rows="3" placeholder="اكتب نبذة مختصرة عن الخبرة أو تفاصيل الخدمات..." class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 transition"></textarea>
+                </div>
+
+                <button type="submit" class="w-full hero-gradient hover:opacity-95 text-white font-bold py-4 rounded-2xl text-sm transition shadow-lg shadow-emerald-700/20 cursor-pointer tracking-wide">
+                    إرسال التسجيل فوراً والدخول للدليل
                 </button>
-                <div id="formAlert" class="text-center text-xs mt-2 hidden"></div>
+                <div id="artisanAlert" class="text-center text-xs mt-2 hidden p-3 rounded-xl font-semibold"></div>
             </form>
-        </section>
+        </div>
 
         <!-- ================= اتصل بنا ================= -->
-        <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-3">
-            <h3 class="text-lg font-bold text-slate-800">اتصل بنا</h3>
-            <div class="text-xs sm:text-sm text-slate-600 space-y-2">
-                <p>📍 <strong>العنوان:</strong> ولاية ورقلة، الجزائر.</p>
-                <p>🌐 <strong>الموقع الرسمي:</strong> <a href="https://soukessebt.com" target="_blank" class="text-emerald-600 hover:underline">soukessebt.com</a></p>
-                <p>📞 <strong>رقم التواصل:</strong> <a href="tel:0673888939" class="text-emerald-600 hover:underline font-bold" dir="ltr">0673888939</a></p>
-                <p class="pt-2">لاستفساراتكم واقتراحاتكم يسعدنا تواصلكم عبر صفحتنا الرسمية على الفيسبوك:</p>
-                <div>
-                    <a href="https://www.facebook.com/profile.php?id=61593982874509" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-xl text-xs transition shadow-sm">
+        <div id="contact" class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 space-y-4">
+            <h2 class="text-xl font-extrabold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm shadow-inner">📞</span> اتصل بنا
+            </h2>
+            <div class="text-xs sm:text-sm text-slate-600 space-y-3 font-medium">
+                <p class="flex items-center gap-2.5">📍 <strong>العنوان:</strong> ولاية ورقلة، الجزائر.</p>
+                <p class="flex items-center gap-2.5">🌐 <strong>الموقع الرسمي:</strong> <a href="https://soukessebt.com" target="_blank" class="text-emerald-600 hover:underline font-bold">soukessebt.com</a></p>
+                <p class="flex items-center gap-2.5">📞 <strong>رقم التواصل:</strong> <a href="tel:0673888939" class="text-emerald-700 hover:underline font-extrabold text-base" dir="ltr">0673888939</a></p>
+                <p class="pt-2 text-slate-500">لاستفساراتكم واقتراحاتكم يسعدنا تواصلكم عبر صفحتنا الرسمية على الفيسبوك:</p>
+                <div class="pt-1">
+                    <a href="https://www.facebook.com/profile.php?id=61593982874509" target="_blank" class="inline-flex items-center gap-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-2xl text-xs transition shadow-lg shadow-blue-600/20">
                         <span>زيارة صفحتنا الرسمية على الفيسبوك</span>
                     </a>
                 </div>
             </div>
-        </section>
+        </div>
 
     </main>
 
-    <!-- نافذة منبثقة (Modal) للنسخ واللصق الآلي للتقييم -->
-    <div id="reviewModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-xl">
-            <h4 class="font-bold text-slate-800 text-lg">تقييم الحرفي</h4>
-            <p class="text-xs text-slate-600">انسخ معلومات الحرفي أدناه بضغطة واحدة، ثم شارك تقييمك:</p>
+    <!-- نافذة منبثقة (Modal) للتقييم والنسخ الآلي -->
+    <div id="reviewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 space-y-5 shadow-2xl border border-slate-100">
+            <h4 class="font-black text-slate-800 text-lg flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-sm">⭐</span> تقييم الحرفي
+            </h4>
+            <p class="text-xs text-slate-500 leading-relaxed font-medium">انسخ معلومات الحرفي أدناه بضغطة واحدة، ثم شارك تقييمك ورأيك:</p>
             
-            <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 text-sm font-mono select-all text-slate-800" id="reviewTextSnippet">
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs font-mono select-all text-slate-800 leading-relaxed shadow-inner" id="reviewTextSnippet">
                 <!-- سيتم ملؤها برمجياً -->
             </div>
 
-            <div class="flex gap-2">
-                <!-- زر النسخ والتحويل التلقائي لصفحة الفيسبوك -->
-                <button onclick="copyReviewSnippet()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-lg text-xs transition">
-                    📋 نسخ الانتقال للفيسبوك
+            <div class="flex gap-3 pt-2">
+                <button onclick="copyReviewSnippet()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-4 rounded-2xl text-xs transition shadow-lg shadow-blue-600/20 cursor-pointer flex items-center justify-center gap-2">
+                    <span>📋 نسخ والتوجه للفيسبوك</span>
                 </button>
-                <button onclick="closeReviewModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-4 rounded-lg text-xs transition">
+                <button onclick="closeReviewModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3.5 px-4 rounded-2xl text-xs transition cursor-pointer">
                     إغلاق
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- الفوتر الأصلي -->
-    <footer class="bg-white border-t border-slate-100 mt-12 py-4 text-center text-xs text-slate-500">
-        جميع الحقوق محفوظة © سوق السبت (SoukEssebt) 2026
+    <!-- الفوتر السفلي الفاخر -->
+    <footer class="bg-slate-900 text-slate-300 text-center py-10 mt-16 text-xs sm:text-sm space-y-3 border-t border-slate-800">
+        <p class="font-black text-white text-base">منصة سوق السبت - بيت الحرفي | ولاية ورقلة</p>
+        <p class="text-slate-500 font-medium">جميع الحقوق محفوظة &copy; 2026 soukessebt.com</p>
     </footer>
 
     <!-- السكريبت البرمجي المتكامل -->
@@ -302,6 +356,21 @@
             document.getElementById('quoteSource').textContent = selectedQuote.source;
         }
 
+        function handleCraftSelection() {
+            const selectElem = document.getElementById('craftTypeSelect');
+            const customGroup = document.getElementById('customCraftGroup');
+            const customInput = document.getElementById('customCraftInput');
+
+            if (selectElem.value === 'OTHER') {
+                customGroup.classList.remove('hidden');
+                customInput.setAttribute('required', 'true');
+            } else {
+                customGroup.classList.add('hidden');
+                customInput.removeAttribute('required');
+                customInput.value = '';
+            }
+        }
+
         async function loadArtisans() {
             const container = document.getElementById('artisansContainer');
             const countBadge = document.getElementById('artisansCount');
@@ -325,27 +394,36 @@
             countBadge.innerText = `${artisans.length} حرفي مسجل`;
 
             if (artisans.length === 0) {
-                container.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">لا يوجد حرفيون مسجلون مطابقون للبحث.</p>';
+                container.innerHTML = '<p class="text-xs text-slate-400 text-center py-8">لا يوجد حرفيون مسجلون مطابقون للبحث.</p>';
                 return;
             }
 
-            container.innerHTML = artisans.map(artisan => `
-                <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                    <div>
-                        <h4 class="font-bold text-slate-800 text-base">${escapeHtml(artisan.full_name || artisan.name)}</h4>
-                        <p class="text-xs text-emerald-600 font-semibold">${escapeHtml(artisan.craft_type || artisan.profession)}</p>
-                        <p class="text-xs text-slate-500 mt-1">📍 ${escapeHtml(artisan.municipality || artisan.city)} | 📞 ${escapeHtml(artisan.phone)}</p>
+            container.innerHTML = artisans.map(artisan => {
+                const portfolioLink = artisan.portfolio_url ? `<a href="${escapeHtml(artisan.portfolio_url)}" target="_blank" class="text-emerald-600 hover:underline font-bold">رابط المعرض</a>` : '<span class="text-slate-400">بدون رابط</span>';
+                const artisanStringForCopy = `${artisan.full_name || ''} - ${artisan.craft_type || ''}`;
+
+                return `
+                    <div class="card-hover p-6 border border-slate-100 rounded-3xl bg-white space-y-3 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-2 h-full bg-emerald-500"></div>
+                        <div class="flex justify-between items-center flex-wrap gap-2">
+                            <h3 class="font-black text-slate-800 text-lg">${escapeHtml(artisan.full_name)}</h3>
+                            <span class="bg-emerald-50 text-emerald-800 px-4 py-1.5 rounded-full text-xs font-black border border-emerald-200/60 shadow-sm">${escapeHtml(artisan.craft_type)}</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium"><strong>النبذة:</strong> ${escapeHtml(artisan.bio || 'لا توجد نبذة متوفرة.')}</p>
+                        <div class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-100 pt-3 flex-wrap gap-3 font-semibold">
+                            <span>📍 البلدية: <strong class="text-slate-700">${escapeHtml(artisan.municipality)}</strong></span>
+                            <span>📞 الهاتف: <strong class="text-slate-700" dir="ltr">${escapeHtml(artisan.phone)}</strong></span>
+                            <span>⏰ ساعات العمل: <strong class="text-slate-700">${escapeHtml(artisan.working_hours || 'غير محدد')}</strong></span>
+                            ${portfolioLink}
+                        </div>
+                        <div class="pt-2 border-t border-slate-100">
+                            <button onclick="openReviewModal('${escapeHtml(artisanStringForCopy).replace(/'/g, "\\'")}')" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-2xl text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-blue-600/20">
+                                <span>⭐ قيم الحرفي وشارك رأيك على الفيسبوك</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <a href="tel:${escapeHtml(artisan.phone)}" class="flex-1 sm:flex-none text-center bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-xs font-bold px-3 py-2.5 rounded-lg transition">
-                            📞 اتصال
-                        </a>
-                        <button onclick="openReviewModal('${escapeHtml(artisan.full_name || artisan.name)}', '${escapeHtml(artisan.craft_type || artisan.profession)}')" class="flex-1 sm:flex-none text-center bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-bold px-3 py-2.5 rounded-lg transition">
-                            ⭐ تقييم
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function filterArtisans() {
@@ -354,15 +432,16 @@
             const municipality = document.getElementById('filterMunicipality').value;
 
             const filtered = globalArtisansList.filter(artisan => {
-                const name = (artisan.full_name || artisan.name || '').toLowerCase();
-                const craft = (artisan.craft_type || artisan.profession || '');
-                const mun = artisan.municipality || artisan.city || '';
+                const name = (artisan.full_name || '').toLowerCase();
+                const craft = (artisan.craft_type || '');
+                const bio = (artisan.bio || '').toLowerCase();
+                const mun = artisan.municipality || '';
 
-                const matchesKeyword = !keyword || name.includes(keyword) || craft.toLowerCase().includes(keyword);
+                const matchesKeyword = !keyword || name.includes(keyword) || craft.toLowerCase().includes(keyword) || bio.includes(keyword);
                 const matchesCraft = !selectedCraft || craft === selectedCraft;
-                const matchesMun = !municipality || mun === municipality;
+                const matchesMunicipality = !municipality || mun === municipality;
 
-                return matchesKeyword && matchesCraft && matchesMun;
+                return matchesKeyword && matchesCraft && matchesMunicipality;
             });
 
             displayArtisans(filtered);
@@ -370,28 +449,38 @@
 
         async function handleRegistration(event) {
             event.preventDefault();
-            const alertBox = document.getElementById('formAlert');
+            const alertBox = document.getElementById('artisanAlert');
             
+            const selectElem = document.getElementById('craftTypeSelect');
+            let craftVal = selectElem.value;
+            if (craftVal === 'OTHER') {
+                craftVal = document.getElementById('customCraftInput').value.trim();
+            }
+
             const newArtisan = {
-                full_name: document.getElementById('regName').value.trim(),
-                craft_type: document.getElementById('regCraft').value,
-                phone: document.getElementById('regPhone').value.trim(),
-                municipality: document.getElementById('regMunicipality').value
+                full_name: document.getElementById('artisanName').value.trim(),
+                craft_type: craftVal,
+                municipality: document.getElementById('municipality').value,
+                phone: document.getElementById('artisanPhone').value.trim(),
+                working_hours: document.getElementById('workingHours').value.trim(),
+                portfolio_url: document.getElementById('portfolioUrl').value.trim(),
+                bio: document.getElementById('artisanBio').value.trim()
             };
 
-            alertBox.style.display = 'block';
-            alertBox.className = 'text-center text-xs mt-2 text-slate-600';
-            alertBox.innerText = 'جاري حفظ البيانات في قاعدة البيانات...';
+            alertBox.classList.remove('hidden');
+            alertBox.className = 'text-center text-xs mt-2 p-3 rounded-xl font-semibold bg-slate-100 text-slate-600';
+            alertBox.innerText = 'جاري إرسال البيانات وحفظها في قاعدة البيانات...';
 
             const { error } = await _supabase.from('artisans').insert([newArtisan]);
 
             if (error) {
-                alertBox.className = 'text-center text-xs mt-2 text-red-500';
+                alertBox.className = 'text-center text-xs mt-2 p-3 rounded-xl font-semibold bg-red-50 text-red-700 border border-red-200';
                 alertBox.innerText = 'حدث خطأ أثناء التسجيل: ' + error.message;
             } else {
-                alertBox.className = 'text-center text-xs mt-2 text-emerald-600 font-semibold';
-                alertBox.innerText = 'تم تسجيل الحرفي بنجاح وأضيف إلى الدليل!';
+                alertBox.className = 'text-center text-xs mt-2 p-3 rounded-xl font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200';
+                alertBox.innerText = 'تم تسجيل حرفتك بنجاح وإضافتها إلى الدليل فوراً!';
                 document.getElementById('artisanForm').reset();
+                document.getElementById('customCraftGroup').classList.add('hidden');
                 loadArtisans();
             }
         }
@@ -401,8 +490,8 @@
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
         }
 
-        function openReviewModal(artisanName, artisanProf) {
-            const snippet = `أرغب في تقييم الحرفي ( ${artisanName} ) المتخصص في ( ${artisanProf} ) عبر منصة سوق السبت: \nالتقييم: ممتاز / أنصح به بشدة ⭐⭐⭐⭐⭐`;
+        function openReviewModal(artisanString) {
+            const snippet = `أرغب في تقييم الحرفي ( ${artisanString} ) عبر منصة سوق السبت: \nالتقييم: ممتاز / أنصح به بشدة ⭐⭐⭐⭐⭐`;
             document.getElementById('reviewTextSnippet').innerText = snippet;
             document.getElementById('reviewModal').classList.remove('hidden');
         }
@@ -411,14 +500,13 @@
             document.getElementById('reviewModal').classList.add('hidden');
         }
 
-        // دالة النسخ التلقائي والتحويل لصفحة الفيسبوك مباشرة
         function copyReviewSnippet() {
             const text = document.getElementById('reviewTextSnippet').innerText;
             navigator.clipboard.writeText(text).then(() => {
-                alert('تم نسخ تفاصيل الحرفي بنجاح! سيتم تحويلك الآن لصفحة الفيسبوك للتعليق.');
+                alert('تم نسخ تفاصيل الحرفي بنجاح! سيتم تحويلك لصفحة الفيسبوك.');
                 closeReviewModal();
                 window.open('https://www.facebook.com/profile.php?id=61593982874509', '_blank');
-            }).catch(err => {
+            }).catch(() => {
                 window.open('https://www.facebook.com/profile.php?id=61593982874509', '_blank');
             });
         }
