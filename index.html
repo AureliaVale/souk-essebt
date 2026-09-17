@@ -3,349 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة سوق السبت - بيت الحرفي | ورقلة</title>
-    <!-- خط كايرو الأصلي -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <title>سوق السبت - بيت الحرفي | ورقلة</title>
+    
+    <!-- إعدادات الـ PWA والشعار لإخفاء شريط المتصفح -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#b45309">
+    <link rel="icon" href="soukessebt.logo" type="image/x-icon">
+    <link rel="apple-touch-icon" href="soukessebt.logo">
+
+    <!-- مكتبة Supabase للربط بقاعدة البيانات -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
-            --primary: #047857;
-            --primary-dark: #065f46;
-            --accent: #f59e0b;
-            --bg-main: #f4f6f5;
-            --text-main: #1e293b;
+            --primary: #d97706;
+            --primary-dark: #b45309;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
             --border-color: #e2e8f0;
         }
 
-        * {
-            box-sizing: border-box;
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             margin: 0;
             padding: 0;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
             line-height: 1.6;
         }
 
-        /* شريط التنقل العلوي الفاخر */
-        nav {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             color: white;
-            padding: 12px 24px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
 
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.8rem;
         }
 
-        .nav-brand {
-            font-size: 1.1rem;
-            font-weight: 900;
-            color: var(--accent);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-logo {
-            width: 45px;
-            height: 45px;
-            object-fit: contain;
-            border-radius: 50%;
-            background: white;
-            padding: 2px;
-            border: 2px solid var(--accent);
-        }
-
-        .hero-logo {
-            width: 140px;
-            height: 140px;
-            object-fit: contain;
-            margin: 0 auto 15px auto;
-            border-radius: 50%;
-            background: white;
-            padding: 5px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            border: 3px solid var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            list-style: none;
+        header p {
+            margin: 0;
             font-size: 0.95rem;
-            font-weight: 600;
+            opacity: 0.9;
         }
 
-        .nav-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: color 0.2s ease;
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        /* المحتوى الرئيسي */
-        main {
-            max-width: 850px;
-            width: 100%;
-            margin: 30px auto;
-            padding: 0 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        /* الهيدر الرئيسي للمنصة */
-        header.hero {
-            background: linear-gradient(135deg, #047857 0%, #065f46 60%, #0f766e 100%);
-            color: white;
-            padding: 40px 30px;
-            border-radius: 24px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(4, 120, 87, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        header.hero h1 {
-            font-size: 2.2rem;
-            font-weight: 900;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-        }
-
-        header.hero p {
-            font-size: 1.05rem;
-            color: #d1fae5;
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 600;
-        }
-
-        .badge-top {
-            background: rgba(255, 255, 255, 0.15);
-            color: var(--accent);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            display: inline-block;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* الأقسام والبطاقات العامة */
-        section, .card-section {
+        .card {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 25px 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: var(--text-main);
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 10px;
+        h2 {
+            font-size: 1.25rem;
+            color: var(--primary-dark);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #fef3c7;
+            padding-bottom: 0.5rem;
         }
 
-        /* منبر الحرفي اليومي */
-        .minbar-box {
-            border-right: 5px solid var(--accent);
-            background: #fffbeb;
-            border-color: #fef3c7;
-        }
-
-        .minbar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .minbar-tag {
-            background: #fef9c3;
-            color: #b45309;
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 4px 12px;
-            border-radius: 50px;
-        }
-
-        .minbar-date {
-            font-size: 0.8rem;
-            color: #64748b;
-            font-weight: 700;
-            background: white;
-            padding: 4px 12px;
-            border-radius: 50px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .minbar-quote {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #1e293b;
-            text-align: center;
-            line-height: 1.8;
-            margin-bottom: 8px;
-        }
-
-        .minbar-source {
-            font-size: 0.8rem;
-            color: #d97706;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        /* شريط البحث والفلترة السريعة */
-        .search-filter-bar {
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 14px;
-            border: 1px solid #e2e8f0;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .search-filter-bar input, .search-filter-bar select {
-            flex: 1;
-            min-width: 180px;
-            padding: 11px 15px;
-            border-radius: 10px;
-            border: 1px solid #cbd5e1;
-            font-size: 0.85rem;
-            outline: none;
-            background: white;
-            transition: border-color 0.2s;
-        }
-
-        .search-filter-bar input:focus, .search-filter-bar select:focus {
-            border-color: var(--primary);
-        }
-
-        /* بطاقات الحرفيين */
-        .artisan-card {
-            background: #fcfcfc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: all 0.2s ease;
-        }
-
-        .artisan-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-            border-color: #cbd5e1;
-            background: white;
-        }
-
-        .artisan-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .artisan-name {
-            font-size: 1.1rem;
-            font-weight: 900;
-            color: #0f172a;
-        }
-
-        .artisan-craft-badge {
-            background: #ecfdf5;
-            color: #047857;
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            border: 1px solid #a7f3d0;
-        }
-
-        .artisan-bio {
-            font-size: 0.85rem;
-            color: #475569;
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-
-        .artisan-footer-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: #64748b;
-            border-top: 1px dashed #e2e8f0;
-            padding-top: 10px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        /* أزرار التقييم والتواصل */
-        .btn-review {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 9px 18px;
-            border-radius: 10px;
-            font-size: 0.82rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-        }
-
-        .btn-review:hover {
-            background: #1d4ed8;
-        }
-
-        /* نماذج التسجيل */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
+            gap: 1rem;
         }
 
         @media (max-width: 600px) {
@@ -355,420 +89,296 @@
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
 
-        .form-group label {
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 600px) {
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+        }
+
+        label {
             display: block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #334155;
-            margin-bottom: 6px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 10px;
-            border: 1px solid #cbd5e1;
             font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text-main);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            background: #fff;
+        }
+
+        input:focus, select:focus, textarea:focus {
             outline: none;
-            background: #f8fafc;
-            transition: border-color 0.2s;
-        }
-
-        .form-control:focus {
             border-color: var(--primary);
-            background: white;
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
         }
 
-        .btn-submit {
+        button {
             background: var(--primary);
             color: white;
             border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
             font-size: 0.95rem;
-            font-weight: 800;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
-            box-shadow: 0 4px 15px rgba(4, 120, 87, 0.2);
         }
 
-        .btn-submit:hover {
+        button:hover {
             background: var(--primary-dark);
         }
 
-        /* النافذة المنبثقة Modal */
+        .search-filters {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 700px) {
+            .search-filters {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .artisans-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .artisan-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.2rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .artisan-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .artisan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .artisan-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-main);
+        }
+
+        .artisan-craft-badge {
+            background: #fef3c7;
+            color: var(--primary-dark);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .artisan-bio {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .artisan-footer-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.75rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .btn-review {
+            background: #0284c7;
+            color: white;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-review:hover {
+            background: #0369a1;
+        }
+
+        /* Modal Styles */
         .modal-overlay {
             position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(5px);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
             display: none;
-            align-items: center;
             justify-content: center;
-            z-index: 2000;
-            padding: 15px;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
         }
 
-        .modal-box {
-            background: white;
+        .modal-content {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            max-width: 500px;
             width: 100%;
-            max-width: 420px;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
-        .modal-snippet {
-            background: #f1f5f9;
-            padding: 12px 15px;
-            border-radius: 10px;
-            font-family: monospace;
+        .alert-box {
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
             font-size: 0.85rem;
-            color: #334155;
-            margin: 15px 0;
-            user-select: all;
-            border: 1px solid #cbd5e1;
-            word-break: break-all;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        /* الفوتر */
-        footer {
-            background: #0f172a;
-            color: #94a3b8;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 50px;
-            font-size: 0.85rem;
-            border-top: 1px solid #1e293b;
-        }
-
-        footer p strong {
-            color: white;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- شريط التنقل العلوي مع ربط الشعار الصحيح logo.png -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="nav-brand">
-                <img src="logo.png" alt="شعار سوق السبت" class="brand-logo">
-                <span>سوق السبت - بيت الحرفي</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#about">من نحن</a></li>
-                <li><a href="#artisans-section">دليل الحرفيين</a></li>
-                <li><a href="#registerSection">سجل حرفتك</a></li>
-                <li><a href="#contact">اتصل بنا</a></li>
-            </ul>
-        </div>
-    </nav>
+    <header>
+        <h1>سوق السبت - بيت الحرفي</h1>
+        <p>دليلك المحلي الشامل لحرفيي وخدمات ولاية ورقلة</p>
+    </header>
 
-    <!-- المحتوى الرئيسي -->
-    <main>
-
-        <!-- الهيدر الرئيسي مع ربط الشعار الصحيح logo.png -->
-        <header class="hero">
-            <img src="logo.png" alt="شعار سوق السبت" class="hero-logo">
-            <span class="badge-top">المنصة المحلية الأولى ورقلة</span>
-            <h1>سوق السبت (SoukEssebt)</h1>
-            <p>بيت الحرفي والخدمات الموثوقة - ولاية ورقلة والمناطق المجاورة</p>
-        </header>
-
-        <!-- منبر الحرفي اليومي -->
-        <section class="minbar-box">
-            <div class="minbar-header">
-                <span class="minbar-tag">📜 منبر الحرفي اليومي</span>
-                <div id="todayDate" class="minbar-date">جاري تحميل التاريخ...</div>
-            </div>
-            <div>
-                <blockquote id="dailyQuote" class="minbar-quote">«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»</blockquote>
-                <p id="quoteSource" class="minbar-source">رواه البيهقي</p>
-            </div>
-        </section>
-
-        <!-- قسم من نحن -->
-        <section id="about">
-            <h2 class="section-title"><span>🏢 من نحن</span></h2>
-            <p style="font-size: 0.9rem; color: #475569; line-height: 1.8;">
-                منصة <strong>سوق السبت (بيت الحرفي)</strong> هي مساحة رقمية مخصصة لربط الحرفيين وأصحاب المهن الحرة والخدمات بالزبائن والباحثين عن الجودة والإتقان في ولاية ورقلة. هدفنا هو تسهيل الوصول إلى الخدمات المحلية الموثوقة، دعم المواهب والحرف التقليدية والعصرية، وخلق بيئة شفافة قائمة على تقييمات التجارب الحقيقية للزبائن.
-            </p>
-        </section>
-
-        <!-- دليل الحرفيين (مع شريط البحث والفلاتر) -->
-        <section id="artisans-section">
-            <div class="section-title">
-                <span>🛠️ دليل الحرفيين المسجلين</span>
-                <span id="artisansCount" style="font-size: 0.75rem; background: #ecfdf5; color: #047857; padding: 4px 12px; border-radius: 50px;">جاري التحميل...</span>
-            </div>
-
-            <!-- شريط البحث والفلترة -->
-            <div class="search-filter-bar">
-                <input type="text" id="searchKeyword" placeholder="🔍 اكتب اسم الحرفي أو الخدمة للبحث السريع..." onkeyup="filterArtisans()">
-                
+    <main class="container">
+        
+        <!-- قسم البحث والفلترة -->
+        <section class="card">
+            <h2>🔍 ابحث عن حرفي أو خدمة</h2>
+            <div class="search-filters">
+                <input type="text" id="searchKeyword" placeholder="ابحث بالاسم، الحرفة، أو الكلمات المفتاحية..." oninput="filterArtisans()">
                 <select id="filterCraft" onchange="filterArtisans()">
-                    <option value="">-- كل الحرف والخدمات --</option>
-                    <optgroup label="الصيانة المنزلية والتركيبات">
-                        <option value="سباك ومركب قنوات (Plombier)">سباك ومركب قنوات</option>
-                        <option value="كهربائي معماري وصناعي (Électricien)">كهربائي معماري وصناعي</option>
-                        <option value="فني مكيفات وتبريد (Climatiseur)">فني مكيفات وتبريد</option>
-                        <option value="مركب كاميرات مراقبة وأجهزة أمنية">مركب كاميرات مراقبة وأجهزة أمنية</option>
-                        <option value="فني شبكات إنترنت وستالايت">فني شبكات إنترنت وستالايت</option>
-                        <option value="صيانة الأجهزة الكهرومنزلية">صيانة الأجهزة الكهرومنزلية</option>
-                    </optgroup>
-                    <optgroup label="البناء، التشطيب والدهان">
-                        <option value="بناء وعمال ورشات بناء">بناء وعمال ورشات بناء</option>
-                        <option value="دهان وصباغ منازل وديكور">دهان وصباغ منازل وديكور</option>
-                        <option value="مركب بلاط وفايونس">مركب بلاط وفايونس</option>
-                        <option value="جباص ومركب ديكورات الأسقف">جباص ومركب ديكورات الأسقف</option>
-                        <option value="نجار أثاث وخشب">نجار أثاث وخشب</option>
-                        <option value="حداد ومصمم أبواب ونوافذ حديدية">حداد ومصمم أبواب ونوافذ حديدية</option>
-                        <option value="عازل مائي و حراري للأسطح">عازل مائي وحراري للأسطح</option>
-                    </optgroup>
-                    <optgroup label="الخدمات الرقمية وتطوير الويب">
-                        <option value="مطور ومصمم مواقع إنترنت وإستضافة">مطور ومصمم مواقع إنترنت وإستضافة</option>
-                        <option value="مصمم غرافيك وإعلانات رقمية">مصمم غرافيك وإعلانات رقمية</option>
-                        <option value="خبير تسويق إلكتروني وإدارة منصات">خبير تسويق إلكتروني وإدارة منصات</option>
-                    </optgroup>
-                    <optgroup label="الطباعة، التصوير والخدمات المكتبية">
-                        <option value="خدمات الطباعة، النسخ والتصوير">خدمات الطباعة، النسخ والتصوير</option>
-                        <option value="كاتب عمومي وخدمات إدارية ورقمية">كاتب عمومي وخدمات إدارية ورقمية</option>
-                    </optgroup>
-                    <optgroup label="الخدمات والنقل">
-                        <option value="سائق نقل بضائع وأثاث">سائق نقل بضائع وأثاث</option>
-                        <option value="خدمات التنظيف الشامل للمنازل والمكاتب">خدمات التنظيف الشامل للمنازل والمكاتب</option>
-                    </optgroup>
-                    <optgroup label="الحرف التقليدية والفنون">
-                        <option value="خياط ومصمم أزياء تقليدية وعصرية">خياط ومصمم أزياء تقليدية وعصرية</option>
-                        <option value="صانع حلويات تقليدية ومأكولات للحفلات">صانع حلويات تقليدية ومأكولات للحفلات</option>
-                    </optgroup>
-                    <optgroup label="أخرى">
-                        <option value="OTHER">حرفة أو خدمة أخرى</option>
-                    </optgroup>
+                    <option value="">كل الحرف والمهن</option>
+                    <option value="نجارة">نجارة</option>
+                    <option value="حدادة وبناء">حدادة وبناء</option>
+                    <option value="خياطة وتطريز">خياطة وتطريز</option>
+                    <option value="صيانة إلكترونية">صيانة إلكترونية</option>
+                    <option value="خدمات منزلية">خدمات منزلية</option>
+                    <option value="OTHER">حرفة أخرى</option>
                 </select>
-
                 <select id="filterMunicipality" onchange="filterArtisans()">
-                    <option value="">-- كل البلديات --</option>
+                    <option value="">كل البلديات</option>
                     <option value="ورقلة">ورقلة</option>
+                    <option value="رويسات">الرويسات</option>
                     <option value="حاسي مسعود">حاسي مسعود</option>
-                    <option value="الرويسات">الرويسات</option>
+                    <option value="التجادة">الأنقوسة</option>
                     <option value="سيدي خويلد">سيدي خويلد</option>
-                    <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
-                    <option value="عين البيضاء">عين البيضاء</option>
-                    <option value="إنقوسة">إنقوسة</option>
-                    <option value="البرمة">البرمة</option>
-                    <option value="بلدية أخرى / مجاورة">بلدية أخرى / مجاورة</option>
                 </select>
             </div>
-
-            <!-- حاوية الحرفيين المتصلة بقاعدة البيانات -->
-            <div id="artisansContainer">
-                <p style="text-align: center; color: #94a3b8; font-size: 0.85rem; padding: 20px;">جاري جلب قائمة الحرفيين المسجلين...</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <span id="artisansCount" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">0 حرفي مسجل</span>
+            </div>
+            <div class="artisans-grid" id="artisansContainer">
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px;">جاري جلب قائمة الحرفيين...</p>
             </div>
         </section>
 
-        <!-- تسجيل حرفي جديد -->
-        <section id="registerSection">
-            <h2 class="section-title"><span>📝 سجل حرفتك أو خدمتك مباشرة</span></h2>
-            
+        <!-- نموذج تسجيل حرفي جديد -->
+        <section class="card">
+            <h2>🛠️ سجل حرفتك أو خدمتك مجاناً</h2>
+            <div id="artisanAlert" class="alert-box"></div>
             <form id="artisanForm" onsubmit="handleRegistration(event)">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>الاسم الكامل:</label>
-                        <input type="text" id="artisanName" placeholder="أدخل اسمك الكامل" required class="form-control">
+                        <label for="artisanName">الاسم الكامل أو اسم الورشة *</label>
+                        <input type="text" id="artisanName" required placeholder="مثال: ورشة الحرفي محمد">
                     </div>
                     <div class="form-group">
-                        <label>رقم الهاتف:</label>
-                        <input type="tel" id="artisanPhone" placeholder="رقم الهاتف للتواصل المباشر" required class="form-control">
+                        <label for="artisanPhone">رقم الهاتف *</label>
+                        <input type="tel" id="artisanPhone" required placeholder="06xxxxxxxx">
                     </div>
-                </div>
-
-                <div class="form-grid">
                     <div class="form-group">
-                        <label>الحرفة أو مجال الخدمة:</label>
-                        <select id="craftTypeSelect" required onchange="handleCraftSelection()" class="form-control">
-                            <option value="">-- اختر تخصصك أو حرفتك --</option>
-                            <optgroup label="الصيانة المنزلية والتركيبات">
-                                <option value="سباك ومركب قنوات (Plombier)">سباك ومركب قنوات</option>
-                                <option value="كهربائي معماري وصناعي (Électricien)">كهربائي معماري وصناعي</option>
-                                <option value="فني مكيفات وتبريد (Climatiseur)">فني مكيفات وتبريد</option>
-                                <option value="مركب كاميرات مراقبة وأجهزة أمنية">مركب كاميرات مراقبة وأجهزة أمنية</option>
-                                <option value="فني شبكات إنترنت وستالايت">فني شبكات إنترنت وستالايت</option>
-                                <option value="صيانة الأجهزة الكهرومنزلية">صيانة الأجهزة الكهرومنزلية</option>
-                            </optgroup>
-                            <optgroup label="البناء، التشطيب والدهان">
-                                <option value="بناء وعمال ورشات بناء">بناء وعمال ورشات بناء</option>
-                                <option value="دهان وصباغ منازل وديكور">دهان وصباغ منازل وديكور</option>
-                                <option value="مركب بلاط وفايونس">مركب بلاط وفايونس</option>
-                                <option value="جباص ومركب ديكورات الأسقف">جباص ومركب ديكورات الأسقف</option>
-                                <option value="نجار أثاث وخشب">نجار أثاث وخشب</option>
-                                <option value="حداد ومصمم أبواب ونوافذ حديدية">حداد ومصمم أبواب ونوافذ حديدية</option>
-                                <option value="عازل مائي و حراري للأسطح">عازل مائي وحراري للأسطح</option>
-                            </optgroup>
-                            <optgroup label="الخدمات الرقمية وتطوير الويب">
-                                <option value="مطور ومصمم مواقع إنترنت وإستضافة">مطور ومصمم مواقع إنترنت وإستضافة</option>
-                                <option value="مصمم غرافيك وإعلانات رقمية">مصمم غرافيك وإعلانات رقمية</option>
-                                <option value="خبير تسويق إلكتروني وإدارة منصات">خبير تسويق إلكتروني وإدارة منصات</option>
-                            </optgroup>
-                            <optgroup label="الطباعة، التصوير والخدمات المكتبية">
-                                <option value="خدمات الطباعة، النسخ والتصوير">خدمات الطباعة، النسخ والتصوير</option>
-                                <option value="كاتب عمومي وخدمات إدارية ورقمية">كاتب عمومي وخدمات إدارية ورقمية</option>
-                            </optgroup>
-                            <optgroup label="الخدمات والنقل">
-                                <option value="سائق نقل بضائع وأثاث">سائق نقل بضائع وأثاث</option>
-                                <option value="خدمات التنظيف الشامل للمنازل والمكاتب">خدمات التنظيف الشامل للمنازل والمكاتب</option>
-                            </optgroup>
-                            <optgroup label="الحرف التقليدية والفنون">
-                                <option value="خياط ومصمم أزياء تقليدية وعصرية">خياط ومصمم أزياء تقليدية وعصرية</option>
-                                <option value="صانع حلويات تقليدية ومأكولات للحفلات">صانع حلويات تقليدية ومأكولات للحفلات</option>
-                            </optgroup>
-                            <optgroup label="أخرى">
-                                <option value="OTHER">حرفة أو خدمة أخرى (اكتبها يدوياً)</option>
-                            </optgroup>
+                        <label for="craftTypeSelect">نوع الحرفة / الاختصاص *</label>
+                        <select id="craftTypeSelect" required onchange="handleCraftSelection()">
+                            <option value="">اختر الحرفة...</option>
+                            <option value="نجارة">نجارة وأثاث</option>
+                            <option value="حدادة وبناء">حدادة وبناء</option>
+                            <option value="خياطة وتطريز">خياطة وتطريز</option>
+                            <option value="صيانة إلكترونية">صيانة أجهزة وكهرباء</option>
+                            <option value="خدمات منزلية">خدمات منزلية وتنظيف</option>
+                            <option value="OTHER">حرفة أخرى (اكتبها بنفسك)</option>
                         </select>
                     </div>
-
+                    <div class="form-group" id="customCraftGroup" style="display: none;">
+                        <label for="customCraftInput">حدد الحرفة الأخرى *</label>
+                        <input type="text" id="customCraftInput" placeholder="أدخل اسم حرفتك هنا">
+                    </div>
                     <div class="form-group">
-                        <label>البلدية (ولاية ورقلة):</label>
-                        <select id="municipality" required class="form-control">
-                            <option value="">-- اختر البلدية --</option>
+                        <label for="municipality">البلدية *</label>
+                        <select id="municipality" required>
                             <option value="ورقلة">ورقلة</option>
+                            <option value="رويسات">الرويسات</option>
                             <option value="حاسي مسعود">حاسي مسعود</option>
-                            <option value="الرويسات">الرويسات</option>
+                            <option value="التجادة">الأنقوسة</option>
                             <option value="سيدي خويلد">سيدي خويلد</option>
-                            <option value="حاسي بن عبد الله">حاسي بن عبد الله</option>
-                            <option value="عين البيضاء">عين البيضاء</option>
-                            <option value="إنقوسة">إنقوسة</option>
-                            <option value="البرمة">البرمة</option>
-                            <option value="بلدية أخرى / مجاورة">بلدية أخرى / مجاورة</option>
                         </select>
                     </div>
-                </div>
-
-                <!-- حقل إدخال الحرفة يدوياً إذا اختار المستخدم أخرى -->
-                <div id="customCraftGroup" class="form-group" style="display: none;">
-                    <label>حدد الحرفة أو الخدمة يدوياً:</label>
-                    <input type="text" id="customCraftInput" placeholder="اكتب اسم حرفتك أو خدمتك بدقة هنا..." class="form-control">
-                </div>
-
-                <div class="form-grid">
                     <div class="form-group">
-                        <label>ساعات العمل / أوقات الجاهزية:</label>
-                        <input type="text" id="workingHours" required placeholder="مثال: من 8 صباحاً إلى 6 مساءً" class="form-control">
+                        <label for="workingHours">أوقات العمل</label>
+                        <input type="text" id="workingHours" placeholder="مثال: من 8 صباحاً إلى 5 مساءً">
                     </div>
-                    <div class="form-group">
-                        <label>رابط معرض الأعمال أو التواصل (اختياري):</label>
-                        <input type="url" id="portfolioUrl" placeholder="رابط صفحة أو صور الأعمال" class="form-control">
+                    <div class="form-group full-width">
+                        <label for="portfolioUrl">رابط أعمالك (إن وجد - فيسبوك أو صور)</label>
+                        <input type="url" id="portfolioUrl" placeholder="https://facebook.com/...">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="artisanBio">نبذة مختصرة عن الخدمات والخبرة</label>
+                        <textarea id="artisanBio" rows="3" placeholder="اكتب تفاصيل إضافية عن الخدمات التي تقدمها..."></textarea>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label>نبذة عن حرفتك أو خدمتك:</label>
-                    <textarea id="artisanBio" rows="3" placeholder="اكتب نبذة مختصرة عن الخبرة أو تفاصيل الخدمات..." class="form-control"></textarea>
-                </div>
-
-                <button type="submit" class="btn-submit">إرسال التسجيل فوراً ودخول الدليل</button>
-                <div id="artisanAlert" style="text-align: center; font-size: 0.8rem; margin-top: 10px; display: none; padding: 10px; border-radius: 8px;"></div>
+                <button type="submit">تأكيد التسجيل في الدليل</button>
             </form>
-        </section>
-
-        <!-- اتصل بنا -->
-        <section id="contact">
-            <h2 class="section-title"><span>📞 اتصل بنا</span></h2>
-            <div style="font-size: 0.9rem; color: #475569; display: flex; flex-direction: column; gap: 10px;">
-                <p>📍 <strong>العنوان:</strong> ولاية ورقلة، الجزائر.</p>
-                <p>🌐 <strong>الموقع الرسمي:</strong> <a href="https://soukessebt.com" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: bold;">soukessebt.com</a></p>
-                <p>📞 <strong>رقم التواصل:</strong> <a href="tel:0673888939" style="color: var(--primary); text-decoration: none; font-weight: bold;" dir="ltr">0673888939</a></p>
-                <p style="margin-top: 5px;">لاستفساراتكم واقتراحاتكم يسعدنا تواصلكم عبر صفحتنا الرسمية على الفيسبوك:</p>
-                <div>
-                    <a href="https://www.facebook.com/profile.php?id=61593982874509" target="_blank" class="btn-review" style="background: #2563eb; padding: 10px 20px; font-size: 0.85rem;">
-                        <span>زيارة صفحتنا الرسمية على الفيسبوك</span>
-                    </a>
-                </div>
-            </div>
         </section>
 
     </main>
 
-    <!-- النافذة المنبثقة للتقييم والنسخ الآلي المضمون -->
-    <div id="reviewModal" class="modal-overlay">
-        <div class="modal-box">
-            <h4 style="font-weight: 900; color: #1e293b; margin-bottom: 8px; font-size: 1.1rem;">⭐ تقييم الحرفي</h4>
-            <p style="font-size: 0.8rem; color: #64748b;">انسخ معلومات الحرفي أدناه بضغطة واحدة، ثم شارك تقييمك ورأيك:</p>
-            
-            <div id="reviewTextSnippet" class="modal-snippet"></div>
-
-            <div class="modal-actions">
-                <button onclick="copyReviewSnippet()" class="btn-review" style="flex: 1; justify-content: center; padding: 11px;">
-                    📋 نسخ والتوجه للفيسبوك
-                </button>
-                <button onclick="closeReviewModal()" style="background: #e2e8f0; color: #334155; border: none; padding: 11px 16px; border-radius: 10px; font-size: 0.8rem; font-weight: 700; cursor: pointer;">
-                    إغلاق
-                </button>
+    <!-- نافذة تقييم الحرفي المنبثقة -->
+    <div class="modal-overlay" id="reviewModal">
+        <div class="modal-content">
+            <h3 style="margin-top: 0; color: var(--primary-dark);">⭐ تقييم الحرفي والمشاركة</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">تم تجهيز نص التقييم أدناه. اضغط على زر النسخ والمشاركة للانتقال إلى صفحة الفيسبوك ونشر رأيك:</p>
+            <div id="reviewTextSnippet" style="background: #f1f5f9; padding: 10px; border-radius: 6px; font-size: 0.8rem; white-space: pre-wrap; margin-bottom: 1rem; border: 1px solid var(--border-color);"></div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" onclick="closeReviewModal()" style="background: #64748b;">إلغاء</button>
+                <button type="button" onclick="copyReviewSnippet()">نسخ والانتقال للفيسبوك</button>
             </div>
         </div>
     </div>
 
-    <!-- الفوتر -->
-    <footer>
-        <p><strong>منصة سوق السبت - بيت الحرفي | ولاية ورقلة</strong></p>
-        <p style="margin-top: 5px; color: #64748b;">جميع الحقوق محفوظة &copy; 2026 soukessebt.com</p>
-    </footer>
-
-    <!-- السكريبت البرمجي -->
+    <!-- السكريبت البرمجي الأصلي للمنصة -->
     <script>
-        const SUPABASE_URL = 'https://blrlmuhmcdkgkadoiiek.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_BjYF0eefuKqruas3QJqbNQ_MsUEKNCz';
-
-        const { createClient } = supabase;
-        const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // إعدادات اتصال Supabase
+        const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
+        const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let globalArtisansList = [];
-
-        const minbarList = [
-            { text: "«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»", source: "رواه البيهقي" },
-            { text: "«مَنْ عَمِلَ مِنْكُمْ عَمَلاً فَلْيُتْقِنْهُ، فَإِنَّ ذَلِكَ مِنْ حُسْنِ الْعَمَلِ.»", source: "توجيه نبوي شريف" },
-            { text: "«وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ»", source: "سورة التوبة - الآية 105" },
-            { text: "«إِنَّ خَيْرَ مَنِ اسْتَأْجَرْتَ الْقَوِيُّ الْأَمِينُ»", source: "سورة القصص - الآية 26" },
-            { text: "«لَأَنْ يَأْخُذَ أَحَدُكُمْ حُبْلَهُ فَيَأْتِيَ بِحُزْمَةِ الْحَطَبِ عَلَى ظَهْرِهِ فَيَبِيعَهَا... خَيْرٌ لَهُ مِنْ أَنْ يَسْأَلَ النَّاسَ»", source: "رواه البخاري" },
-            { text: "«مَنْ سَعَى عَلَى عِيَالِهِ كَالمُجَاهِدِ فِي سَبِيلِ اللهِ.»", source: "حديث شريف في فضل السعي والعمل" },
-            { text: "أتقن عملك مهما كان صغيراً، فالإتقان عنوان الأمانة وصانع السمعة الطيبة.", source: "حكمة الحرفيين" },
-            { text: "الصدق في المعاملة والإتقان في الصنعة هما رأس مال الحرفي الحقيقي.", source: "دروس من التراث المهني" }
-        ];
-
-        function initDailyContent() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-            const gregorianDateStr = now.toLocaleDateString('ar-DZ', options);
-            
-            let hijriDateStr = "";
-            try {
-                hijriDateStr = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' }).format(now);
-            } catch (e) {
-                hijriDateStr = "";
-            }
-
-            document.getElementById('todayDate').textContent = hijriDateStr ? `${gregorianDateStr} الموافق لـ ${hijriDateStr}` : gregorianDateStr;
-
-            const start = new Date(now.getFullYear(), 0, 0);
-            const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-            const oneDay = 1000 * 60 * 60 * 24;
-            const dayOfYear = Math.floor(diff / oneDay);
-            
-            const selectedQuote = minbarList[dayOfYear % minbarList.length];
-            document.getElementById('dailyQuote').textContent = selectedQuote.text;
-            document.getElementById('quoteSource').textContent = selectedQuote.source;
-        }
 
         function handleCraftSelection() {
             const selectElem = document.getElementById('craftTypeSelect');
@@ -785,141 +395,156 @@
             }
         }
 
-        async function loadArtisans() {
+        async function fetchArtisans() {
             const container = document.getElementById('artisansContainer');
             const countBadge = document.getElementById('artisansCount');
             
-            const { data, error } = await _supabase.from('artisans').select('*').order('created_at', { ascending: false });
+            try {
+                const { data, error } = await _supabase
+                    .from('artisans')
+                    .select('*')
+                    .order('created_at', { ascending: false });
 
-            if (error) {
-                container.innerHTML = '<p style="text-align: center; color: #ef4444; font-size: 0.85rem; padding: 20px;">عذراً، حدث خطأ أثناء الاتصال بقاعدة البيانات لجلب الحرفيين.</p>';
-                countBadge.innerText = 'خطأ في الاتصال';
-                return;
+                if (error) throw error;
+
+                globalArtisansList = data || [];
+                renderArtisans(globalArtisansList);
+                countBadge.textContent = `${globalArtisansList.length} حرفي مسجل`;
+
+            } catch (err) {
+                console.error('خطأ في جلب البيانات:', err);
+                container.innerHTML = `<p style="text-align: center; color: #ef4444; font-size: 0.85rem; padding: 20px;">تعذر تحميل قائمة الحرفيين حالياً. يرجى التحقق من اتصال قاعدة البيانات وسياسات RLS.</p>`;
+                countBadge.textContent = `0 حرفي`;
             }
-
-            globalArtisansList = data || [];
-            displayArtisans(globalArtisansList);
         }
 
-        function displayArtisans(artisans) {
+        function renderArtisans(list) {
             const container = document.getElementById('artisansContainer');
-            const countBadge = document.getElementById('artisansCount');
             
-            countBadge.innerText = `${artisans.length} حرفي مسجل`;
-
-            if (artisans.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #94a3b8; font-size: 0.85rem; padding: 20px;">لا يوجد حرفيون مسجلون مطابقون للبحث.</p>';
+            if (list.length === 0) {
+                container.innerHTML = `<p style="text-align: center; color: #64748b; font-size: 0.85rem; padding: 20px;">لا توجد نتائج مطابقة لبحثك حالياً.</p>`;
                 return;
             }
 
-            container.innerHTML = artisans.map(artisan => {
-                const portfolioLink = artisan.portfolio_url ? `<a href="${escapeHtml(artisan.portfolio_url)}" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">رابط المعرض</a>` : '<span style="color: #94a3b8;">بدون رابط</span>';
-                const artisanStringForCopy = `${artisan.full_name || ''} - ${artisan.craft_type || ''}`;
+            let html = '';
+            list.forEach(artisan => {
+                let displayCraft = artisan.craft_type;
+                if (displayCraft === 'OTHER' && artisan.custom_craft) {
+                    displayCraft = artisan.custom_craft;
+                }
 
-                return `
+                html += `
                     <div class="artisan-card">
                         <div class="artisan-header">
                             <span class="artisan-name">${escapeHtml(artisan.full_name)}</span>
-                            <span class="artisan-craft-badge">${escapeHtml(artisan.craft_type)}</span>
+                            <span class="artisan-craft-badge">🛠️ ${escapeHtml(displayCraft)}</span>
                         </div>
-                        <p class="artisan-bio"><strong>النبذة:</strong> ${escapeHtml(artisan.bio || 'لا توجد نبذة متوفرة.')}</p>
+                        <p class="artisan-bio">${escapeHtml(artisan.bio || 'لا توجد نبذة إضافية مضافة.')}</p>
                         <div class="artisan-footer-info">
-                            <span>📍 البلدية: <strong>${escapeHtml(artisan.municipality)}</strong></span>
-                            <span>📞 الهاتف: <strong dir="ltr">${escapeHtml(artisan.phone)}</strong></span>
-                            <span>⏰ أوقات العمل: <strong>${escapeHtml(artisan.working_hours || 'غير محدد')}</strong></span>
-                            ${portfolioLink}
-                        </div>
-                        <div style="margin-top: 12px; border-top: 1px solid #f1f5f9; padding-top: 12px;">
-                            <button onclick="openReviewModal('${escapeHtml(artisanStringForCopy).replace(/'/g, "\\'")}')" class="btn-review" style="width: 100%; justify-content: center;">
-                                <span>⭐ قيم الحرفي وشارك رأيك على الفيسبوك</span>
-                            </button>
+                            <span>📍 ${escapeHtml(artisan.municipality)} | ⏰ ${escapeHtml(artisan.working_hours || 'غير محدد')}</span>
+                            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                                <a href="tel:${escapeHtml(artisan.phone)}" class="btn-review" style="background: var(--primary);">
+                                    📞 ${escapeHtml(artisan.phone)}
+                                </a>
+                                <button onclick="openReviewModal('${escapeHtml(artisan.full_name)}', '${escapeHtml(displayCraft)}', '${escapeHtml(artisan.municipality)}', '${escapeHtml(artisan.phone)}')" class="btn-review">
+                                    ⭐ تقييم الحرفي
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
-            }).join('');
+            });
+
+            container.innerHTML = html;
         }
 
         function filterArtisans() {
             const keyword = document.getElementById('searchKeyword').value.toLowerCase().trim();
-            const selectedCraft = document.getElementById('filterCraft').value;
-            const municipality = document.getElementById('filterMunicipality').value;
+            const craftFilter = document.getElementById('filterCraft').value;
+            const muniFilter = document.getElementById('filterMunicipality').value;
 
             const filtered = globalArtisansList.filter(artisan => {
-                const name = (artisan.full_name || '').toLowerCase();
-                const craft = (artisan.craft_type || '');
-                const bio = (artisan.bio || '').toLowerCase();
-                const mun = artisan.municipality || '';
-
-                const matchesKeyword = !keyword || name.includes(keyword) || craft.toLowerCase().includes(keyword) || bio.includes(keyword);
+                const nameMatch = artisan.full_name && artisan.full_name.toLowerCase().includes(keyword);
+                const craftVal = (artisan.craft_type === 'OTHER' && artisan.custom_craft) ? artisan.custom_craft : artisan.craft_type;
+                const craftMatch = craftVal && craftVal.toLowerCase().includes(keyword);
+                const bioMatch = artisan.bio && artisan.bio.toLowerCase().includes(keyword);
                 
-                let matchesCraft = true;
-                if (selectedCraft) {
-                    if (selectedCraft === 'OTHER') {
-                        const standardCrafts = ['سباك ومركب قنوات (Plombier)', 'كهربائي معماري وصناعي (Électricien)', 'فني مكيفات وتبريد (Climatiseur)', 'مركب كاميرات مراقبة وأجهزة أمنية', 'فني شبكات إنترنت وستالايت', 'صيانة الأجهزة الكهرومنزلية', 'بناء وعمال ورشات بناء', 'دهان وصباغ منازل وديكور', 'مركب بلاط وفايونس', 'جباص ومركب ديكورات الأسقف', 'نجار أثاث وخشب', 'حداد ومصمم أبواب ونوافذ حديدية', 'عازل مائي و حراري للأسطح', 'مطور ومصمم مواقع إنترنت وإستضافة', 'مصمم غرافيك وإعلانات رقمية', 'خبير تسويق إلكتروني وإدارة منصات', 'خدمات الطباعة، النسخ والتصوير', 'كاتب عمومي وخدمات إدارية ورقمية', 'سائق نقل بضائع وأثاث', 'خدمات التنظيف الشامل للمنازل والمكاتب', 'خياط ومصمم أزياء تقليدية وعصرية', 'صانع حلويات تقليدية ومأكولات للحفلات'];
-                        matchesCraft = !standardCrafts.includes(craft);
-                    } else {
-                        matchesCraft = craft === selectedCraft;
-                    }
-                }
+                const matchesKeyword = !keyword || nameMatch || craftMatch || bioMatch;
+                const matchesCraft = !craftFilter || artisan.craft_type === craftFilter || (craftFilter === 'OTHER' && artisan.craft_type === 'OTHER');
+                const matchesMuni = !muniFilter || artisan.municipality === muniFilter;
 
-                const matchesMunicipality = !municipality || mun === municipality;
-
-                return matchesKeyword && matchesCraft && matchesMunicipality;
+                return matchesKeyword && matchesCraft && matchesMuni;
             });
 
-            displayArtisans(filtered);
+            renderArtisans(filtered);
         }
 
         async function handleRegistration(event) {
             event.preventDefault();
-            const alertBox = document.getElementById('artisanAlert');
-            
-            const selectElem = document.getElementById('craftTypeSelect');
-            let craftVal = selectElem.value;
-            if (craftVal === 'OTHER') {
-                craftVal = document.getElementById('customCraftInput').value.trim();
-            }
 
-            const newArtisan = {
-                full_name: document.getElementById('artisanName').value.trim(),
-                craft_type: craftVal,
-                municipality: document.getElementById('municipality').value,
-                phone: document.getElementById('artisanPhone').value.trim(),
-                working_hours: document.getElementById('workingHours').value.trim(),
-                portfolio_url: document.getElementById('portfolioUrl').value.trim(),
-                bio: document.getElementById('artisanBio').value.trim()
+            const alertBox = document.getElementById('artisanAlert');
+            alertBox.style.display = 'block';
+            alertBox.style.background = '#fef3c7';
+            alertBox.style.color = '#b45309';
+            alertBox.textContent = 'جاري إرسال بياناتك وتسجيلك في الدليل...';
+
+            const fullName = document.getElementById('artisanName').value.trim();
+            const phone = document.getElementById('artisanPhone').value.trim();
+            let craftType = document.getElementById('craftTypeSelect').value;
+            const customCraft = document.getElementById('customCraftInput').value.trim();
+            const municipality = document.getElementById('municipality').value;
+            const workingHours = document.getElementById('workingHours').value.trim();
+            const portfolioUrl = document.getElementById('portfolioUrl').value.trim();
+            const bio = document.getElementById('artisanBio').value.trim();
+
+            const newEntry = {
+                full_name: fullName,
+                phone: phone,
+                craft_type: craftType,
+                custom_craft: customCraft || null,
+                municipality: municipality,
+                working_hours: workingHours,
+                portfolio_url: portfolioUrl || null,
+                bio: bio || null
             };
 
-            alertBox.style.display = 'block';
-            alertBox.style.background = '#f1f5f9';
-            alertBox.style.color = '#334155';
-            alertBox.innerText = 'جاري إرسال البيانات وحفظها في قاعدة البيانات...';
+            try {
+                const { data, error } = await _supabase
+                    .from('artisans')
+                    .insert([newEntry]);
 
-            const { error } = await _supabase.from('artisans').insert([newArtisan]);
+                if (error) throw error;
 
-            if (error) {
-                alertBox.style.background = '#fee2e2';
-                alertBox.style.color = '#991b1b';
-                alertBox.innerText = 'حدث خطأ أثناء التسجيل: ' + error.message;
-            } else {
-                alertBox.style.background = '#d1fae5';
-                alertBox.style.color = '#065f46';
-                alertBox.innerText = 'تم تسجيل حرفتك بنجاح وإضافتها إلى الدليل فوراً!';
+                alertBox.style.background = '#ecfdf5';
+                alertBox.style.color = '#047857';
+                alertBox.textContent = 'تم تسجيل حرفتك بنجاح وأصبحت مدرجة في الدليل العام!';
+
                 document.getElementById('artisanForm').reset();
                 document.getElementById('customCraftGroup').style.display = 'none';
-                loadArtisans();
+                fetchArtisans();
+
+                setTimeout(() => {
+                    alertBox.style.display = 'none';
+                }, 5000);
+
+            } catch (err) {
+                console.error('خطأ التسجيل:', err);
+                alertBox.style.background = '#fee2e2';
+                alertBox.style.color = '#dc2626';
+                alertBox.textContent = 'حدث خطأ أثناء الإرسال. يرجى التحقق من اتصال الإنترنت أو إعدادات القاعدة.';
             }
         }
 
-        function escapeHtml(str) {
-            if (!str) return '';
-            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-        }
+        let currentReviewText = '';
 
-        function openReviewModal(artisanString) {
-            const snippet = `أرغب في تقييم الحرفي ( ${artisanString} ) عبر منصة سوق السبت: \nالتقييم: ممتاز / أنصح به بشدة ⭐⭐⭐⭐⭐`;
-            document.getElementById('reviewTextSnippet').innerText = snippet;
-            document.getElementById('reviewModal').style.display = 'flex';
+        function openReviewModal(name, craft, muni, phone) {
+            const modal = document.getElementById('reviewModal');
+            const snippetBox = document.getElementById('reviewTextSnippet');
+            
+            currentReviewText = `📝 تقييم حرفي عبر منصة سوق السبت - بيت الحرفي (ورقلة):\n👤 الاسم: ${name}\n🛠️ الحرفة: ${craft}\n📍 البلدية: ${muni}\n📞 الهاتف: ${phone}\n⭐ رأيي وتقييمي للخدمة: [اكتب تقييمك هنا]`;
+            
+            snippetBox.textContent = currentReviewText;
+            modal.style.display = 'flex';
         }
 
         function closeReviewModal() {
@@ -927,43 +552,29 @@
         }
 
         function copyReviewSnippet() {
-            const snippetElem = document.getElementById('reviewTextSnippet');
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(snippetElem.innerText).then(() => {
-                    alert('تم نسخ تفاصيل الحرفي بنجاح! سيتم تحويلك الآن لصفحة الفيسبوك.');
-                    closeReviewModal();
-                    window.open('https://www.facebook.com/profile.php?id=61593982874509', '_blank');
-                }).catch(() => {
-                    execFallbackCopy(snippetElem.innerText);
-                });
-            } else {
-                execFallbackCopy(snippetElem.innerText);
-            }
+            navigator.clipboard.writeText(currentReviewText).then(() => {
+                alert('تم نسخ تفاصيل الحرفي بنجاح! سيتم توجيهك الآن إلى صفحة الفيسبوك لمشاركة التقييم.');
+                window.open('https://www.facebook.com/profile.php?id=61593982874509', '_blank');
+                closeReviewModal();
+            }).catch(err => {
+                console.error('فشل النسخ:', err);
+                alert('تعذر النسخ التلقائي، يمكنك نسخ النص يدويًا من الخانة.');
+            });
         }
 
-        function execFallbackCopy(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                alert('تم نسخ تفاصيل الحرفي بنجاح!');
-            } catch (err) {
-                console.error('فشل النسخ التلقائي', err);
-            }
-            document.body.removeChild(textArea);
-            closeReviewModal();
-            window.open('https://www.facebook.com/profile.php?id=61593982874509', '_blank');
+    function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace('&', '&amp;')
+                      .replace('<', '&lt;')
+                      .replace('>', '&gt;')
+                      .replace('"', '&quot;')
+                      .replace("'", '&#039;');
         }
 
-        window.onload = () => {
-            initDailyContent();
-            loadArtisans();
-        };
+        // تشغيل الوظائف عند تحميل الصفحة
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchArtisans();
+        });
     </script>
 </body>
 </html>
