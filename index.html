@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة سوق السبت - بيت الحرفي | ورقلة</title>
+    <meta name="description" content="سوق السبت (بيت الحرفي) — منصة محلية لربط الحرفيين وأصحاب المهن الحرة بالزبائن في ولاية ورقلة. ابحث عن حرفي موثوق أو سجّل حرفتك مجاناً.">
+    <meta name="theme-color" content="#047857">
+    <meta property="og:title" content="سوق السبت - بيت الحرفي | ورقلة">
+    <meta property="og:description" content="منصة محلية لربط الحرفيين وأصحاب المهن الحرة بالزبائن في ولاية ورقلة.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="logo.png" type="image/png">
     <!-- خط كايرو الأصلي -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
@@ -59,8 +67,8 @@
         }
 
         .nav-brand {
-            font-size: 1.1rem;
-            font-weight: 900;
+            font-size: 1.05rem;
+            font-weight: 800;
             color: var(--accent);
             text-decoration: none;
             display: flex;
@@ -69,8 +77,8 @@
         }
 
         .brand-logo {
-            width: 45px;
-            height: 45px;
+            width: 38px;
+            height: 38px;
             object-fit: contain;
             border-radius: 50%;
             background: white;
@@ -79,23 +87,26 @@
         }
 
         .hero-logo {
-            width: 140px;
-            height: 140px;
+            width: 80px;
+            height: 80px;
             object-fit: contain;
-            margin: 0 auto 15px auto;
+            margin: 0 auto 12px auto;
             border-radius: 50%;
             background: white;
             padding: 5px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             border: 3px solid var(--accent);
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 18px;
             list-style: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
         }
 
         .nav-links a {
@@ -117,13 +128,16 @@
             display: flex;
             flex-direction: column;
             gap: 25px;
+            scroll-behavior: smooth;
         }
+
+        html { scroll-behavior: smooth; }
 
         /* الهيدر الرئيسي للمنصة */
         header.hero {
             background: linear-gradient(135deg, #047857 0%, #065f46 60%, #0f766e 100%);
             color: white;
-            padding: 40px 30px;
+            padding: 36px 30px;
             border-radius: 24px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(4, 120, 87, 0.2);
@@ -132,14 +146,14 @@
         }
 
         header.hero h1 {
-            font-size: 2.2rem;
-            font-weight: 900;
+            font-size: 2rem;
+            font-weight: 800;
             margin-bottom: 8px;
             letter-spacing: -0.5px;
         }
 
         header.hero p {
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: #d1fae5;
             max-width: 600px;
             margin: 0 auto;
@@ -158,6 +172,52 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        .hero-count {
+            display: inline-block;
+            margin-top: 14px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 30px;
+            padding: 6px 18px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .hero-count span { color: var(--accent); font-weight: 900; }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .btn-hero {
+            padding: 11px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+        .btn-hero:hover { transform: translateY(-2px); }
+
+        .btn-hero-primary {
+            background: var(--accent);
+            color: #1e293b;
+        }
+
+        .btn-hero-secondary {
+            background: rgba(255,255,255,0.12);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.35);
+        }
+
         /* الأقسام والبطاقات العامة */
         section, .card-section {
             background: var(--card-bg);
@@ -168,8 +228,8 @@
         }
 
         .section-title {
-            font-size: 1.2rem;
-            font-weight: 900;
+            font-size: 1.15rem;
+            font-weight: 800;
             color: var(--text-main);
             margin-bottom: 15px;
             display: flex;
@@ -177,6 +237,62 @@
             align-items: center;
             border-bottom: 2px solid #f1f5f9;
             padding-bottom: 10px;
+            gap: 10px;
+        }
+
+        .section-title span:first-child {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title i { color: var(--primary); }
+
+        /* كيف تعمل المنصة */
+        .how-it-works {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        @media (max-width: 600px) {
+            .how-it-works { grid-template-columns: 1fr; }
+        }
+        .how-step {
+            text-align: center;
+            padding: 15px;
+        }
+        .how-step i {
+            font-size: 1.6rem;
+            color: var(--primary);
+            background: #ecfdf5;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px auto;
+        }
+        .how-step h4 {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: #1e293b;
+        }
+        .how-step p {
+            font-size: 0.78rem;
+            color: #64748b;
+        }
+
+        .trust-note {
+            margin-top: 15px;
+            background: #fffbeb;
+            border: 1px solid #fef3c7;
+            color: #92400e;
+            font-size: 0.8rem;
+            padding: 12px 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
         }
 
         /* منبر الحرفي اليومي */
@@ -202,6 +318,9 @@
             font-weight: 800;
             padding: 4px 12px;
             border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .minbar-date {
@@ -215,7 +334,7 @@
         }
 
         .minbar-quote {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: #1e293b;
             text-align: center;
@@ -239,7 +358,8 @@
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
+            align-items: center;
         }
 
         .search-filter-bar input, .search-filter-bar select {
@@ -258,14 +378,28 @@
             border-color: var(--primary);
         }
 
+        .btn-reset-filters {
+            background: none;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 11px 16px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .btn-reset-filters:hover { background: #f1f5f9; }
+
         /* بطاقات الحرفيين */
         .artisan-card {
             background: #fcfcfc;
             border: 1px solid #e2e8f0;
             border-radius: 14px;
-            padding: 20px;
+            padding: 18px 20px;
             margin-bottom: 15px;
             transition: all 0.2s ease;
+            position: relative;
         }
 
         .artisan-card:hover {
@@ -275,29 +409,56 @@
             background: white;
         }
 
+        .new-badge {
+            position: absolute;
+            top: -9px;
+            right: 14px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
         .artisan-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .artisan-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: #ecfdf5;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            flex-shrink: 0;
         }
 
         .artisan-name {
-            font-size: 1.1rem;
-            font-weight: 900;
+            font-size: 1.05rem;
+            font-weight: 800;
             color: #0f172a;
         }
 
         .artisan-craft-badge {
             background: #ecfdf5;
             color: #047857;
-            padding: 4px 12px;
+            padding: 3px 11px;
             border-radius: 50px;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 800;
             border: 1px solid #a7f3d0;
+            display: inline-block;
+            margin-top: 3px;
         }
 
         .artisan-bio {
@@ -319,7 +480,48 @@
             gap: 10px;
         }
 
-        /* أزرار التقييم والتواصل */
+        .artisan-footer-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .artisan-footer-info i { color: var(--primary); width: 14px; }
+
+        .btn-call {
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-call:hover { background: var(--primary-dark); }
+
+        .artisan-card-actions {
+            margin-top: 12px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        .btn-rate-link {
+            background: none;
+            border: none;
+            color: #2563eb;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-rate-link:hover { text-decoration: underline; }
+
+        /* أزرار عامة */
         .btn-review {
             background: #2563eb;
             color: white;
@@ -440,6 +642,26 @@
             gap: 10px;
         }
 
+        /* حالات التحميل والفراغ */
+        .state-message {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            padding: 30px 20px;
+        }
+        .state-message i { font-size: 1.6rem; display: block; margin-bottom: 8px; color: #cbd5e1; }
+        .state-message.error { color: #ef4444; }
+        .state-message.error i { color: #fca5a5; }
+
+        .skeleton-card {
+            background: #f1f5f9;
+            border-radius: 14px;
+            height: 90px;
+            margin-bottom: 15px;
+            animation: pulse 1.4s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
         /* الفوتر */
         footer {
             background: #0f172a;
@@ -458,7 +680,7 @@
 </head>
 <body>
 
-    <!-- شريط التنقل العلوي مع ربط الشعار الصحيح logo.png -->
+    <!-- شريط التنقل العلوي -->
     <nav>
         <div class="nav-container">
             <a href="#" class="nav-brand">
@@ -477,18 +699,31 @@
     <!-- المحتوى الرئيسي -->
     <main>
 
-        <!-- الهيدر الرئيسي مع ربط الشعار الصحيح logo.png -->
+        <!-- الهيدر الرئيسي -->
         <header class="hero">
             <img src="logo.png" alt="شعار سوق السبت" class="hero-logo">
             <span class="badge-top">المنصة المحلية الأولى ورقلة</span>
             <h1>سوق السبت (SoukEssebt)</h1>
             <p>بيت الحرفي والخدمات الموثوقة - ولاية ورقلة والمناطق المجاورة</p>
+
+            <div class="hero-count" id="heroCount" style="display:none;">
+                <i class="fa-solid fa-user-group"></i> <span id="heroCountNumber">0</span> حرفي منضم إلينا
+            </div>
+
+            <div class="hero-actions">
+                <a href="#artisans-section" class="btn-hero btn-hero-primary">
+                    <i class="fa-solid fa-magnifying-glass"></i> ابحث عن حرفي
+                </a>
+                <a href="#registerSection" class="btn-hero btn-hero-secondary">
+                    <i class="fa-solid fa-pen-to-square"></i> سجّل حرفتك
+                </a>
+            </div>
         </header>
 
         <!-- منبر الحرفي اليومي -->
         <section class="minbar-box">
             <div class="minbar-header">
-                <span class="minbar-tag">📜 منبر الحرفي اليومي</span>
+                <span class="minbar-tag"><i class="fa-solid fa-scroll"></i> منبر الحرفي اليومي</span>
                 <div id="todayDate" class="minbar-date">جاري تحميل التاريخ...</div>
             </div>
             <div>
@@ -499,16 +734,39 @@
 
         <!-- قسم من نحن -->
         <section id="about">
-            <h2 class="section-title"><span>🏢 من نحن</span></h2>
-            <p style="font-size: 0.9rem; color: #475569; line-height: 1.8;">
+            <h2 class="section-title"><span><i class="fa-solid fa-building"></i> من نحن</span></h2>
+            <p style="font-size: 0.9rem; color: #475569; line-height: 1.8; margin-bottom: 18px;">
                 منصة <strong>سوق السبت (بيت الحرفي)</strong> هي مساحة رقمية مخصصة لربط الحرفيين وأصحاب المهن الحرة والخدمات بالزبائن والباحثين عن الجودة والإتقان في ولاية ورقلة. هدفنا هو تسهيل الوصول إلى الخدمات المحلية الموثوقة، دعم المواهب والحرف التقليدية والعصرية، وخلق بيئة شفافة قائمة على تقييمات التجارب الحقيقية للزبائن.
             </p>
+
+            <div class="how-it-works">
+                <div class="how-step">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <h4>١. ابحث</h4>
+                    <p>استخدم الفلاتر لإيجاد الحرفي المناسب في بلديتك</p>
+                </div>
+                <div class="how-step">
+                    <i class="fa-solid fa-phone"></i>
+                    <h4>٢. تواصل</h4>
+                    <p>اتصل بالحرفي مباشرة على الرقم الموضح في بطاقته</p>
+                </div>
+                <div class="how-step">
+                    <i class="fa-solid fa-star"></i>
+                    <h4>٣. قيّم</h4>
+                    <p>شارك تجربتك بعد الخدمة لمساعدة الآخرين</p>
+                </div>
+            </div>
+
+            <div class="trust-note">
+                <i class="fa-solid fa-circle-info" style="margin-top:2px;"></i>
+                <span>يرجى التحقق من مؤهلات وهوية الحرفي قبل الاتفاق على أي خدمة. لا تتحمل المنصة أي مسؤولية عن جودة الأعمال أو التعاملات التي تتم خارج نطاقها.</span>
+            </div>
         </section>
 
-        <!-- دليل الحرفيين (مع شريط البحث والفلاتر) -->
+        <!-- دليل الحرفيين -->
         <section id="artisans-section">
             <div class="section-title">
-                <span>🛠️ دليل الحرفيين المسجلين</span>
+                <span><i class="fa-solid fa-toolbox"></i> دليل الحرفيين المسجلين</span>
                 <span id="artisansCount" style="font-size: 0.75rem; background: #ecfdf5; color: #047857; padding: 4px 12px; border-radius: 50px;">جاري التحميل...</span>
             </div>
 
@@ -569,17 +827,23 @@
                     <option value="البرمة">البرمة</option>
                     <option value="بلدية أخرى / مجاورة">بلدية أخرى / مجاورة</option>
                 </select>
+
+                <button class="btn-reset-filters" onclick="resetArtisanFilters()">
+                    <i class="fa-solid fa-rotate-left"></i> إعادة تعيين
+                </button>
             </div>
 
             <!-- حاوية الحرفيين المتصلة بقاعدة البيانات -->
             <div id="artisansContainer">
-                <p style="text-align: center; color: #94a3b8; font-size: 0.85rem; padding: 20px;">جاري جلب قائمة الحرفيين المسجلين...</p>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
             </div>
         </section>
 
         <!-- تسجيل حرفي جديد -->
         <section id="registerSection">
-            <h2 class="section-title"><span>📝 سجل حرفتك أو خدمتك مباشرة</span></h2>
+            <h2 class="section-title"><span><i class="fa-solid fa-pen-to-square"></i> سجل حرفتك أو خدمتك مباشرة</span></h2>
             
             <form id="artisanForm" onsubmit="handleRegistration(event)">
                 <div class="form-grid">
@@ -684,14 +948,15 @@
 
         <!-- اتصل بنا -->
         <section id="contact">
-            <h2 class="section-title"><span>📞 اتصل بنا</span></h2>
+            <h2 class="section-title"><span><i class="fa-solid fa-phone"></i> اتصل بنا</span></h2>
             <div style="font-size: 0.9rem; color: #475569; display: flex; flex-direction: column; gap: 10px;">
-                <p>📍 <strong>العنوان:</strong> ولاية ورقلة، الجزائر.</p>
-                <p>🌐 <strong>الموقع الرسمي:</strong> <a href="https://soukessebt.com" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: bold;">soukessebt.com</a></p>
-                <p>📞 <strong>رقم التواصل:</strong> <a href="tel:0673888939" style="color: var(--primary); text-decoration: none; font-weight: bold;" dir="ltr">0673888939</a></p>
+                <p><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> <strong>العنوان:</strong> ولاية ورقلة، الجزائر.</p>
+                <p><i class="fa-solid fa-globe" style="color:var(--primary);"></i> <strong>الموقع الرسمي:</strong> <a href="https://soukessebt.com" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: bold;">soukessebt.com</a></p>
+                <p><i class="fa-solid fa-phone" style="color:var(--primary);"></i> <strong>رقم التواصل:</strong> <a href="tel:0673888939" style="color: var(--primary); text-decoration: none; font-weight: bold;" dir="ltr">0673888939</a></p>
                 <p style="margin-top: 5px;">لاستفساراتكم واقتراحاتكم يسعدنا تواصلكم عبر صفحتنا الرسمية على الفيسبوك:</p>
                 <div>
                     <a href="https://www.facebook.com/profile.php?id=61593982874509" target="_blank" class="btn-review" style="background: #2563eb; padding: 10px 20px; font-size: 0.85rem;">
+                        <i class="fa-brands fa-facebook"></i>
                         <span>زيارة صفحتنا الرسمية على الفيسبوك</span>
                     </a>
                 </div>
@@ -700,17 +965,17 @@
 
     </main>
 
-    <!-- النافذة المنبثقة للتقييم والنسخ الآلي المضمون -->
-    <div id="reviewModal" class="modal-overlay">
+    <!-- النافذة المنبثقة للتقييم -->
+    <div id="reviewModal" class="modal-overlay" onclick="handleOverlayClick(event)">
         <div class="modal-box">
-            <h4 style="font-weight: 900; color: #1e293b; margin-bottom: 8px; font-size: 1.1rem;">⭐ تقييم الحرفي</h4>
+            <h4 style="font-weight: 800; color: #1e293b; margin-bottom: 8px; font-size: 1.05rem;"><i class="fa-solid fa-star" style="color:var(--accent);"></i> تقييم الحرفي</h4>
             <p style="font-size: 0.8rem; color: #64748b;">انسخ معلومات الحرفي أدناه بضغطة واحدة، ثم شارك تقييمك ورأيك:</p>
             
             <div id="reviewTextSnippet" class="modal-snippet"></div>
 
             <div class="modal-actions">
                 <button onclick="copyReviewSnippet()" class="btn-review" style="flex: 1; justify-content: center; padding: 11px;">
-                    📋 نسخ والتوجه للفيسبوك
+                    <i class="fa-solid fa-copy"></i> نسخ والتوجه للفيسبوك
                 </button>
                 <button onclick="closeReviewModal()" style="background: #e2e8f0; color: #334155; border: none; padding: 11px 16px; border-radius: 10px; font-size: 0.8rem; font-weight: 700; cursor: pointer;">
                     إغلاق
@@ -734,6 +999,7 @@
         const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let globalArtisansList = [];
+        let currentFilteredList = [];
 
         const minbarList = [
             { text: "«إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ.»", source: "رواه البيهقي" },
@@ -785,6 +1051,26 @@
             }
         }
 
+        function isNewArtisan(createdAt) {
+            if (!createdAt) return false;
+            const created = new Date(createdAt);
+            if (isNaN(created.getTime())) return false;
+            const diffDays = (new Date() - created) / 86400000;
+            return diffDays >= 0 && diffDays <= 7;
+        }
+
+        function updateHeroCount(count) {
+            const wrap = document.getElementById('heroCount');
+            const num = document.getElementById('heroCountNumber');
+            if (!wrap || !num) return;
+            if (count > 0) {
+                num.textContent = count;
+                wrap.style.display = 'inline-block';
+            } else {
+                wrap.style.display = 'none';
+            }
+        }
+
         async function loadArtisans() {
             const container = document.getElementById('artisansContainer');
             const countBadge = document.getElementById('artisansCount');
@@ -792,12 +1078,13 @@
             const { data, error } = await _supabase.from('artisans').select('*').order('created_at', { ascending: false });
 
             if (error) {
-                container.innerHTML = '<p style="text-align: center; color: #ef4444; font-size: 0.85rem; padding: 20px;">عذراً، حدث خطأ أثناء الاتصال بقاعدة البيانات لجلب الحرفيين.</p>';
+                container.innerHTML = '<div class="state-message error"><i class="fa-solid fa-triangle-exclamation"></i>عذراً، حدث خطأ أثناء الاتصال بقاعدة البيانات لجلب الحرفيين.</div>';
                 countBadge.innerText = 'خطأ في الاتصال';
                 return;
             }
 
             globalArtisansList = data || [];
+            updateHeroCount(globalArtisansList.length);
             displayArtisans(globalArtisansList);
         }
 
@@ -805,33 +1092,44 @@
             const container = document.getElementById('artisansContainer');
             const countBadge = document.getElementById('artisansCount');
             
+            currentFilteredList = artisans;
             countBadge.innerText = `${artisans.length} حرفي مسجل`;
 
             if (artisans.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #94a3b8; font-size: 0.85rem; padding: 20px;">لا يوجد حرفيون مسجلون مطابقون للبحث.</p>';
+                container.innerHTML = '<div class="state-message"><i class="fa-solid fa-magnifying-glass"></i>لا يوجد حرفيون مسجلون مطابقون للبحث.</div>';
                 return;
             }
 
-            container.innerHTML = artisans.map(artisan => {
-                const portfolioLink = artisan.portfolio_url ? `<a href="${escapeHtml(artisan.portfolio_url)}" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">رابط المعرض</a>` : '<span style="color: #94a3b8;">بدون رابط</span>';
-                const artisanStringForCopy = `${artisan.full_name || ''} - ${artisan.craft_type || ''}`;
+            container.innerHTML = artisans.map((artisan, index) => {
+                const cleanName = (artisan.full_name || '').trim();
+                let initial = cleanName ? cleanName.charAt(0) : '؟';
+
+                const portfolioLink = artisan.portfolio_url ? `<a href="${escapeHtml(artisan.portfolio_url)}" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">رابط المعرض</a>` : '';
+                const phoneDigits = (artisan.phone || '').replace(/[^\d+]/g, '');
+                const showNewBadge = isNewArtisan(artisan.created_at);
 
                 return `
                     <div class="artisan-card">
+                        ${showNewBadge ? '<span class="new-badge"><i class="fa-solid fa-sparkles"></i> جديد</span>' : ''}
                         <div class="artisan-header">
-                            <span class="artisan-name">${escapeHtml(artisan.full_name)}</span>
-                            <span class="artisan-craft-badge">${escapeHtml(artisan.craft_type)}</span>
+                            <div class="artisan-avatar">${escapeHtml(initial)}</div>
+                            <div>
+                                <div class="artisan-name">${escapeHtml(artisan.full_name)}</div>
+                                <span class="artisan-craft-badge">${escapeHtml(artisan.craft_type)}</span>
+                            </div>
                         </div>
-                        <p class="artisan-bio"><strong>النبذة:</strong> ${escapeHtml(artisan.bio || 'لا توجد نبذة متوفرة.')}</p>
+                        <p class="artisan-bio">${escapeHtml(artisan.bio || 'لا توجد نبذة متوفرة.')}</p>
                         <div class="artisan-footer-info">
-                            <span>📍 البلدية: <strong>${escapeHtml(artisan.municipality)}</strong></span>
-                            <span>📞 الهاتف: <strong dir="ltr">${escapeHtml(artisan.phone)}</strong></span>
-                            <span>⏰ أوقات العمل: <strong>${escapeHtml(artisan.working_hours || 'غير محدد')}</strong></span>
+                            <span><i class="fa-solid fa-location-dot"></i> ${escapeHtml(artisan.municipality)}</span>
+                            <span><i class="fa-solid fa-clock"></i> ${escapeHtml(artisan.working_hours || 'غير محدد')}</span>
                             ${portfolioLink}
+                            <a href="tel:${escapeHtml(phoneDigits)}" class="btn-call">
+                                <i class="fa-solid fa-phone"></i> <span dir="ltr">${escapeHtml(artisan.phone)}</span>
+                            </a>
                         </div>
-                        <div style="margin-top: 12px; border-top: 1px solid #f1f5f9; padding-top: 12px;">
-                            <button onclick="openReviewModal('${escapeHtml(artisanStringForCopy).replace(/'/g, "\\'")}')" class="btn-review" style="width: 100%; justify-content: center;">
-                                <span>⭐ قيم الحرفي وشارك رأيك على الفيسبوك</span>
+                        <div class="artisan-card-actions">
+                            <button class="btn-rate-link" data-index="${index}" onclick="openReviewModalByIndex(this)">
+                                <i class="fa-solid fa-star"></i> قيّم تجربتك مع الحرفي وشاركها على صفحة الفيسبوك للمنصة
                             </button>
                         </div>
                     </div>
@@ -870,6 +1168,13 @@
             displayArtisans(filtered);
         }
 
+        function resetArtisanFilters() {
+            document.getElementById('searchKeyword').value = '';
+            document.getElementById('filterCraft').value = '';
+            document.getElementById('filterMunicipality').value = '';
+            displayArtisans(globalArtisansList);
+        }
+
         async function handleRegistration(event) {
             event.preventDefault();
             const alertBox = document.getElementById('artisanAlert');
@@ -905,6 +1210,7 @@
                 alertBox.style.background = '#d1fae5';
                 alertBox.style.color = '#065f46';
                 alertBox.innerText = 'تم تسجيل حرفتك بنجاح وإضافتها إلى الدليل فوراً!';
+                alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 document.getElementById('artisanForm').reset();
                 document.getElementById('customCraftGroup').style.display = 'none';
                 loadArtisans();
@@ -916,7 +1222,11 @@
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
         }
 
-        function openReviewModal(artisanString) {
+        function openReviewModalByIndex(btn) {
+            const index = parseInt(btn.getAttribute('data-index'), 10);
+            const artisan = currentFilteredList[index];
+            if (!artisan) return;
+            const artisanString = `${artisan.full_name || ''} - ${artisan.craft_type || ''}`;
             const snippet = `أرغب في تقييم الحرفي ( ${artisanString} ) عبر منصة سوق السبت: \nالتقييم: ممتاز / أنصح به بشدة ⭐⭐⭐⭐⭐`;
             document.getElementById('reviewTextSnippet').innerText = snippet;
             document.getElementById('reviewModal').style.display = 'flex';
@@ -925,6 +1235,14 @@
         function closeReviewModal() {
             document.getElementById('reviewModal').style.display = 'none';
         }
+
+        function handleOverlayClick(event) {
+            if (event.target.id === 'reviewModal') closeReviewModal();
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeReviewModal();
+        });
 
         function copyReviewSnippet() {
             const snippetElem = document.getElementById('reviewTextSnippet');
