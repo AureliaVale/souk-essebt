@@ -98,15 +98,21 @@
             border: 3px solid var(--accent);
         }
 
-        .nav-links {
-            display: flex;
-            gap: 18px;
-            list-style: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            overflow-x: auto;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
+       .nav-links {
+    display: flex;
+    gap: 18px;
+    list-style: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .nav-links {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+}
         }
 
         .nav-links a {
